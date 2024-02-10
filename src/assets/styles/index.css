@@ -11,17 +11,18 @@
   /* text-rendering: optimizeLegibility; */
   /* -webkit-font-smoothing: antialiased; */
   /* -moz-osx-font-smoothing: grayscale; */
-  cursor: url('assets/images/cursors/cursor.svg'), default;
+  cursor: url('@images/cursors/cursor.svg'), default;
   /* cursor: url('assets/images/cursors/resizenortheastsouthwest.svg'), nesw-resize; */
 }
 
 body{
+  font-family: 'SF-Pro';
 }
 
 .cursor-pointer {
-  cursor: url('assets/images/cursors/pointinghand.svg'), pointer;
+  cursor: url('@images/cursors/pointinghand.svg'), pointer;
 }
 
 input {
-  cursor: url('assets/images/cursors/input_cursor.svg'), text;
+  cursor: url('@images/cursors/input_cursor.svg'), text;
 }
