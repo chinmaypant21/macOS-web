@@ -1,25 +1,60 @@
 :root {
-  /* font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif; */
   /* line-height: 1.5; */
   /* font-weight: 400; */
 
   /* color-scheme: light dark; */
-  /* color: rgba(255, 255, 255, 0.87); */
-  /* background-color: #242424; */
 
   /* font-synthesis: none; */
   /* text-rendering: optimizeLegibility; */
   /* -webkit-font-smoothing: antialiased; */
   /* -moz-osx-font-smoothing: grayscale; */
   cursor: url('@images/cursors/cursor.svg'), default;
-  /* cursor: url('assets/images/cursors/resizenortheastsouthwest.svg'), nesw-resize; */
 }
 
-body{
-  font-family: 'SF-Pro';
+:root,
+:root.light {
+  --color-red: rgb(255, 59, 48);
+  --color-gray: rgb(242, 242, 247);
+  --color-yellow: rgb(255, 204, 0);
+  --color-green: rgb(40, 205, 65);
+  --color-blue: rgb(0, 122, 255);
+
+  --primary-text-color: rgb(20, 20, 21);
+  --primary-highlight-color: var(--color-blue);
+
+  --fade-highlight-bg: rgb(255, 255, 255, 0.3);
 }
 
-.cursor-pointer {
+:root.blue {
+  --color-red: rgb(215, 0, 21);
+  /* Change others below */
+  --color-gray: rgb(28, 28, 30);
+  --color-yellow: rgb(255, 214, 10);
+  --color-green: rgb(50, 215, 75);
+  --color-blue: rgb(10, 132, 255);
+}
+
+:root.dark {
+  --color-red: rgb(255, 69, 58);
+  --color-gray: rgb(28, 28, 30);
+  --color-yellow: rgb(255, 214, 10);
+  --color-green: rgb(50, 215, 75);
+  --color-blue: rgb(10, 132, 255);
+
+  --primary-text-color: rgb(242, 242, 247);
+  --primary-highlight-color: var(--color-blue);
+
+  --fade-highlight-bg: rgb(48, 48, 48, 0.3);
+}
+
+html, body {
+  all: unset;
+  height: 100%;
+  font-family: 'SF Pro';
+  color: var(--primary-text-color,);
+}
+
+.cursor-pointer, button, a {
   cursor: url('@images/cursors/pointinghand.svg'), pointer;
 }
 

@@ -1,0 +1,10 @@
+.dock-container{
+    position: fixed;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+    background-color: red;
+    bottom: 10px;
+}

@@ -10,8 +10,10 @@ export default defineConfig({
       'src': '/src',
       '@assets': '/src/assets',
       '@images': '/src/assets/images',
-      '@styles': '/src/assets/styles',
-      '@components': '/src/assets/components'
+      // '@styles': '/src/assets/styles',
+      // '@components': '/src/components',
+      // '@layout': '/src/layout',
+      // '@utils': '/src/utils',
     }
   }
 })

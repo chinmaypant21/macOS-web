@@ -1,13 +1,16 @@
-import { useState } from 'preact/hooks'
+import Menubar from '@layout/Menubar/Menubar'
+import Screen from '@layout/Screen/Screen'
+import Dock from '@layout/Dock/Dock'
 
-import './assets/styles/app.css'
+import '@styles/app.css'
 
 export function App() {
 
   return (
-    <div>
-      <span>App</span>
-      <span className={'cursor-pointer'}>App</span>
-    </div>
+    <main id='desktop-container'>
+      <Menubar />
+      <Screen />
+      <Dock />
+    </main>
   )
 }
