@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'preact/hooks'
-import style from './ContextMenu.module.css'
+
 import { getDisplayPosition } from '@utils/window';
+import MenuList from './MenuList';
+
+import style from './ContextMenu.module.css'
 
 const menuDimensions = {
   width: 151.3,
@@ -24,7 +27,7 @@ const ContextMenu = ({coordinates} : any) => {
         '--screen-context-menu-left': `${positionStyle.left}px`
       }}
     >
-      ContextMenu
+      <MenuList />
     </div>
   )
 }
