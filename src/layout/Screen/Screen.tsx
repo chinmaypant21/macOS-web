@@ -2,7 +2,12 @@ import style from './Screen.module.css';
 
 const Screen = () => {
   return (
-    <div id={style['screen-container']}>Screen</div>
+    <div
+      onContextMenu={(a) => {console.log('hi',a)}}
+      id={style['screen-container']}
+    >
+      
+    </div>
   )
 }
 
