@@ -12,6 +12,7 @@
 
 #menu-logo{
     padding-block: 0.15rem;
+    cursor: var(--pointer);
 }
 
 #menu-logo img{
@@ -23,20 +24,19 @@
 .menu-list-left{
     display: flex;
     height: 100%;
-    align-items: center;
 }
 
 .menu-list-left > .list-item{
+    display: inline-flex;
+    align-items: center;
     height: 100%;
     padding-inline: 0.4rem;
-    background: unset;
-    border: unset;
-    color: inherit;
+    font-size: 0.93rem;
 
-    font-size: 0.9rem;
+    cursor: var(--pointer);
 }
 
-.menu-list-left > .list-item:nth-child(2){
+.menu-list-left > #finder{
     font-weight: bold;
     margin-inline: 0.5rem;
 }
@@ -67,7 +67,7 @@
 }
 
 .menu-tools .menu-clock{
-    width: 11rem;
+    width: 12.5rem;
     font-weight: 500;
     margin-left: 0.6rem;
 }

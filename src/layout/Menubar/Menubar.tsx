@@ -40,33 +40,33 @@ const Menubar = () => {
                     <img src={logo} />
                 </div>
 
-                <button class={style['list-item']}>
+                <span id={style['finder']} class={style['list-item']}>
                     Finder
-                </button>
+                </span>
 
-                <button class={style['list-item']}>
+                <span class={style['list-item']}>
                     File
-                </button>
+                </span>
 
-                <button class={style['list-item']}>
+                <span class={style['list-item']}>
                     Edit
-                </button>
+                </span>
 
-                <button class={style['list-item']}>
+                <span class={style['list-item']}>
                     View
-                </button>
+                </span>
 
-                <button class={style['list-item']}>
+                <span class={style['list-item']}>
                     Go
-                </button>
+                </span>
 
-                <button class={style['list-item']}>
+                <span class={style['list-item']}>
                     Window
-                </button>
+                </span>
 
-                <button class={style['list-item']}>
+                <span class={style['list-item']}>
                     Help
-                </button>
+                </span>
             </div>
 
             <div class={style['menu-tools'] + ' cursor-pointer'}>
