@@ -10,6 +10,8 @@
   /* -moz-osx-font-smoothing: grayscale; */
   cursor: url('@images/cursors/cursor.svg'), default;
   --pointer: url('@images/cursors/pointinghand.svg'), pointer;
+
+  --radius-primary: 0.5rem;
 }
 
 :root,
@@ -22,7 +24,8 @@
 
   --primary-text-color: rgb(20, 20, 21);
   --primary-highlight-color: var(--color-blue);
-
+  --primary-divider-color: rgba(11, 11, 11, 0.15);
+  
   --fade-highlight-bg: rgb(255, 255, 255, 0.3);
 }
 
@@ -41,10 +44,11 @@
   --color-yellow: rgb(255, 214, 10);
   --color-green: rgb(50, 215, 75);
   --color-blue: rgb(10, 132, 255);
-
+  
   --primary-text-color: rgb(242, 242, 247);
   --primary-highlight-color: var(--color-blue);
-
+  --primary-divider-color: rgba(235, 235, 235, 0.18);
+  
   --fade-highlight-bg: rgb(48, 48, 48, 0.3);
 }
 

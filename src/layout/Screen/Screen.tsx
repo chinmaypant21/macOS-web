@@ -22,13 +22,12 @@ const Screen = () => {
   return (
     <div
       tabIndex={0} //onBlur method requires a tabIndex other than -1
-      onBlur={handleCloseMenu}
+      // onBlur={handleCloseMenu}
       onClick={handleCloseMenu}
       onContextMenu={handleRightClick}
       id={style['screen-container']}
     >
       {isRightClicked && <ContextMenu coordinates={contextCoordinates} />}
-      
     </div>
   )
 }
