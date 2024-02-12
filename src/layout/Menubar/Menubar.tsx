@@ -12,9 +12,14 @@ import volumeLogo from '@assets/images/icons/volume.svg'
 import batteryLogo from '@assets/images/icons/battery_empty.svg'
 
 import style from './Menubar.module.css'
+import { JSX } from 'preact/jsx-runtime';
 
 const Menubar = () => {
-    const [ displayTime, setDisplayTime ] = useState<{date: string, time: string}>()
+    const [ displayTime, setDisplayTime ] = useState<{date: string, time: string}>();
+
+    function handleRightClick(e: JSX.TargetedMouseEvent<HTMLDivElement>) {
+        e.preventDefault();
+    }
 
     useEffect(() => {
         const updateTime = () => {
@@ -34,7 +39,10 @@ const Menubar = () => {
     },[])
 
     return (
-        <div id={style['menubar-container']}>
+        <div
+            onContextMenu={handleRightClick}
+            id={style['menubar-container']}
+        >
             <div class={style['menu-list-left']}>
                 <div id={style['menu-logo']}>
                     <img src={logo} />

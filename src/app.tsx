@@ -7,7 +7,9 @@ import '@styles/app.css'
 export function App() {
 
   return (
-    <main id='desktop-container'>
+    <main 
+      id='desktop-container'
+    >
       <Menubar />
       <Screen />
       <Dock />
