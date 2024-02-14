@@ -71,3 +71,21 @@
     font-weight: 500;
     margin-left: 0.6rem;
 }
+
+#battery-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.8rem;
+    height: 100%;
+    font-size: 0.65rem;
+    font-weight: 500;
+    background-image: url(@assets/images/icons/battery.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#battery-container span{
+    color: var(--color-gray);
+    margin-right: 0.15rem;
+}
