@@ -1,8 +1,50 @@
-import { JSX, TargetedEvent, useEffect, useState } from 'preact/compat';
+import { JSX, TargetedEvent, useEffect, useRef, useState } from 'preact/compat';
 
 import ContextMenu from '@components/ContextMenu/ContextMenu';
 
 import style from './Screen.module.css';
+
+const AppWindow = () => {
+  const [pressed, setPressed] = useState(false)
+  const [position, setPosition] = useState({x: 0, y: 0})
+  const ref = useRef<HTMLDivElement>(null)
+
+  const onMouseMove = (event : any) => {
+    // console.log(event)
+    if (pressed) {
+      setPosition((prevPosition) => ({
+        x: prevPosition.x + event.movementX,
+        y: prevPosition.y + event.movementY
+      })
+      )
+    }
+  }
+
+  useEffect(() =>{console.log('aaaa')},[])
+
+  useEffect(() => {
+    if (ref.current) {
+      ref.current.style.transform = `translate(${position.x}px, ${position.y}px)`
+    }
+  }, [position])
+
+  return (
+    <div
+      // onDragOver={onMouseMove}
+      // onDrag={onMouseMove}
+      onMouseMove={ onMouseMove }
+      onMouseLeave={() => {setPressed(false)}}
+      onMouseUp={() => {console.log('up'); setPressed(false)}}
+      onMouseDown={ () => {console.log('down'); setPressed(true)} }
+      ref={ref}
+      class={'app-window'}
+      // draggable
+      style={{height:'50px', width:'50px', backgroundColor:'white'}}
+    >
+
+    </div>
+  )
+}
 
 const Screen = () => {
   const [ isRightClicked, setIsRightClicked] = useState<boolean>(false);
@@ -35,7 +77,6 @@ const Screen = () => {
 
   return (
     <div
-      // onMouseMove={f}
       tabIndex={0} //onBlur method requires a tabIndex other than -1
       // onBlur={handleCloseMenu}
       onClick={handleCloseMenu}
@@ -44,6 +85,9 @@ const Screen = () => {
     >
       {/* <span class='text-white'>{JSON.stringify(cursorCoord)}</span> */}
       {isRightClicked && <ContextMenu coordinates={contextCoordinates} />}
+
+
+    <AppWindow />
     </div>
   )
 }
