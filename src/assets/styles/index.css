@@ -71,15 +71,3 @@ img{
 input {
   cursor: url('@images/cursors/input_cursor.svg'), text;
 }
-
-
-
-
-
-
-
-
-/* window */
-.app-window{
-  position: absolute;
-}

@@ -9,15 +9,13 @@ import controlCenterLogo from '@assets/images/icons/control_center.svg'
 import searchLogo from '@assets/images/icons/search.svg'
 import siriLogo from '@assets/images/icons/siri.webp'
 import volumeLogo from '@assets/images/icons/volume.svg'
-import batteryLogo from '@assets/images/icons/battery.svg'
+// import batteryLogo from '@assets/images/icons/battery.svg'
 
 import style from './Menubar.module.css'
 import { JSX } from 'preact/jsx-runtime';
-import { signal } from '@preact/signals';
 
 const Menubar = () => {
     const [ displayTime, setDisplayTime ] = useState<{date: string, time: string}>();
-    const batteryRemaining = signal<any>('15px')
 
     function handleRightClick(e: JSX.TargetedMouseEvent<HTMLDivElement>) {
         e.preventDefault();
