@@ -7,7 +7,7 @@ import bluetoothLogo from '@assets/images/icons/bluetooth.svg'
 import wifiLogo from '@assets/images/icons/wifi.svg'
 import controlCenterLogo from '@assets/images/icons/control_center.svg'
 import searchLogo from '@assets/images/icons/search.svg'
-import siriLogo from '@assets/images/icons/siri.png'
+import siriLogo from '@assets/images/icons/siri.webp'
 import volumeLogo from '@assets/images/icons/volume.svg'
 import batteryLogo from '@assets/images/icons/battery_empty.svg'
 

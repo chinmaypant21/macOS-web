@@ -5,27 +5,29 @@ import MenuList from './MenuList';
 
 import style from './ContextMenu.module.css'
 
+// Static for now. Need to make it dynamic
 const menuDimensions = {
   width: 250,
-  height: 200 //Have to make this dynamic
+  height: 200
 }
 
 const ContextMenu = ({coordinates, isNested, handleCloseMenu} : any) => {
   const [positionStyle, setPositionStyle ] = useState<any>({top: -10000, left: -100000});
 
-  function xx() {
+  function forChild() {
     return {
-      x: 250, y:null
+      x: 250, y: null
     }
   }
-
+  
   useEffect(() => {
-    const {x: left, y: top} = isNested ? xx() : getDisplayPosition(coordinates, menuDimensions)
+    const {x: left, y: top} = isNested ? forChild() : getDisplayPosition(coordinates, menuDimensions)
     setPositionStyle({left, top})
   },[coordinates])
 
   return (
     <div
+      // onMouseMove={(e)=>{e.preventDefault(); e.stopPropagation();}}
       onMouseLeave={() => isNested && handleCloseMenu?.()}
       onClick={(e)=>{e.stopPropagation();e.preventDefault();}}
       onBlur={(e)=>{e.preventDefault();e.stopPropagation();}}
