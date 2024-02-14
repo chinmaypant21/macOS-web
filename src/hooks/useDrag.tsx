@@ -12,6 +12,12 @@ type DragHookProps = {
   offset?: ScreenCoordinates
 }
 
+/**
+ * Returns a position (including offset) state and a handleMouseDown method.
+ * @param ref Reference to the element
+ * @param offset Offset (in pixels) from the top and left of screen
+ * @see https://codesandbox.io/p/sandbox/draggable-div-element-react-hook-56xrm
+ */
 export const useDrag = ({ref, offset}: DragHookProps) : DragHookReturnType => {
     const [dragInfo, setDragInfo] = useState<any>();
     const [finalPosition, setFinalPosition] = useState<ScreenCoordinates>({x: 0, y: 0});
