@@ -27,6 +27,8 @@
   --primary-divider-color: rgba(11, 11, 11, 0.15);
   
   --fade-highlight-bg: rgba(255, 255, 255, 0.337);
+  --color-inactive: rgb(182, 182, 183);
+  --color-inactive-border: rgb(148, 148, 148);
 }
 
 :root.blue {

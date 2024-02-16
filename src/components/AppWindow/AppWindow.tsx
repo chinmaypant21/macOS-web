@@ -1,8 +1,8 @@
-import { useRef, useState } from "preact/hooks";
-import { useSignalEffect } from "@preact/signals";
+import { useEffect, useRef, useState } from "preact/hooks";
+import { computed, effect, signal, useComputed, useSignal, useSignalEffect } from "@preact/signals";
 
 import { useDrag } from "src/hooks/useDrag";
-import { screenStartingCoordinates } from "@layout/Screen/Screen";
+import { screenStartingCoordinates, focusedWindow, lastFocusedWindow } from "@layout/Screen/Screen";
 
 import style from './AppWindow.module.css'
 
@@ -21,9 +21,14 @@ const toolbarBtnMap = [
     }
 ]
 
-const AppWindow = () => {
+const AppWindow = ({idx}: any) => {
     const draggableRef = useRef<HTMLDivElement>(null);
     const [offset, setOffset] = useState<ScreenCoordinates>()
+
+    // Wherever defining computed or signal inside a component, always use hooks otherwise there are going to be lots of re-renders.
+    const windowIndex = useComputed(()=>{
+        return (lastFocusedWindow.value === idx) ? 2 : 1 
+    })
 
     const { position, handleMouseDown } = useDrag({
         ref: draggableRef,
@@ -52,11 +57,21 @@ const AppWindow = () => {
             ref={draggableRef}
             style={{
                 top: position.y,
-                left: position.x
+                left: position.x,
+                zIndex: windowIndex.value
+            }}
+            tabIndex={1}
+            onContextMenu={(e)=>{e.stopPropagation(); e.preventDefault();}}
+            onBlur={()=>{
+                focusedWindow.value=0
+            }}
+            onFocus={()=>{
+                focusedWindow.value=idx
+                lastFocusedWindow.value = idx
             }}
         >
             <div class={style['titlebar-container']}>
-                <div 
+                <div
                     class={style['toolbar-section']}
                 >
                 {
@@ -83,7 +98,7 @@ const AppWindow = () => {
                 </div>
             </div>
 
-            <div style={{display:'flex'}}>
+            <div style={{display:'flex', userSelect: 'text'}}>
                 <div id={style['window-sidebar']}>
                     side
                 </div>

@@ -20,19 +20,34 @@ type DragHookProps = {
  */
 export const useDrag = ({ref, offset}: DragHookProps) : DragHookReturnType => {
     const [dragInfo, setDragInfo] = useState<any>();
-    const [finalPosition, setFinalPosition] = useState<ScreenCoordinates>({x: 0, y: 0});
+    const [finalPosition, setFinalPosition] = useState<any>({});
+    // const [finalPosition, setFinalPosition] = useState<ScreenCoordinates>({});
 
     useEffect(() => {
-      if(offset) setFinalPosition(offset);
+      if(ref.current){
+        const { top, left} = ref.current.getBoundingClientRect();
+
+        if (!offset) {
+          setFinalPosition({x:left, y:top})
+          return
+        }
+
+        const computedOffset = {
+          x: (left >= offset.x) ? left : offset.x,
+          y: (top >= offset.y)  ? top  : offset.y
+        }
+
+        if(offset) setFinalPosition(computedOffset);
+      }
     },[offset])
 
     const [isDragging, setIsDragging] = useState<boolean>(false);
   
     const updateFinalPosition = (x: number, y: number) => {
-        setFinalPosition({
-          x: Math.min(Math.max(offset?.x ?? 0, x), window.innerWidth - (window.innerWidth * 0.05)),
-          y: Math.min(Math.max(offset?.y ?? 0, y), window.innerHeight - (window.innerHeight * 0.05))
-        });
+          setFinalPosition({
+            x: Math.min(Math.max(offset?.x ?? 0, x), window.innerWidth - (window.innerWidth * 0.05)),
+            y: Math.min(Math.max(offset?.y ?? 0, y), window.innerHeight - (window.innerHeight * 0.05))
+          });
     }
   
     const handleMouseUp = (evt: MouseEvent) => {
@@ -42,7 +57,7 @@ export const useDrag = ({ref, offset}: DragHookProps) : DragHookReturnType => {
     };
   
     const handleMouseDown = (evt: MouseEvent) => {
-      evt.preventDefault();
+      // evt.preventDefault();
   
       const { clientX, clientY } = evt;
       const { current: draggableElement } = ref;

@@ -1,12 +1,14 @@
 import { JSX, useEffect, useRef, useState } from 'preact/compat';
+import { computed, signal } from '@preact/signals';
 
 import ContextMenu from '@components/ContextMenu/ContextMenu';
+import AppWindow from '@components/AppWindow/AppWindow';
 
 import style from './Screen.module.css';
-import AppWindow from 'src/components/AppWindow/AppWindow';
-import { signal } from '@preact/signals';
 
 export const screenStartingCoordinates = signal<ScreenCoordinates>({x:0,y:0});
+export const focusedWindow = signal<number>(0);
+export const lastFocusedWindow = signal<number>(0);
 
 const Screen = () => {
   const [ isRightClicked, setIsRightClicked] = useState<boolean>(false);
@@ -51,7 +53,9 @@ const Screen = () => {
       {/* <span class='text-white'>{JSON.stringify(cursorCoord)}</span> */}
       {isRightClicked && <ContextMenu coordinates={contextCoordinates} />}
 
-    <AppWindow />
+    <AppWindow idx={1} />
+    <AppWindow idx={2} />
+    <AppWindow idx={3} />
     </div>
   )
 }
