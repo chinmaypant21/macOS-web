@@ -3,13 +3,20 @@
   width: 500px;
   height: 400px;
   background-color: var(--color-gray);
+  border: 1px solid #8a8a8a49;
   border-radius: 0.8rem;
   box-shadow:inset 0 1px 0 rgba(255, 255, 255, 0.589), 0 22px 60px 4px rgba(0, 0, 0, 0.473), 0 0 0 1px rgba(0, 0, 0, 0.0);
-  border: 1px solid #8a8a8a49;
+  resize: both;
+  overflow: auto;
+  will-change: width, height;
   
   z-index: 1;
   top: 20%;
   left: 30%;
+}
+
+.app-window::-webkit-resizer{
+  background-color: transparent;
 }
 
 .app-window:focus{

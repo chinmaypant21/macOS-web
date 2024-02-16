@@ -1,29 +1,15 @@
-import { useEffect, useRef, useState } from "preact/hooks";
-import { computed, effect, signal, useComputed, useSignal, useSignalEffect } from "@preact/signals";
+import { useMemo, useRef, useState } from "preact/hooks";
+import { useComputed, useSignalEffect } from "@preact/signals";
 
 import { useDrag } from "src/hooks/useDrag";
 import { screenStartingCoordinates, focusedWindow, lastFocusedWindow } from "@layout/Screen/Screen";
 
 import style from './AppWindow.module.css'
 
-const toolbarBtnMap = [
-    {
-        id: 'btn-close',
-        onclick: () => {console.log('close')}
-    },
-    {
-        id: 'btn-min',
-        onclick: () => {console.log('min')}
-    },
-    {
-        id: 'btn-expand',
-        onclick: () => {console.log('expand')}
-    }
-]
-
 const AppWindow = ({idx}: any) => {
-    const draggableRef = useRef<HTMLDivElement>(null);
-    const [offset, setOffset] = useState<ScreenCoordinates>()
+    const appWindowRef          = useRef<HTMLDivElement>(null);
+    const [ offset, setOffset ] = useState<ScreenCoordinates>();
+    const [ isFullScreen, setIsFullScreen] = useState<boolean>(false);
 
     // Wherever defining computed or signal inside a component, always use hooks otherwise there are going to be lots of re-renders.
     const windowIndex = useComputed(()=>{
@@ -31,36 +17,77 @@ const AppWindow = ({idx}: any) => {
     })
 
     const { position, handleMouseDown } = useDrag({
-        ref: draggableRef,
+        ref: appWindowRef,
         offset
     });
+
+    const toolbarBtnMap = useMemo(() => ([
+        {
+            id: 'btn-close',
+            onclick: () => {console.log('close')}
+        },
+        {
+            id: 'btn-min',
+            onclick: () => {console.log('min')}
+        },
+        {
+            id: 'btn-expand',
+            onclick: () => {
+                if(appWindowRef.current){
+                    appWindowRef.current.style.transition = 'all 0.3s ease';
+
+                    if (isFullScreen){
+                        setIsFullScreen(false);
+                        appWindowRef.current.style.top = `10%`;
+                        appWindowRef.current.style.left = `20%`;
+                        appWindowRef.current.style.width = '60%';
+                        appWindowRef.current.style.height = '60%';
+                    }
+                    else{
+                        setIsFullScreen(true);
+                        appWindowRef.current.style.top = `${offset!.y ?? 0}px`;
+                        appWindowRef.current.style.left = `${offset!.x ?? 0}px`;
+
+                        appWindowRef.current.style.width = '100%';
+                        appWindowRef.current.style.height = '100%';
+                    }
+                }
+
+            }
+        }
+    ]),[offset, isFullScreen])
 
     useSignalEffect(() => {
         setOffset(screenStartingCoordinates.value)
     })
 
     function handleMouseEnter() {
-        if (draggableRef.current){
-            draggableRef.current.style.willChange = 'top, left, z-index';
+        if (appWindowRef.current){
+            appWindowRef.current.style.willChange = 'top, left, z-index'
         }
     }
     
     function handleMouseLeave() {
-        if (draggableRef.current){
-            draggableRef.current.style.willChange = 'unset';
-        }
+        appWindowRef.current && (appWindowRef.current.style.willChange = 'z-index, width, height')
+    }
+
+    function handleTransitionEnd(){
+        appWindowRef.current && (
+            appWindowRef.current.style.transition = ''
+        )
     }
 
     return (
         <div
+            onTransitionEnd={handleTransitionEnd}
             className={style['app-window']}
-            ref={draggableRef}
+            ref={appWindowRef}
             style={{
                 top: position.y,
                 left: position.x,
-                zIndex: windowIndex.value
+                zIndex: windowIndex.value,
             }}
-            tabIndex={1}
+            tabIndex={idx}
             onContextMenu={(e)=>{e.stopPropagation(); e.preventDefault();}}
             onBlur={()=>{
                 focusedWindow.value=0
@@ -72,6 +99,7 @@ const AppWindow = ({idx}: any) => {
         >
             <div class={style['titlebar-container']}>
                 <div
+                    onTransitionEnd={(e)=>{e.stopPropagation();}}
                     class={style['toolbar-section']}
                 >
                 {
@@ -98,7 +126,9 @@ const AppWindow = ({idx}: any) => {
                 </div>
             </div>
 
-            <div style={{display:'flex', userSelect: 'text'}}>
+            <div 
+                style={{display:'flex', userSelect: 'text'}}
+            >
                 <div id={style['window-sidebar']}>
                     side
                 </div>

@@ -1,5 +1,5 @@
 import { JSX, useEffect, useRef, useState } from 'preact/compat';
-import { computed, signal } from '@preact/signals';
+import { signal } from '@preact/signals';
 
 import ContextMenu from '@components/ContextMenu/ContextMenu';
 import AppWindow from '@components/AppWindow/AppWindow';

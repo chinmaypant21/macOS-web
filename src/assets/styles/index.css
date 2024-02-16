@@ -52,6 +52,8 @@
   --primary-divider-color: rgba(235, 235, 235, 0.18);
   
   --fade-highlight-bg: rgb(48, 48, 48, 0.3);
+  --color-inactive: rgb(182, 182, 183);
+  --color-inactive-border: rgb(148, 148, 148);
 }
 
 html, body {
