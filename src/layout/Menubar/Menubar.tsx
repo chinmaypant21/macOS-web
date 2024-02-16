@@ -22,7 +22,7 @@ const Menubar = () => {
     }
 
     useEffect(() => {
-        const tempBatteryVal = 80
+        // const tempBatteryVal = 80
 
         // maxWidth = 
 

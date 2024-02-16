@@ -6,8 +6,9 @@
     /* background-image: linear-gradient(to bottom, rgba(100, 95, 107, 0.13), rgba(122, 115, 132, 0.141)); */
     background-color: var(--fade-highlight-bg);
     backdrop-filter: blur(0.7rem);
-
+    
     padding-inline: 0.7rem;
+    z-index: 10;
 }
 
 #menu-logo{

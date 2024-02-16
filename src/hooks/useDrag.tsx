@@ -79,7 +79,8 @@ export const useDrag = ({ref, offset}: DragHookProps) : DragHookReturnType => {
           y: dragInfo?.startY - clientY
         };
   
-        const { top, left, width, height } = dragInfo;
+        const { top, left } = dragInfo;
+        // const { top, left, width, height } = dragInfo;
   
         updateFinalPosition(left - position.x, top - position.y);
       },

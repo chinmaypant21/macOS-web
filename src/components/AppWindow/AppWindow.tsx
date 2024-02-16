@@ -1,10 +1,25 @@
-import { useCallback, useEffect, useRef, useState } from "preact/hooks";
+import { useRef, useState } from "preact/hooks";
 import { useSignalEffect } from "@preact/signals";
 
 import { useDrag } from "src/hooks/useDrag";
 import { screenStartingCoordinates } from "@layout/Screen/Screen";
 
 import style from './AppWindow.module.css'
+
+const toolbarBtnMap = [
+    {
+        id: 'btn-close',
+        onclick: () => {console.log('close')}
+    },
+    {
+        id: 'btn-min',
+        onclick: () => {console.log('min')}
+    },
+    {
+        id: 'btn-expand',
+        onclick: () => {console.log('expand')}
+    }
+]
 
 const AppWindow = () => {
     const draggableRef = useRef<HTMLDivElement>(null);
@@ -40,18 +55,42 @@ const AppWindow = () => {
                 left: position.x
             }}
         >
-            <div className="draggable-panel"
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-                onMouseDown={handleMouseDown}
-            >
-                Draggable panel
+            <div class={style['titlebar-container']}>
+                <div 
+                    class={style['toolbar-section']}
+                >
+                {
+                    toolbarBtnMap.map((button) => (
+                        <div
+                            id={style[button.id]}
+                            key={button.id}
+                            class={style['toolbar-btn']}
+                            onClick={button.onclick}
+                        >
+                        </div>
+                    ))
+                }
+                </div>
+
+                <div 
+                    class={style['draggable-container']}
+                    style={{flex: 1}}
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
+                    onMouseDown={handleMouseDown}
+                >
+                    hi
+                </div>
             </div>
-            <div className="draggable-content">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy text ever
-                since the 1500s, when an unknown printer took a galley of type and
-                scrambled it to make a type specimen book
+
+            <div style={{display:'flex'}}>
+                <div id={style['window-sidebar']}>
+                    side
+                </div>
+
+                <div id={style['app-container']}>
+                    app
+                </div>
             </div>
         </div>
     );

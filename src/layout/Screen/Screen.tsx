@@ -22,11 +22,11 @@ const Screen = () => {
   },[screenRef])
 
   //remove
-  const [cursorCoord, setCursorCoord] = useState<any>();
+  // const [cursorCoord, setCursorCoord] = useState<any>();
   
-  function f(e: any){
-    setCursorCoord({x: e.pageX, y: e.pageY})
-  }
+  // function f(e: any){
+  //   setCursorCoord({x: e.pageX, y: e.pageY})
+  // }
 
 
   function handleRightClick(e: JSX.TargetedMouseEvent<HTMLDivElement>) {
