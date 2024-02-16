@@ -34,10 +34,11 @@ const AppWindow = ({idx}: any) => {
             id: 'btn-expand',
             onclick: () => {
                 if(appWindowRef.current){
-                    appWindowRef.current.style.transition = 'all 0.3s ease';
-
+                    appWindowRef.current.style.transition = 'width 0.6s ease, height 0.8s ease, transform 0.8s ease';
+                    
                     if (isFullScreen){
                         setIsFullScreen(false);
+                        // appWindowRef.current.style.transform = 'translate(-6%,-5%) scale(0.9)';
                         appWindowRef.current.style.top = `10%`;
                         appWindowRef.current.style.left = `20%`;
                         appWindowRef.current.style.width = '60%';
@@ -72,9 +73,10 @@ const AppWindow = ({idx}: any) => {
     }
 
     function handleTransitionEnd(){
-        appWindowRef.current && (
-            appWindowRef.current.style.transition = ''
-        )
+        if(appWindowRef.current) {
+            appWindowRef.current.style.transition = '';
+            appWindowRef.current.style.transform = '';
+        }
     }
 
     return (
