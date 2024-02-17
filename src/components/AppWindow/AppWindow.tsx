@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "preact/hooks";
+import { useEffect, useMemo, useRef, useState } from "preact/hooks";
 import { useComputed, useSignalEffect } from "@preact/signals";
 
 import { useDrag } from "src/hooks/useDrag";
@@ -6,7 +6,17 @@ import { screenStartingCoordinates, focusedWindow, lastFocusedWindow } from "@la
 
 import style from './AppWindow.module.css'
 
-const AppWindow = ({idx}: any) => {
+type AppWindowProps = {
+    idx: number,
+    dimensions: {
+        width:number,
+        height:number,
+        minWidth: number,
+        minHeight:number,
+    }
+}
+
+const AppWindow = ({idx, dimensions}: AppWindowProps) => {
     const appWindowRef          = useRef<HTMLDivElement>(null);
     const [ offset, setOffset ] = useState<ScreenCoordinates>();
     const [ isFullScreen, setIsFullScreen] = useState<boolean>(false);
@@ -16,7 +26,7 @@ const AppWindow = ({idx}: any) => {
         return (lastFocusedWindow.value === idx) ? 2 : 1 
     })
 
-    const { position, handleMouseDown } = useDrag({
+    const { position, handleMouseDown: onMouseDown } = useDrag({
         ref: appWindowRef,
         offset
     });
@@ -40,14 +50,31 @@ const AppWindow = ({idx}: any) => {
         setOffset(screenStartingCoordinates.value)
     })
 
+    useEffect(() => {
+        if(appWindowRef.current){
+            appWindowRef.current.style.width = `${Math.min(dimensions.width, window.innerWidth)}px`
+            appWindowRef.current.style.height = `${Math.min(dimensions.height, window.innerHeight)}px`
+            appWindowRef.current.style.minWidth = `${Math.max(dimensions.minWidth, 100)}px`
+            appWindowRef.current.style.minHeight = `${Math.max(dimensions.minHeight, 100)}px`
+        }
+    },[appWindowRef])
+
     function handleMouseEnter() {
-        if (appWindowRef.current){
+        if (appWindowRef.current && !isFullScreen){
             appWindowRef.current.style.willChange = 'top, left, z-index'
         }
     }
     
     function handleMouseLeave() {
-        appWindowRef.current && (appWindowRef.current.style.willChange = 'z-index, width, height')
+        if(appWindowRef.current && !isFullScreen) {
+            appWindowRef.current.style.willChange = 'z-index, width, height'
+        } 
+    }
+
+    function handleDrag(e: any){
+        if(!isFullScreen){
+            onMouseDown(e);
+        }
     }
 
     function handleTransitionEnd(){
@@ -60,7 +87,6 @@ const AppWindow = ({idx}: any) => {
     function handleWindowExpand(){
         if(appWindowRef.current){
             appWindowRef.current.style.transition = 'top 0.4s ease-out, left 0.4s ease-out, width 0.4s ease-in-out, height 0.4s ease-in-out';
-            console.log(appWindowRef.current.className, appWindowRef.current.classList)
             
             if (isFullScreen){
                 setIsFullScreen(false);
@@ -120,7 +146,7 @@ const AppWindow = ({idx}: any) => {
                     onDblClick={handleWindowExpand}
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
-                    onMouseDown={handleMouseDown}
+                    onMouseDown={handleDrag}
                 >
                     hi
                 </div>

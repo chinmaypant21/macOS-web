@@ -1,7 +1,5 @@
 .app-window{
   position: fixed;
-  width: 500px;
-  height: 400px;
   background-color: var(--color-gray);
   border: 1px solid #8a8a8a49;
   border-radius: 0.8rem;

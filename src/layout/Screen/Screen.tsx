@@ -53,9 +53,9 @@ const Screen = () => {
       {/* <span class='text-white'>{JSON.stringify(cursorCoord)}</span> */}
       {isRightClicked && <ContextMenu coordinates={contextCoordinates} />}
 
-    <AppWindow idx={1} />
-    <AppWindow idx={2} />
-    <AppWindow idx={3} />
+    <AppWindow idx={1} dimensions={{width:800, height:600, minWidth: 200, minHeight:200}}/>
+    {/* <AppWindow idx={2} dimensions={{width:400, height:600, minWidth: 200, minHeight:200}}/> */}
+    {/* <AppWindow idx={3} dimensions={{width:800, height:600, minWidth: 200, minHeight:200}}/> */}
     </div>
   )
 }
