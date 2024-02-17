@@ -15,8 +15,17 @@
   left: 30%;
 }
 
+.window-fullscreen{
+  top: var(--offset-top) !important;   /* dynamic */
+  left: var(--offset-left) !important;   /* dynamic */
+  height: 100% !important;
+  width: 100% !important;
+}
+
 .app-window::-webkit-resizer{
+  cursor: pointer;
   background-color: transparent;
+  /* cursor: var(--resize); */
 }
 
 .app-window:focus{

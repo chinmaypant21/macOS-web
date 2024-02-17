@@ -32,31 +32,9 @@ const AppWindow = ({idx}: any) => {
         },
         {
             id: 'btn-expand',
-            onclick: () => {
-                if(appWindowRef.current){
-                    appWindowRef.current.style.transition = 'width 0.6s ease, height 0.8s ease, transform 0.8s ease';
-                    
-                    if (isFullScreen){
-                        setIsFullScreen(false);
-                        // appWindowRef.current.style.transform = 'translate(-6%,-5%) scale(0.9)';
-                        appWindowRef.current.style.top = `10%`;
-                        appWindowRef.current.style.left = `20%`;
-                        appWindowRef.current.style.width = '60%';
-                        appWindowRef.current.style.height = '60%';
-                    }
-                    else{
-                        setIsFullScreen(true);
-                        appWindowRef.current.style.top = `${offset!.y ?? 0}px`;
-                        appWindowRef.current.style.left = `${offset!.x ?? 0}px`;
-
-                        appWindowRef.current.style.width = '100%';
-                        appWindowRef.current.style.height = '100%';
-                    }
-                }
-
-            }
+            onclick: handleWindowExpand
         }
-    ]),[offset, isFullScreen])
+    ]),[handleWindowExpand])
 
     useSignalEffect(() => {
         setOffset(screenStartingCoordinates.value)
@@ -76,6 +54,25 @@ const AppWindow = ({idx}: any) => {
         if(appWindowRef.current) {
             appWindowRef.current.style.transition = '';
             appWindowRef.current.style.transform = '';
+        }
+    }
+
+    function handleWindowExpand(){
+        if(appWindowRef.current){
+            appWindowRef.current.style.transition = 'top 0.4s ease-out, left 0.4s ease-out, width 0.4s ease-in-out, height 0.4s ease-in-out';
+            console.log(appWindowRef.current.className, appWindowRef.current.classList)
+            
+            if (isFullScreen){
+                setIsFullScreen(false);
+                appWindowRef.current.classList.remove(style['window-fullscreen'])
+            }
+            else{
+                setIsFullScreen(true);
+                appWindowRef.current.style.setProperty('--offset-top',`${offset!.y ?? 0}px`);
+                appWindowRef.current.style.setProperty('--offset-left',`${offset!.x ?? 0}px`);
+
+                appWindowRef.current.classList.add(style['window-fullscreen'])
+            }
         }
     }
 
@@ -120,6 +117,7 @@ const AppWindow = ({idx}: any) => {
                 <div 
                     class={style['draggable-container']}
                     style={{flex: 1}}
+                    onDblClick={handleWindowExpand}
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
                     onMouseDown={handleMouseDown}

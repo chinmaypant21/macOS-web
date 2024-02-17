@@ -10,7 +10,7 @@
   /* -moz-osx-font-smoothing: grayscale; */
   cursor: url('@images/cursors/cursor.svg') 5 5, default;
   --pointer: url('@images/cursors/pointinghand.svg') 10 10, pointer;
-
+  --resize: url('@images/cursors/resize.webp'), nw-resize;
   --radius-primary: 0.5rem;
 }
 
