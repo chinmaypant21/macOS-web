@@ -10,9 +10,6 @@ type coordinate = {
 
 export function getDisplayPosition(mouse_coordinates: coordinate, elementDimension: elementDimensionType) : coordinate {
 
-    const offsetX = 5;
-    // const offsetY = 6.5;
-
     var leftPos = 0
     var topPos  = 0
 
@@ -28,5 +25,5 @@ export function getDisplayPosition(mouse_coordinates: coordinate, elementDimensi
       topPos = (mouse_coordinates.y - elementDimension.height)
     }
 
-    return {x: (leftPos + offsetX), y: (topPos)}
+    return {x: leftPos, y: topPos}
   }

@@ -34,7 +34,8 @@ const Screen = () => {
   function handleRightClick(e: JSX.TargetedMouseEvent<HTMLDivElement>) {
     e.preventDefault();
     setIsRightClicked(true);
-    setContextCoordinates({x: e.pageX, y: e.pageY})
+    //Screen starting coordinates tell the offset value
+    setContextCoordinates({x: e.pageX - screenStartingCoordinates.value.x, y: e.pageY - screenStartingCoordinates.value.y})
   }
 
   function handleCloseMenu() {

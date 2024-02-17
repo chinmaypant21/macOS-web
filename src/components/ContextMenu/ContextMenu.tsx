@@ -27,7 +27,7 @@ const ContextMenu = ({coordinates, isNested, handleCloseMenu} : any) => {
 
   return (
     <div
-      // onMouseMove={(e)=>{e.preventDefault(); e.stopPropagation();}}
+      onMouseMove={(e)=>{e.preventDefault(); e.stopPropagation();}}
       onMouseLeave={() => isNested && handleCloseMenu?.()}
       onClick={(e)=>{e.stopPropagation();e.preventDefault();}}
       onBlur={(e)=>{e.preventDefault();e.stopPropagation();}}
