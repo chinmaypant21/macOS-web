@@ -13,6 +13,7 @@
   left: 30%;
 }
 
+
 .window-fullscreen{
   top: var(--offset-top) !important;   /* dynamic */
   left: var(--offset-left) !important;   /* dynamic */
@@ -27,6 +28,8 @@
 }
 
 .app-window:focus{
+  outline: none;
+  animation: scaleAnimation 0.5s ease-in-out;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.438), 5px 25px 40px 10px rgba(0, 0, 0, 0.548), 0 0 0 1px rgba(0, 0, 0, 0.0);
 }
 
@@ -126,4 +129,16 @@
   align-items: center;
   font-weight: 600;
   font-size: 1rem;
+}
+
+@keyframes scaleAnimation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
 }

@@ -1,8 +1,9 @@
+import { Fragment } from "preact/jsx-runtime";
 import { useEffect, useMemo, useRef, useState } from "preact/hooks";
 import { useComputed, useSignalEffect } from "@preact/signals";
 
 import { useDrag } from "src/hooks/useDrag";
-import { screenStartingCoordinates, focusedWindow, lastFocusedWindow } from "@layout/Screen/Screen";
+import { screenStartingCoordinates, presentFocusedWindow } from "@layout/Screen/Screen";
 
 import style from './AppWindow.module.css'
 
@@ -21,22 +22,13 @@ type AppWindowProps = {
 }
 
 const AppWindow = ({idx, title, isMinimized, handleMinimize, handleClose, dimensions}: AppWindowProps) => {
-    const [isClosed, setIsClosed] = useState<boolean>(false);
     const appWindowRef          = useRef<HTMLDivElement>(null);
     const [ offset, setOffset ] = useState<ScreenCoordinates>();
     const [ isFullScreen, setIsFullScreen] = useState<boolean>(false);
 
-    // if(isMinimized){
-    //     return null;
-    // }
-
-    if(isClosed){
-        return null;
-    }
-
     // Wherever defining computed or signal inside a component, always use hooks otherwise there are going to be lots of re-renders.
     const windowIndex = useComputed(()=>{
-        return (lastFocusedWindow.value === idx) ? 2 : 1 
+        return (presentFocusedWindow.value.windowId === idx) ? 2 : 1 
     })
 
     const { position, handleMouseDown: onMouseDown } = useDrag({
@@ -63,9 +55,19 @@ const AppWindow = ({idx, title, isMinimized, handleMinimize, handleClose, dimens
         setOffset(screenStartingCoordinates.value)
     })
 
+    useSignalEffect(() => {
+        if (idx === presentFocusedWindow.value.windowId) console.log(isMinimized)
+        if((idx === presentFocusedWindow.value.windowId) && presentFocusedWindow.value.isActive){
+            appWindowRef.current?.focus();
+            // console.log(presentFocusedWindow.value, idx)
+        }
+    })
+    
     useEffect(() => {
-        isClosed && handleClose();
-    },[isClosed])
+        if(idx === presentFocusedWindow.value.windowId && presentFocusedWindow.value.isActive && !isMinimized){
+            appWindowRef.current?.focus();
+        }
+    },[isMinimized])
 
     useEffect(() => {
     // Passed dimentions are for initial rendering only
@@ -125,7 +127,7 @@ const AppWindow = ({idx, title, isMinimized, handleMinimize, handleClose, dimens
     }
 
     function handleWindowClose(){
-        setIsClosed(true);
+        handleClose();
     }
 
     return (
@@ -134,6 +136,7 @@ const AppWindow = ({idx, title, isMinimized, handleMinimize, handleClose, dimens
             className={style['app-window']}
             ref={appWindowRef}
             style={{
+                display: isMinimized? 'none' : 'inherit',
                 top: position.y,
                 left: position.x,
                 zIndex: windowIndex.value,
@@ -141,54 +144,65 @@ const AppWindow = ({idx, title, isMinimized, handleMinimize, handleClose, dimens
             tabIndex={idx}
             onContextMenu={(e)=>{e.stopPropagation(); e.preventDefault();}}
             onBlur={()=>{
-                focusedWindow.value=0
+                presentFocusedWindow.value = {
+                    ...presentFocusedWindow.value,
+                    isActive: false
+                }
             }}
             onFocus={()=>{
-                focusedWindow.value=idx
-                lastFocusedWindow.value = idx
+                presentFocusedWindow.value = {
+                    windowId: idx,
+                    isActive: true
+                }
             }}
         >
-            <div class={style['titlebar-container']}>
-                <div
-                    onTransitionEnd={(e)=>{e.stopPropagation();}}
-                    class={style['toolbar-section']}
-                >
-                {
-                    toolbarBtnMap.map((button) => (
-                        <div
-                            id={style[button.id]}
-                            key={button.id}
-                            class={style['toolbar-btn']}
-                            onClick={button.onclick}
-                        >
-                        </div>
-                    ))
-                }
+        {
+            !isMinimized && (
+            <Fragment>
+                <div class={style['titlebar-container']}>
+                    <div
+                        onTransitionEnd={(e)=>{e.stopPropagation();}}
+                        class={style['toolbar-section']}
+                    >
+                    {
+                        toolbarBtnMap.map((button) => (
+                            <div
+                                id={style[button.id]}
+                                key={button.id}
+                                class={style['toolbar-btn']}
+                                onClick={button.onclick}
+                            >
+                            </div>
+                        ))
+                    }
+                    </div>
+
+                    <div 
+                        class={style['draggable-container']}
+                        style={{flex: 1}}
+                        onDblClick={handleWindowExpand}
+                        onMouseEnter={handleMouseEnter}
+                        onMouseLeave={handleMouseLeave}
+                        onMouseDown={handleDrag}
+                    >
+                        {title ?? 'Unknown Application'}
+                    </div>
                 </div>
 
                 <div 
-                    class={style['draggable-container']}
-                    style={{flex: 1}}
-                    onDblClick={handleWindowExpand}
-                    onMouseEnter={handleMouseEnter}
-                    onMouseLeave={handleMouseLeave}
-                    onMouseDown={handleDrag}
+                    style={{display:'flex', userSelect: 'text'}}
                 >
-                    {title ?? 'Unknown Application'}
-                </div>
-            </div>
+                    <div id={style['window-sidebar']}>
+                        side
+                    </div>
 
-            <div 
-                style={{display:'flex', userSelect: 'text'}}
-            >
-                <div id={style['window-sidebar']}>
-                    side
+                    <div id={style['app-container']}>
+                        app
+                    </div>
                 </div>
-
-                <div id={style['app-container']}>
-                    app
-                </div>
-            </div>
+            </Fragment>
+            )
+        }
         </div>
     );
 }

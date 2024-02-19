@@ -1,4 +1,4 @@
-import { JSX, useEffect, useRef, useState } from 'preact/compat';
+import { Fragment, JSX, useEffect, useRef, useState } from 'preact/compat';
 import { signal } from '@preact/signals';
 
 import ContextMenu from '@components/ContextMenu/ContextMenu';
@@ -6,11 +6,18 @@ import AppWindow from '@components/AppWindow/AppWindow';
 
 import style from './Screen.module.css';
 
-export const screenStartingCoordinates = signal<ScreenCoordinates>({x:0,y:0});
-export const focusedWindow = signal<number>(0);
-export const lastFocusedWindow = signal<number>(0);
+type WindowSignalParams = {
+  windowId: number,
+  isActive: boolean
+}
 
-export const activeWindows = signal<Array<{index: number, title: string, isMinimized: boolean, dimensions: any}>>([
+export const screenStartingCoordinates = signal<ScreenCoordinates>({x:0,y:0});
+export const presentFocusedWindow = signal<WindowSignalParams>({
+  windowId: 0,
+  isActive: false
+});
+
+export const activeWindows = signal<Array<{index: number, title: string, isMinimized: boolean, dimensions: WindowDimension}>>([
   {
     index: 1,
     title: 'App1',
@@ -85,9 +92,9 @@ const Screen = () => {
     setContextCoordinates({x: e.pageX - screenStartingCoordinates.value.x, y: e.pageY - screenStartingCoordinates.value.y})
   }
 
-  function handleMinimize(title: any){
+  function handleMinimize(index: any){
     activeWindows.value =  activeWindows.value.map((window) =>{
-      if (window.title !== title) {
+      if (window.index !== index) {
         return window;
       }
       else return {
@@ -97,10 +104,9 @@ const Screen = () => {
     })
   }
 
-  function handleClose(title: any){
-    // console.log(activeWindows.value, idx)
+  function handleClose(index: any){
     activeWindows.value = activeWindows.value.filter((window) => (
-      window.title !== title
+      window.index !== index
     ))
   }
 
@@ -118,22 +124,29 @@ const Screen = () => {
       id={style['screen-container']}
     >
       <div style={{backgroundColor:'white'}}>
-        {JSON.stringify(activeWindows.value)}
       </div>
-      {/* <span class='text-white'>{JSON.stringify(cursorCoord)}</span> */}
+      {/* <span class='text-white'>{JSON.stringify(presentFocusedWindow.value.windowId)}</span> */}
       {isRightClicked && <ContextMenu coordinates={contextCoordinates} />}
 
       {
-        activeWindows.value.map((window, idx) => (
-          !window.isMinimized && 
-          <AppWindow 
-            idx={window.index}
-            title={window.title}
-            isMinimized={window.isMinimized}
-            dimensions={window.dimensions}
-            handleMinimize={() => handleMinimize(window.title)}
-            handleClose={() => handleClose(window.title)}
-          />
+        activeWindows.value.map((window) => (
+          // !window.isMinimized && (
+            /*
+              It becomes extremely necessary using a unique key in fragment else when the item from array will be removed,
+              it will cause removing the last AppWindow component and shifting the activeWindows object one place backward.
+              If this happens, then the value will be changed but the dimensions will be of the previous.
+            */
+            <Fragment key={window.index}>
+              <AppWindow 
+                idx={window.index}
+                title={window.title}
+                isMinimized={window.isMinimized}
+                dimensions={window.dimensions}
+                handleMinimize={() => handleMinimize(window.index)}
+                handleClose={() => handleClose(window.index)}
+              />
+            </Fragment>
+          // )
         ))
       }
     </div>
