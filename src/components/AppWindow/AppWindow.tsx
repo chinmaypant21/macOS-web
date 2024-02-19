@@ -8,6 +8,10 @@ import style from './AppWindow.module.css'
 
 type AppWindowProps = {
     idx: number,
+    title: string,
+    isMinimized: boolean
+    handleMinimize: any,
+    handleClose: any,
     dimensions: {
         width:number,
         height:number,
@@ -16,10 +20,19 @@ type AppWindowProps = {
     }
 }
 
-const AppWindow = ({idx, dimensions}: AppWindowProps) => {
+const AppWindow = ({idx, title, isMinimized, handleMinimize, handleClose, dimensions}: AppWindowProps) => {
+    const [isClosed, setIsClosed] = useState<boolean>(false);
     const appWindowRef          = useRef<HTMLDivElement>(null);
     const [ offset, setOffset ] = useState<ScreenCoordinates>();
     const [ isFullScreen, setIsFullScreen] = useState<boolean>(false);
+
+    // if(isMinimized){
+    //     return null;
+    // }
+
+    if(isClosed){
+        return null;
+    }
 
     // Wherever defining computed or signal inside a component, always use hooks otherwise there are going to be lots of re-renders.
     const windowIndex = useComputed(()=>{
@@ -34,23 +47,28 @@ const AppWindow = ({idx, dimensions}: AppWindowProps) => {
     const toolbarBtnMap = useMemo(() => ([
         {
             id: 'btn-close',
-            onclick: () => {console.log('close')}
+            onclick: handleWindowClose
         },
         {
             id: 'btn-min',
-            onclick: () => {console.log('min')}
+            onclick: handleWindowMinimize
         },
         {
             id: 'btn-expand',
             onclick: handleWindowExpand
         }
-    ]),[handleWindowExpand])
+    ]),[handleWindowExpand, handleWindowClose, handleWindowMinimize])
 
     useSignalEffect(() => {
         setOffset(screenStartingCoordinates.value)
     })
 
     useEffect(() => {
+        isClosed && handleClose();
+    },[isClosed])
+
+    useEffect(() => {
+    // Passed dimentions are for initial rendering only
         if(appWindowRef.current){
             appWindowRef.current.style.width = `${Math.min(dimensions.width, window.innerWidth)}px`
             appWindowRef.current.style.height = `${Math.min(dimensions.height, window.innerHeight)}px`
@@ -102,6 +120,14 @@ const AppWindow = ({idx, dimensions}: AppWindowProps) => {
         }
     }
 
+    function handleWindowMinimize(){
+        handleMinimize()
+    }
+
+    function handleWindowClose(){
+        setIsClosed(true);
+    }
+
     return (
         <div
             onTransitionEnd={handleTransitionEnd}
@@ -148,7 +174,7 @@ const AppWindow = ({idx, dimensions}: AppWindowProps) => {
                     onMouseLeave={handleMouseLeave}
                     onMouseDown={handleDrag}
                 >
-                    hi
+                    {title ?? 'Unknown Application'}
                 </div>
             </div>
 

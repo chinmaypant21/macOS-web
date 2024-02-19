@@ -21,8 +21,9 @@
   --color-yellow: rgb(255, 204, 0);
   --color-green: rgb(40, 205, 65);
   --color-blue: rgb(0, 122, 255);
+  --color-contrast: rgb(20, 20, 21);
 
-  --primary-text-color: rgb(20, 20, 21);
+  --primary-text-color: var(--color-contrast);
   --primary-highlight-color: var(--color-blue);
   --primary-divider-color: rgba(11, 11, 11, 0.15);
   
@@ -60,7 +61,7 @@ html, body {
   all: unset;
   height: 100%;
   font-family: 'SF Pro';
-  color: var(--primary-text-color,);
+  color: var(--primary-text-color);
   overflow: hidden;
   display: block;
 }
