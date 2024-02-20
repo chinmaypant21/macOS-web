@@ -134,6 +134,7 @@ const AppWindow = ({idx, title, isMinimized, handleMinimize, handleClose, dimens
     }
 
     function handleWindowClose(){
+        appWindowRef.current?.remove()
         handleClose();
     }
 
