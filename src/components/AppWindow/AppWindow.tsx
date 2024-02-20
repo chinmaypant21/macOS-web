@@ -56,10 +56,8 @@ const AppWindow = ({idx, title, isMinimized, handleMinimize, handleClose, dimens
     })
 
     useSignalEffect(() => {
-        if (idx === presentFocusedWindow.value.windowId) console.log(isMinimized)
         if((idx === presentFocusedWindow.value.windowId) && presentFocusedWindow.value.isActive){
             appWindowRef.current?.focus();
-            // console.log(presentFocusedWindow.value, idx)
         }
     })
     
@@ -81,9 +79,9 @@ const AppWindow = ({idx, title, isMinimized, handleMinimize, handleClose, dimens
     useEffect(() => {
     // Passed dimentions are for initial rendering only
         if(appWindowRef.current){
-            appWindowRef.current.style.width = `${Math.min(dimensions.width, window.innerWidth)}px`
-            appWindowRef.current.style.height = `${Math.min(dimensions.height, window.innerHeight)}px`
-            appWindowRef.current.style.minWidth = `${Math.max(dimensions.minWidth, 100)}px`
+            appWindowRef.current.style.width     = `${Math.min(dimensions.width, window.innerWidth)}px`
+            appWindowRef.current.style.height    = `${Math.min(dimensions.height, window.innerHeight)}px`
+            appWindowRef.current.style.minWidth  = `${Math.max(dimensions.minWidth, 100)}px`
             appWindowRef.current.style.minHeight = `${Math.max(dimensions.minHeight, 100)}px`
         }
     },[appWindowRef])
