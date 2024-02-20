@@ -64,10 +64,19 @@ const AppWindow = ({idx, title, isMinimized, handleMinimize, handleClose, dimens
     })
     
     useEffect(() => {
-        if(idx === presentFocusedWindow.value.windowId && presentFocusedWindow.value.isActive && !isMinimized){
-            appWindowRef.current?.focus();
+        if(!appWindowRef.current) return;
+
+        if(!isMinimized){
+            appWindowRef.current?.classList.remove(style['minimized']);
+
+            if(idx === presentFocusedWindow.value.windowId && presentFocusedWindow.value.isActive){
+                appWindowRef.current?.focus();
+            }
         }
-    },[isMinimized])
+        else{
+            appWindowRef.current?.classList.add(style['minimized'])
+        }
+    },[isMinimized, appWindowRef])
 
     useEffect(() => {
     // Passed dimentions are for initial rendering only
@@ -136,7 +145,6 @@ const AppWindow = ({idx, title, isMinimized, handleMinimize, handleClose, dimens
             className={style['app-window']}
             ref={appWindowRef}
             style={{
-                display: isMinimized? 'none' : 'inherit',
                 top: position.y,
                 left: position.x,
                 zIndex: windowIndex.value,
