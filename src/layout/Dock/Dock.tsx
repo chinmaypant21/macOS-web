@@ -27,7 +27,6 @@ const Dock = () => {
       (selected_window.index === presentFocusedWindow.value.windowId) 
       // && presentFocusedWindow.value.isActive
     ){
-      console.log('hh2')
       activeWindows.value = activeWindows.value.map((window) => {
         if(window.index !== selected_window.index) {
           return window
@@ -47,12 +46,20 @@ const Dock = () => {
     }
 
     else{
-      console.log('hh3')
       presentFocusedWindow.value = {
         isActive: true,
         windowId: selected_window.index
       }
     }
+  }
+
+  function toggleAnimation(event: any) {
+    const target = event.currentTarget;
+    target.classList.add(style['clicked']);
+  
+    setTimeout(() => {
+      target.classList.remove(style['clicked']);
+    }, 1000);
   }
 
   return (
@@ -61,8 +68,13 @@ const Dock = () => {
       {
         activeWindows.value.map((window) => (
           <div
-            onClick={()=>{handleClick(window)}}
+            key={window.index}
+            onClick={(e)=>{
+              toggleAnimation(e)
+              handleClick(window)
+            }}
             class={style['dock-item']}
+            tabIndex={0}
           >
             <span class={style['app-icon']}>{window.title}</span>
             <div 

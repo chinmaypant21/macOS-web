@@ -17,7 +17,6 @@
     color: white;
     padding: 0.4rem;
     border-radius: 0.8rem;
-    overflow: hidden;
     background-color: rgba(82, 82, 82, 0.342);
     box-shadow: 0px 0px 28px 9px rgb(0 0 0 / 32%), 0 0 0 1px rgba(0, 0, 0, 0.0);
 }
@@ -29,6 +28,11 @@
     align-items: center;
     height: 100%;
     width: 4rem;
+}
+
+/* active and focus psuedo properties cant be used as another window will be coming to focus on click */
+.dock-item.clicked > .app-icon{
+    animation: click 1s ease;
 }
 
 .dock-item > .app-icon {
@@ -45,4 +49,18 @@
     background-color: var(--color-contrast);
     border-radius: 50%;
     background-color: var(--color-contrast);
+}
+
+@keyframes click {
+    0%{
+        transform: translateY(0);
+    }
+
+    50%{
+        transform: translateY(-2rem);
+    }
+    
+    100%{
+        transform: translateY(0);
+    }
 }
