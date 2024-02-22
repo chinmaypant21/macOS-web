@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'preact/compat'
+import { FC, Fragment, useState } from 'preact/compat'
 
 import ContextMenu from './ContextMenu';
 
@@ -6,7 +6,7 @@ import ArrowIcon from '@assets/images/icons/mini/arrow_right.svg';
 
 import style from './ContextMenu.module.css'
 
-const MenuItem = ({item}: any) => {
+const MenuItem : FC<{item: ContextMenuItem}> = ({item}) => {
   const [ isNestedMenuOpen, setIsNestedMenuOpen ] = useState<boolean>(false);
 
   function handleClick(){
@@ -25,9 +25,14 @@ const MenuItem = ({item}: any) => {
 
   return (
     <Fragment>
-      {isNestedMenuOpen && (
+      {(isNestedMenuOpen && item.nestedMenu)  && (
           <div>
-            <ContextMenu coordinates={{x:0, y:0}} isNested handleCloseMenu={handleCloseMenu} menuData={item.nestedMenu} />
+            <ContextMenu 
+              coordinates={{x:0, y:0}} 
+              isNested
+              handleCloseMenu={handleCloseMenu}
+              menuData={item.nestedMenu} 
+            />
           </div>
         )
       }

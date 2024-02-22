@@ -13,12 +13,14 @@ interface WindowDimension extends Dimension {
     minHeight: number
 }
 
+type ContextMenuItem = {
+    text: string,
+    onclick?: () => void,
+    icon?: string,
+    nestedMenu?: ContextMenu 
+}
+
 type ContextMenu = Array<{
     groupKey: string | number,
-    items: Array<{
-        text: string,
-        onclick?: () => void,
-        icon?: string,
-        nestedMenu?: ContextMenu 
-    }>
+    items: ContextMenuItem[]
 }>
