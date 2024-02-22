@@ -3,8 +3,11 @@
     z-index: 10;
     top: var(--screen-context-menu-top);
     left: var(--screen-context-menu-left);
-    width: var(--screen-context-menu-width);
+    min-width: 5rem;
+    max-width: 17rem;
+}
 
+.menu-container{
     background-color: var(--fade-highlight-bg);
     backdrop-filter: blur(30px);
     border-radius: var(--radius-primary);

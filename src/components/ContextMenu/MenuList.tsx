@@ -6,36 +6,15 @@ import ArrowIcon from '@assets/images/icons/mini/arrow_right.svg';
 
 import style from './ContextMenu.module.css'
 
-const data = [
-  {
-    groupKey: 'g1',
-    items: [
-      {text: 'New folder', onclick: () => console.log('clicked'), nestedMenu: null},
-    ]
-  },
-  {
-    groupKey: 'g2',
-    items: [
-      {text: 'Get Info', onclick: () => console.log('clicked3'), nestedMenu: true},
-      {text: 'Change Desktop Background', onclick: () => console.log('clicked4'), nestedMenu: null},
-    ]
-  },
-  {
-    groupKey: 'g3',
-    items: [
-      {text: 'Use Stacks', onclick: () => console.log('clicked5'), nestedMenu: null},
-      {text: 'Sort By', onclick: () => console.log('clicked6'), nestedMenu: true},
-      {text: 'Show View Options', onclick: () => console.log('clicked7'), nestedMenu: null},
-    ]
-  }
-]
-
-const MenuItem = ({data}: any) => {
+const MenuItem = ({item}: any) => {
   const [ isNestedMenuOpen, setIsNestedMenuOpen ] = useState<boolean>(false);
 
   function handleClick(){
-    console.log('a1')
-    if(data.nestedMenu) {
+    if(item.onclick){
+      item.onclick();
+    }
+
+    if(item.nestedMenu) {
       setIsNestedMenuOpen(true);
     }
   }
@@ -45,7 +24,7 @@ const MenuItem = ({data}: any) => {
       {isNestedMenuOpen && (
           <div
           >
-            <ContextMenu coordinates={{x:0, y:0}} isNested handleCloseMenu={() => setIsNestedMenuOpen(false)} />
+            <ContextMenu coordinates={{x:0, y:0}} isNested handleCloseMenu={() => setIsNestedMenuOpen(false)} menuData={item.nestedMenu} />
           </div>
         )
       }
@@ -56,9 +35,9 @@ const MenuItem = ({data}: any) => {
 
         class={style['list-item']}
       >
-        <span>{data.text}</span>
+        <span>{item.text}</span>
         {
-          data.nestedMenu &&
+          item.nestedMenu &&
           <div class={style['item-icon-container']}>
             <img src={ArrowIcon} />
           </div>
@@ -68,29 +47,32 @@ const MenuItem = ({data}: any) => {
   )
 }
 
-const MenuList = () => {
+const MenuList = ({listData}: any) => {
   return (
-    <ul
-      class={style['menu-list']}
-    >
-      {
-        data.map((itemGroup, idx) => (
-          <Fragment key={itemGroup.groupKey}>
-          {
-            itemGroup.items.map((menuItem,idx) => (
-              <Fragment key={idx}>
-                <MenuItem data={menuItem} />
-              </Fragment>
-            ))
-          }
-          {
-            (idx !== data.length-1) && 
-            <span class={style['menu-group-divider']} />
-          }
-          </Fragment>
-        ))
-      }
-    </ul>
+    <div class={style['menu-container']}>
+      <ul
+        class={style['menu-list']}
+      >
+        {
+          listData.map((itemGroup: any, idx: number) => (
+            <Fragment key={itemGroup.groupKey}>
+            {
+              itemGroup.items.map((menuItem: any, idx: any) => (
+                <Fragment key={idx}>
+                  <MenuItem item={menuItem} />
+                </Fragment>
+              ))
+            }
+            {
+              (idx !== listData.length-1) && 
+              <span class={style['menu-group-divider']} />
+            }
+            </Fragment>
+          ))
+        }
+      </ul>
+    </div>
+
   )
 }
 

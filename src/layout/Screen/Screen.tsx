@@ -1,6 +1,7 @@
 import { Fragment, JSX, useEffect, useRef, useState } from 'preact/compat';
 import { signal } from '@preact/signals';
 
+import { contextMenuData } from '@utils/menu/contextMenuData';
 import ContextMenu from '@components/ContextMenu/ContextMenu';
 import AppWindow from '@components/AppWindow/AppWindow';
 
@@ -114,11 +115,17 @@ const Screen = () => {
     setIsRightClicked(false);
   }
 
+  function handleBlur(e: JSX.TargetedMouseEvent<HTMLDivElement>){
+    if (!e.currentTarget.contains(e.relatedTarget as Node)) {
+      handleCloseMenu()
+    }
+  }
+
   return (
     <div
       ref={screenRef}
       tabIndex={0} //onBlur method requires a tabIndex other than -1
-      // onBlur={handleCloseMenu}
+      onBlur={handleBlur}
       onClick={handleCloseMenu}
       onContextMenu={handleRightClick}
       id={style['screen-container']}
@@ -126,7 +133,10 @@ const Screen = () => {
       <div style={{backgroundColor:'white'}}>
       </div>
       {/* <span class='text-white'>{JSON.stringify(presentFocusedWindow.value.windowId)}</span> */}
-      {isRightClicked && <ContextMenu coordinates={contextCoordinates} />}
+      {(isRightClicked && contextCoordinates) && (
+        <ContextMenu coordinates={contextCoordinates} handleCloseMenu={handleCloseMenu}  menuData={contextMenuData} />
+      )
+      }
 
       {
         activeWindows.value.map((window) => (

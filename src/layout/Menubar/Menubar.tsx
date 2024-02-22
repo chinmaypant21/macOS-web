@@ -1,3 +1,4 @@
+import { JSX } from 'preact/jsx-runtime';
 import { useEffect, useState } from 'preact/hooks'
 
 import { getFormattedDateTime } from '@utils/time/getFormattedDateTime';
@@ -12,7 +13,6 @@ import volumeLogo from '@assets/images/icons/volume.svg'
 // import batteryLogo from '@assets/images/icons/battery.svg'
 
 import style from './Menubar.module.css'
-import { JSX } from 'preact/jsx-runtime';
 
 const Menubar = () => {
     const [ displayTime, setDisplayTime ] = useState<{date: string, time: string}>();
@@ -49,6 +49,7 @@ const Menubar = () => {
 
     return (
         <div
+            tabIndex={0}
             onContextMenu={handleRightClick}
             id={style['menubar-container']}
         >
