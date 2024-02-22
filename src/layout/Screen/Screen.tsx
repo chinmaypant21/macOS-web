@@ -140,7 +140,6 @@ const Screen = () => {
 
       {
         activeWindows.value.map((window) => (
-          // !window.isMinimized && (
             /*
               It becomes extremely necessary using a unique key in fragment else when the item from array will be removed,
               it will cause removing the last AppWindow component and shifting the activeWindows object one place backward.
@@ -156,7 +155,6 @@ const Screen = () => {
                 handleClose={() => handleClose(window.index)}
               />
             </Fragment>
-          // )
         ))
       }
     </div>

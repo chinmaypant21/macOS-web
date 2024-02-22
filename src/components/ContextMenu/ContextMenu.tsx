@@ -47,7 +47,7 @@ const ContextMenu = ({coordinates, isNested, handleCloseMenu, menuData} : Contex
   useEffect(() => {
     if(elementRef.current){
       if(isNested){
-        setPositionStyle({left: '100%', top: 'initial'})
+        setPositionStyle({left: '98%', top: 'initial'})
       } 
       else {
         const menuDimensions = elementRef.current.getBoundingClientRect()

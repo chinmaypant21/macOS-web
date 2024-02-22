@@ -19,22 +19,31 @@ const MenuItem = ({item}: any) => {
     }
   }
 
+  function handleCloseMenu(){
+    setIsNestedMenuOpen(false)
+  }
+
   return (
     <Fragment>
       {isNestedMenuOpen && (
-          <div
-          >
-            <ContextMenu coordinates={{x:0, y:0}} isNested handleCloseMenu={() => setIsNestedMenuOpen(false)} menuData={item.nestedMenu} />
+          <div>
+            <ContextMenu coordinates={{x:0, y:0}} isNested handleCloseMenu={handleCloseMenu} menuData={item.nestedMenu} />
           </div>
         )
       }
       <li
         onClick={handleClick}
-        // tabIndex={1}
-        onBlur={() => {console.log('blur');setIsNestedMenuOpen(false)}}
 
         class={style['list-item']}
       >
+        {
+          (item.icon) && (
+            <img
+              class={style['menu-item-image']}
+              src={item.icon} 
+            />
+          )
+        }
         <span>{item.text}</span>
         {
           item.nestedMenu &&
