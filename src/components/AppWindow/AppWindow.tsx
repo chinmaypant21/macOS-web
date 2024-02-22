@@ -173,13 +173,18 @@ const AppWindow = ({idx, title, isMinimized, handleMinimize, handleClose, dimens
                     >
                     {
                         toolbarBtnMap.map((button) => (
-                            <div
-                                id={style[button.id]}
+                            <div 
+                                class={style['toolbar-btn-container']}
                                 key={button.id}
-                                class={style['toolbar-btn']}
                                 onClick={button.onclick}
                             >
+                                <div
+                                    id={style[button.id]}
+                                    class={style['toolbar-btn']}
+                                >
+                                </div>
                             </div>
+
                         ))
                     }
                     </div>
