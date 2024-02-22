@@ -62,7 +62,6 @@
 .titlebar-container{
   display: flex;
   padding-inline: 0.8rem;
-  padding-block: 0.4rem;
 }
 
 .toolbar-section{
@@ -159,4 +158,5 @@
   align-items: center;
   font-weight: 600;
   font-size: 1rem;
+  padding-block: 0.4rem;
 }
