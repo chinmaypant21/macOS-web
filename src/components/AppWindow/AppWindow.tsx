@@ -9,17 +9,7 @@ import { screenStartingCoordinates, presentFocusedWindow } from "@layout/Screen/
 import style from './AppWindow.module.css'
 
 type AppWindowProps = {
-    data: {
-        index: number,
-        title: string,
-        isMinimized: boolean
-        dimensions: {
-            width:number,
-            height:number,
-            minWidth: number,
-            minHeight:number,
-        }
-    }
+    data: AppWindowConfig
     handleMinimize: any,
     handleClose: any,
 }
@@ -28,6 +18,9 @@ const AppWindow : FC<AppWindowProps> = ({data, handleMinimize, handleClose}) => 
     const appWindowRef          = useRef<HTMLDivElement>(null);
     const [ offset, setOffset ] = useState<ScreenCoordinates>();
     const [ isFullScreen, setIsFullScreen] = useState<boolean>(false);
+
+    //Is it optimized?
+    const Application = data.application ?? null;
 
     // Wherever defining computed or signal inside a component, always use hooks otherwise there are going to be lots of re-renders.
     const windowIndex = useComputed(()=>{
@@ -204,16 +197,11 @@ const AppWindow : FC<AppWindowProps> = ({data, handleMinimize, handleClose}) => 
                     </div>
                 </div>
 
-                <div 
-                    style={{display:'flex', userSelect: 'text'}}
-                >
-                    <div id={style['window-sidebar']}>
-                        side
-                    </div>
-
-                    <div id={style['app-container']}>
-                        app
-                    </div>
+                <div>
+                    {
+                        Application &&
+                        <Application />
+                    }
                 </div>
             </Fragment>
             )

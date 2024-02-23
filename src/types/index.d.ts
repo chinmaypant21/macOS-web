@@ -25,3 +25,11 @@ type ContextMenu = Array<{
     groupKey: string | number,
     items: ContextMenuItem[]
 }>
+
+type AppWindowConfig = {
+    index: number, 
+    title: string, 
+    isMinimized: boolean, 
+    dimensions: WindowDimension, 
+    application?: ComponentType
+}

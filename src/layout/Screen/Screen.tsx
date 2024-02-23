@@ -18,7 +18,7 @@ export const presentFocusedWindow = signal<WindowSignalParams>({
   isActive: false
 });
 
-export const activeWindows = signal<Array<{index: number, title: string, isMinimized: boolean, dimensions: WindowDimension}>>([
+export const activeWindows = signal<Array<AppWindowConfig>>([
   {
     index: 1,
     title: 'App1',
@@ -28,7 +28,7 @@ export const activeWindows = signal<Array<{index: number, title: string, isMinim
       height: 600,
       minWidth: 200,
       minHeight: 300
-    }
+    },
   },
   {
     index: 2,
