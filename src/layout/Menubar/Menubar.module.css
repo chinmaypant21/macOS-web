@@ -55,11 +55,11 @@
     position: relative;
 }
 
-.dropdown-container:focus{
+.menu-list-left:focus-within .dropdown-container:hover{
     border-radius: unset !important;
 }
 
-.dropdown-container:focus .menu-wrapper{
+.menu-list-left:focus-within .dropdown-container:hover .menu-wrapper{
     display: block;
 }
 
