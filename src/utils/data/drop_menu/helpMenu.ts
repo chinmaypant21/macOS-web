@@ -2,15 +2,13 @@ export const helpMenuData : ContextMenu = [
     {
         groupKey: 'g1',
         items: [
-            { text: 'Size', onclick: () => console.log('s') },
-            { text: 'Date Modified', onclick: () => console.log('d') },
+            { text: 'Send Feedback', onclick: () => console.log('asc') },
         ]
     },
     {
         groupKey: 'g2',
         items: [
-            { text: 'A to Z', onclick: () => console.log('asc') },
-            { text: 'Z to A', onclick: () => console.log('desc') },
+            { text: 'Keyboard Shortcuts', onclick: () => console.log('asc') },
         ]
     },
 ]

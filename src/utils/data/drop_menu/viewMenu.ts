@@ -1,3 +1,23 @@
+const GroupStacksMenu: ContextMenu = [
+    {
+        groupKey: 'g1',
+        items: [
+            { text: 'None'},
+        ]
+    },
+    {
+        groupKey: 'g2',
+        items: [
+            { text: 'Kind'},
+            { text: 'Date Last Opened' },
+            { text: 'Date Added'},
+            { text: 'Date Modified'},
+            { text: 'Date Created'},
+            { text: 'Tags'},
+        ]
+    },
+]
+
 export const viewMenuData : ContextMenu = [
     {
         groupKey: 'g1',
@@ -12,7 +32,7 @@ export const viewMenuData : ContextMenu = [
         groupKey: 'g2',
         items: [
             { text: 'Use Stacks', onclick: () => console.log('asc') },
-            { text: 'Group Stacks By', onclick: () => console.log('desc') },
+            { text: 'Group Stacks By', onclick: () => console.log('desc'), nestedMenu: GroupStacksMenu },
             { text: 'Clean Up', onclick: () => console.log('desc'), disabled: true },
             { text: 'Clean Up By', onclick: () => console.log('desc'), disabled: true },
         ]
