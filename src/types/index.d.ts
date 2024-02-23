@@ -17,7 +17,8 @@ type ContextMenuItem = {
     text: string,
     onclick?: () => void,
     icon?: string,
-    nestedMenu?: ContextMenu 
+    nestedMenu?: ContextMenu,
+    disabled?: boolean
 }
 
 type ContextMenu = Array<{

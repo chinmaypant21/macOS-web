@@ -51,6 +51,26 @@
     border-radius: 0.3rem;
 }
 
+.dropdown-container{
+    position: relative;
+}
+
+.dropdown-container:focus{
+    border-radius: unset !important;
+}
+
+.dropdown-container:focus .menu-wrapper{
+    display: block;
+}
+
+.menu-wrapper{
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 13rem;
+}
+
 .menu-tools{
     display: flex;
     flex-direction: row;

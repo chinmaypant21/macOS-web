@@ -1,7 +1,9 @@
 import { JSX } from 'preact/jsx-runtime';
 import { useEffect, useState } from 'preact/hooks'
 
+import DropMenu from '@components/ContextMenu/DropMenu';
 import { getFormattedDateTime } from '@utils/time/getFormattedDateTime';
+import {fileMenuData, editMenuData, viewMenuData, goMenuData, windowMenuData, helpMenuData, appleMenuData } from '@utils/data/drop_menu';
 
 import logo from '@assets/images/apple_logo.svg'
 import bluetoothLogo from '@assets/images/icons/bluetooth.svg'
@@ -13,6 +15,44 @@ import volumeLogo from '@assets/images/icons/volume.svg'
 // import batteryLogo from '@assets/images/icons/battery.svg'
 
 import style from './Menubar.module.css'
+
+type MenuOptionType = {
+    id?: string,
+    title: string,
+    dropMenu?: ContextMenu
+
+}
+
+const MenuOptions : MenuOptionType[] = [
+    {
+        title: 'Finder',
+        id: 'finder',
+    },
+    {
+        title: 'File',
+        dropMenu: fileMenuData,
+    },
+    {
+        title: 'Edit',
+        dropMenu: editMenuData,
+    },
+    {
+        title: 'View',
+        dropMenu: viewMenuData,
+    },
+    {
+        title: 'Go',
+        dropMenu: goMenuData,
+    },
+    {
+        title: 'Window',
+        dropMenu: windowMenuData,
+    },
+    {
+        title: 'Help',
+        dropMenu: helpMenuData,
+    }
+]
 
 const Menubar = () => {
     const [ displayTime, setDisplayTime ] = useState<{date: string, time: string}>();
@@ -54,37 +94,37 @@ const Menubar = () => {
             id={style['menubar-container']}
         >
             <div class={style['menu-list-left']}>
-                <div id={style['menu-logo']}>
-                    <img src={logo} />
+                <div
+                    tabIndex={0}
+                    class={style['dropdown-container']}
+                >
+
+                    <div id={style['menu-logo']}>
+                        <img src={logo} />
+                    </div>
+                    {
+                        <div class={style['menu-wrapper']}>
+                            <DropMenu listData={appleMenuData} />
+                        </div>
+                    }
                 </div>
-
-                <span id={style['finder']} class={style['list-item']}>
-                    Finder
-                </span>
-
-                <span class={style['list-item']}>
-                    File
-                </span>
-
-                <span class={style['list-item']}>
-                    Edit
-                </span>
-
-                <span class={style['list-item']}>
-                    View
-                </span>
-
-                <span class={style['list-item']}>
-                    Go
-                </span>
-
-                <span class={style['list-item']}>
-                    Window
-                </span>
-
-                <span class={style['list-item']}>
-                    Help
-                </span>
+                {
+                    MenuOptions.map(option => (
+                        <div
+                            tabIndex={0}
+                            id={option.id ? style[option.id] : ''} //Check
+                            class={`${style['list-item']} ${(option.dropMenu) ? style['dropdown-container'] : ''}`}
+                        >
+                            <span>{option.title}</span>
+                            {
+                                (option.dropMenu) && 
+                                <div class={style['menu-wrapper']}>
+                                    <DropMenu listData={option.dropMenu} />
+                                </div>
+                            }
+                        </div>
+                    ))
+                }
             </div>
 
             <div class={style['menu-tools'] + ' cursor-pointer'}>

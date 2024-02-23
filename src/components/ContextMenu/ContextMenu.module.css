@@ -38,6 +38,11 @@
     position: relative;
 }
 
+.menu-list .item-disabled{
+    background-color: unset !important;
+    color: var(--color-disabled-primary) !important;
+}
+
 .menu-list > .list-item span{
     white-space: nowrap;
     overflow: hidden;

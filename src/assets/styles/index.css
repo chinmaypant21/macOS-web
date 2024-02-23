@@ -29,6 +29,7 @@
   
   --fade-highlight-bg: rgba(255, 255, 255, 0.337);
   --color-inactive: rgb(182, 182, 183);
+  --color-disabled-primary: rgba(20, 20, 21, 0.5);
   --color-inactive-border: rgb(148, 148, 148);
 }
 

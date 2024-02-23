@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'preact/hooks'
 import { JSX } from 'preact/jsx-runtime';
 
 import { getDisplayPosition } from '@utils/window';
-import MenuList from './MenuList';
+import DropMenu from './DropMenu';
 
 import style from './ContextMenu.module.css'
 
@@ -76,7 +76,7 @@ const ContextMenu = ({coordinates, isNested, handleCloseMenu, menuData} : Contex
         '--screen-context-menu-left': positionStyle.left
       }}
     >
-      <MenuList listData={menuData} />
+      <DropMenu listData={menuData} />
     </div>
   )
 }

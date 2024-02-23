@@ -1,7 +1,7 @@
 import { Fragment, JSX, useEffect, useRef, useState } from 'preact/compat';
 import { signal } from '@preact/signals';
 
-import { contextMenuData } from '@utils/menu/contextMenuData';
+import { contextMenuData } from '@utils/data/context_menu/contextMenuData';
 import ContextMenu from '@components/ContextMenu/ContextMenu';
 import AppWindow from '@components/AppWindow/AppWindow';
 

@@ -10,7 +10,7 @@ const MenuItem : FC<{item: ContextMenuItem}> = ({item}) => {
   const [ isNestedMenuOpen, setIsNestedMenuOpen ] = useState<boolean>(false);
 
   function handleClick(){
-    if(item.onclick){
+    if(!item.disabled && item.onclick){
       item.onclick();
     }
 
@@ -38,8 +38,7 @@ const MenuItem : FC<{item: ContextMenuItem}> = ({item}) => {
       }
       <li
         onClick={handleClick}
-
-        class={style['list-item']}
+        class={`${style['list-item']} ${item.disabled ? style['item-disabled'] : ''}`}
       >
         {
           (item.icon) && (
@@ -61,7 +60,7 @@ const MenuItem : FC<{item: ContextMenuItem}> = ({item}) => {
   )
 }
 
-const MenuList = ({listData}: any) => {
+const DropMenu = ({listData}: any) => {
   return (
     <div class={style['menu-container']}>
       <ul
@@ -90,4 +89,4 @@ const MenuList = ({listData}: any) => {
   )
 }
 
-export default MenuList
+export default DropMenu
