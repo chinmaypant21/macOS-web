@@ -1,4 +1,6 @@
 .app-window{
+  display: flex;
+  flex-direction: column;
   position: fixed;
   background-color: var(--color-gray);
   border: 1px solid #8a8a8a49;
@@ -159,4 +161,8 @@
   font-weight: 600;
   font-size: 1rem;
   padding-block: 0.4rem;
+}
+
+.app-container{
+  flex: 1;
 }

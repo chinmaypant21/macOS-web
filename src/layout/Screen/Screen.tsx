@@ -4,6 +4,7 @@ import { signal } from '@preact/signals';
 import { contextMenuData } from '@utils/data/context_menu/contextMenuData';
 import ContextMenu from '@components/ContextMenu/ContextMenu';
 import AppWindow from '@components/AppWindow/AppWindow';
+import { DemoApp } from 'src/apps';
 
 import style from './Screen.module.css';
 
@@ -29,6 +30,7 @@ export const activeWindows = signal<Array<AppWindowConfig>>([
       minWidth: 200,
       minHeight: 300
     },
+    application: DemoApp
   },
   {
     index: 2,

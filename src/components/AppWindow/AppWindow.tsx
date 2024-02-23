@@ -197,7 +197,7 @@ const AppWindow : FC<AppWindowProps> = ({data, handleMinimize, handleClose}) => 
                     </div>
                 </div>
 
-                <div>
+                <div class={style['app-container']}>
                     {
                         Application &&
                         <Application />
