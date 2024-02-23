@@ -1,6 +1,7 @@
-import { Fragment } from "preact/jsx-runtime";
+import { FC } from "preact/compat";
 import { useEffect, useMemo, useRef, useState } from "preact/hooks";
 import { useComputed, useSignalEffect } from "@preact/signals";
+import { Fragment } from "preact/jsx-runtime";
 
 import { useDrag } from "src/hooks/useDrag";
 import { screenStartingCoordinates, presentFocusedWindow } from "@layout/Screen/Screen";
@@ -8,27 +9,29 @@ import { screenStartingCoordinates, presentFocusedWindow } from "@layout/Screen/
 import style from './AppWindow.module.css'
 
 type AppWindowProps = {
-    idx: number,
-    title: string,
-    isMinimized: boolean
+    data: {
+        index: number,
+        title: string,
+        isMinimized: boolean
+        dimensions: {
+            width:number,
+            height:number,
+            minWidth: number,
+            minHeight:number,
+        }
+    }
     handleMinimize: any,
     handleClose: any,
-    dimensions: {
-        width:number,
-        height:number,
-        minWidth: number,
-        minHeight:number,
-    }
 }
 
-const AppWindow = ({idx, title, isMinimized, handleMinimize, handleClose, dimensions}: AppWindowProps) => {
+const AppWindow : FC<AppWindowProps> = ({data, handleMinimize, handleClose}) => {
     const appWindowRef          = useRef<HTMLDivElement>(null);
     const [ offset, setOffset ] = useState<ScreenCoordinates>();
     const [ isFullScreen, setIsFullScreen] = useState<boolean>(false);
 
     // Wherever defining computed or signal inside a component, always use hooks otherwise there are going to be lots of re-renders.
     const windowIndex = useComputed(()=>{
-        return (presentFocusedWindow.value.windowId === idx) ? 2 : 1 
+        return (presentFocusedWindow.value.windowId === data.index) ? 2 : 1 
     })
 
     const { position, handleMouseDown: onMouseDown } = useDrag({
@@ -56,7 +59,7 @@ const AppWindow = ({idx, title, isMinimized, handleMinimize, handleClose, dimens
     })
 
     useSignalEffect(() => {
-        if((idx === presentFocusedWindow.value.windowId) && presentFocusedWindow.value.isActive){
+        if((data.index === presentFocusedWindow.value.windowId) && presentFocusedWindow.value.isActive){
             appWindowRef.current?.focus();
         }
     })
@@ -64,25 +67,25 @@ const AppWindow = ({idx, title, isMinimized, handleMinimize, handleClose, dimens
     useEffect(() => {
         if(!appWindowRef.current) return;
 
-        if(!isMinimized){
+        if(!data.isMinimized){
             appWindowRef.current?.classList.remove(style['minimized']);
 
-            if(idx === presentFocusedWindow.value.windowId && presentFocusedWindow.value.isActive){
+            if(data.index === presentFocusedWindow.value.windowId && presentFocusedWindow.value.isActive){
                 appWindowRef.current?.focus();
             }
         }
         else{
             appWindowRef.current?.classList.add(style['minimized'])
         }
-    },[isMinimized, appWindowRef])
+    },[data.isMinimized, appWindowRef])
 
     useEffect(() => {
     // Passed dimentions are for initial rendering only
         if(appWindowRef.current){
-            appWindowRef.current.style.width     = `${Math.min(dimensions.width, window.innerWidth)}px`
-            appWindowRef.current.style.height    = `${Math.min(dimensions.height, window.innerHeight)}px`
-            appWindowRef.current.style.minWidth  = `${Math.max(dimensions.minWidth, 100)}px`
-            appWindowRef.current.style.minHeight = `${Math.max(dimensions.minHeight, 100)}px`
+            appWindowRef.current.style.width     = `${Math.min(data.dimensions.width, window.innerWidth)}px`
+            appWindowRef.current.style.height    = `${Math.min(data.dimensions.height, window.innerHeight)}px`
+            appWindowRef.current.style.minWidth  = `${Math.max(data.dimensions.minWidth, 100)}px`
+            appWindowRef.current.style.minHeight = `${Math.max(data.dimensions.minHeight, 100)}px`
         }
     },[appWindowRef])
 
@@ -148,7 +151,7 @@ const AppWindow = ({idx, title, isMinimized, handleMinimize, handleClose, dimens
                 left: position.x,
                 zIndex: windowIndex.value,
             }}
-            tabIndex={idx}
+            tabIndex={0}
             onContextMenu={(e)=>{e.stopPropagation(); e.preventDefault();}}
             onBlur={()=>{
                 presentFocusedWindow.value = {
@@ -158,13 +161,13 @@ const AppWindow = ({idx, title, isMinimized, handleMinimize, handleClose, dimens
             }}
             onFocus={()=>{
                 presentFocusedWindow.value = {
-                    windowId: idx,
+                    windowId: data.index,
                     isActive: true
                 }
             }}
         >
         {
-            !isMinimized && (
+            !data.isMinimized && (
             <Fragment>
                 <div class={style['titlebar-container']}>
                     <div
@@ -197,7 +200,7 @@ const AppWindow = ({idx, title, isMinimized, handleMinimize, handleClose, dimens
                         onMouseLeave={handleMouseLeave}
                         onMouseDown={handleDrag}
                     >
-                        {title ?? 'Unknown Application'}
+                        {data.title ?? 'Unknown Application'}
                     </div>
                 </div>
 

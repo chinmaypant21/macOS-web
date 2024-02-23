@@ -146,11 +146,8 @@ const Screen = () => {
               If this happens, then the value will be changed but the dimensions will be of the previous.
             */
             <Fragment key={window.index}>
-              <AppWindow 
-                idx={window.index}
-                title={window.title}
-                isMinimized={window.isMinimized}
-                dimensions={window.dimensions}
+              <AppWindow
+                data={window}
                 handleMinimize={() => handleMinimize(window.index)}
                 handleClose={() => handleClose(window.index)}
               />
