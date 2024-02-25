@@ -1,4 +1,4 @@
-import { showWindow } from "@utils/app_methods/app_window_handler"
+import { closeWindow, showWindow } from "@utils/app_methods/app_window_handler"
 import { optionsMenu } from "./common"
 
 export const dockMenuMinData : ContextMenu = [
@@ -13,7 +13,7 @@ export const dockMenuMinData : ContextMenu = [
         items: [
             { text: 'Show', onclick: showWindow},
             { text: 'Show All Windows', onclick: () => console.log('s'), disabled: true},
-            { text: 'Quit', onclick: () => console.log('s')},
+            { text: 'Quit', onclick: closeWindow},
         ]
     },
 ]
