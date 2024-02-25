@@ -2,6 +2,8 @@ import { useState } from 'preact/hooks'
 import { JSX } from 'preact/jsx-runtime'
 import { FC } from 'preact/compat'
 
+import { dockMenuData } from '@utils/data/dock_menu/dockMenu'
+import DropMenu from '@components/ContextMenu/DropMenu'
 import { activeWindows, presentFocusedWindow } from '@layout/Screen/Screen'
 
 import style from '../Dock.module.css'
@@ -11,11 +13,13 @@ const DockContextMenu = () => {
         e.stopPropagation()
     }
     return (
+        <div class={style['menu-wrapper']}>
         <div
             onClick={handleClick}
-            style={{position: 'absolute', top: '-50px'}}
-        >
-            hi
+            class={style['context-menu-container']}
+            >
+            <DropMenu listData={dockMenuData} />
+        </div>
         </div>
     )
 }
