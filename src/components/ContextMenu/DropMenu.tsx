@@ -6,17 +6,21 @@ import ArrowIcon from '@assets/images/icons/mini/arrow_right.svg';
 
 import style from './ContextMenu.module.css'
 
-const MenuItem : FC<{item: ContextMenuItem}> = ({item}) => {
+const MenuItem : FC<{item: ContextMenuItem, handleClose?: () => void, handlerProp?: any}> = ({item, handleClose, handlerProp}) => {
   const [ isNestedMenuOpen, setIsNestedMenuOpen ] = useState<boolean>(false);
 
   function handleClick(){
     if(!item.disabled && item.onclick){
-      item.onclick();
+      item.onclick(handlerProp);
     }
 
-    if(item.nestedMenu) {
+    if(!item.nestedMenu){
+      handleClose?.()
+    }
+    else {
       setIsNestedMenuOpen(true);
     }
+
   }
 
   function handleCloseMenu(){
@@ -60,7 +64,7 @@ const MenuItem : FC<{item: ContextMenuItem}> = ({item}) => {
   )
 }
 
-const DropMenu = ({listData}: any) => {
+const DropMenu = ({listData, handlerProp, handleClose}: any) => {
   return (
     <div class={style['menu-container']}>
       <ul
@@ -72,7 +76,7 @@ const DropMenu = ({listData}: any) => {
             {
               itemGroup.items.map((menuItem: any, idx: any) => (
                 <Fragment key={idx}>
-                  <MenuItem item={menuItem} />
+                  <MenuItem item={menuItem} handleClose={handleClose} handlerProp={handlerProp} />
                 </Fragment>
               ))
             }

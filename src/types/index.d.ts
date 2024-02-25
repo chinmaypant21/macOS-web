@@ -15,7 +15,7 @@ interface WindowDimension extends Dimension {
 
 type ContextMenuItem = {
     text: string,
-    onclick?: () => void,
+    onclick?: (handlerProps?: any) => void,
     icon?: string,
     nestedMenu?: ContextMenu,
     disabled?: boolean

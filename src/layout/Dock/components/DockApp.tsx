@@ -3,22 +3,73 @@ import { JSX } from 'preact/jsx-runtime'
 import { FC } from 'preact/compat'
 
 import { dockMenuData } from '@utils/data/dock_menu/dockMenu'
+import { dockMenuMinData } from '@utils/data/dock_menu/dockMenuMin'
 import DropMenu from '@components/ContextMenu/DropMenu'
 import { activeWindows, presentFocusedWindow } from '@layout/Screen/Screen'
 
 import style from '../Dock.module.css'
 
-const DockContextMenu = () => {
+function minimizeWindow(window: AppWindowConfig) {
+    activeWindows.value = activeWindows.value.map((window_temp) => {
+        if (window_temp.index !== window.index) {
+            return window_temp
+        }
+        else {
+            return {
+                ...window_temp,
+                isMinimized: true
+            }
+        }
+    })
+
+    presentFocusedWindow.value = {
+        windowId: 0,
+        isActive: false
+    }
+}
+
+function showWindow(window: AppWindowConfig){
+    activeWindows.value = activeWindows.value.map((window_temp) => {
+        if (window_temp.index !== window.index) {
+            return window_temp
+        }
+        else {
+            return {
+                ...window_temp,
+                isMinimized: false
+            }
+        }
+    })
+
+    presentFocusedWindow.value = {
+        isActive: true,
+        windowId: window.index
+    }
+}
+
+function focusWindow(window: AppWindowConfig){
+    presentFocusedWindow.value = {
+        isActive: true,
+        windowId: window.index
+    }
+}
+
+const DockContextMenu = ({window, handleCloseMenu}: any) => {
     function handleClick(e: JSX.TargetedMouseEvent<HTMLDivElement>){
         e.stopPropagation()
     }
+
     return (
         <div class={style['menu-wrapper']}>
             <div
                 onClick={handleClick}
                 class={style['context-menu-container']}
                 >
-                <DropMenu listData={dockMenuData} />
+                    <DropMenu 
+                        listData={window.isMinimized ? dockMenuMinData : dockMenuData}
+                        handlerProp={window} 
+                        handleClose={handleCloseMenu} 
+                    />
             </div>
         </div>
     )
@@ -41,50 +92,15 @@ function updateWindowStatus(window: AppWindowConfig) {
     switch (action) {
 
         case 'ShowWindow':
-            activeWindows.value = activeWindows.value.map((window_temp) => {
-                if (window_temp.index !== window.index) {
-                    return window_temp
-                }
-                else {
-                    return {
-                        ...window_temp,
-                        isMinimized: false
-                    }
-                }
-            })
-
-            presentFocusedWindow.value = {
-                isActive: true,
-                windowId: window.index
-            }
+            showWindow(window)
             break
 
         case 'MinimizeWindow':
-            activeWindows.value = activeWindows.value.map((window_temp) => {
-                if (window_temp.index !== window.index) {
-                    return window_temp
-                }
-                else {
-                    return {
-                        ...window_temp,
-                        isMinimized: true
-                    }
-                }
-            })
-
-            presentFocusedWindow.value = {
-                windowId: 0,
-                isActive: false
-            }
+            minimizeWindow(window)
             break
 
         case 'FocusWindow':
-            presentFocusedWindow.value = {
-                isActive: true,
-                windowId: window.index
-            }
-            break
-
+            focusWindow(window)
     }
 }
 
@@ -117,6 +133,10 @@ const DockApp: FC<{ window: AppWindowConfig }> = ({ window }) => {
         }, 1000);
     }
 
+    function handleCloseMenu(){
+        setIsRightClicked(false);
+    }
+
     return (
         <div
             class={style['dock-item']}
@@ -129,7 +149,7 @@ const DockApp: FC<{ window: AppWindowConfig }> = ({ window }) => {
             }}
         >
             <span class={style['app-icon']}>{window.title}</span>
-            {isRightClicked && <DockContextMenu />}
+            {isRightClicked && <DockContextMenu window={window} handleCloseMenu={handleCloseMenu} />}
             <div
                 style={!window.isMinimized ? { backgroundColor: 'var(--color-green)' } : {}}
                 class={style['active-indicator']}
