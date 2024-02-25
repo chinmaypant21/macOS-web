@@ -1,37 +1,5 @@
-import { activeWindows, presentFocusedWindow } from "@layout/Screen/Screen"
+import { closeWindow, minimizeWindow } from "src/utils/app_methods/app_window_handler"
 import { optionsMenu } from "./common"
-
-function minimizeWindow(window: AppWindowConfig) {
-    activeWindows.value = activeWindows.value.map((window_temp) => {
-        if (window_temp.index !== window.index) {
-            return window_temp
-        }
-        else {
-            return {
-                ...window_temp,
-                isMinimized: true
-            }
-        }
-    })
-
-    presentFocusedWindow.value = {
-        windowId: 0,
-        isActive: false
-    }
-}
-
-function closeWindow(window: AppWindowConfig){
-    if(presentFocusedWindow.value.windowId === window.index){
-        presentFocusedWindow.value = {
-            windowId: 0,
-            isActive: false
-        }
-    }
-    
-    activeWindows.value = activeWindows.value.filter((window_temp) => (
-      window_temp.index !== window.index
-    ))
-}
 
 export const dockMenuData : ContextMenu = [
     {

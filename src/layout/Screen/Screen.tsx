@@ -1,10 +1,12 @@
-import { Fragment, JSX, useEffect, useRef, useState } from 'preact/compat';
 import { signal } from '@preact/signals';
+import { Fragment, JSX, useEffect, useRef, useState } from 'preact/compat';
 
-import { contextMenuData } from '@utils/data/context_menu/contextMenuData';
+import { closeWindow, minimizeWindow } from '@utils/app_methods/app_window_handler';
 import ContextMenu from '@components/ContextMenu/ContextMenu';
 import AppWindow from '@components/AppWindow/AppWindow';
 import { DemoApp } from 'src/apps';
+
+import { contextMenuData } from '@utils/data/context_menu/contextMenuData';
 
 import style from './Screen.module.css';
 
@@ -87,30 +89,11 @@ const Screen = () => {
   //   setCursorCoord({x: e.pageX, y: e.pageY})
   // }
 
-
   function handleRightClick(e: JSX.TargetedMouseEvent<HTMLDivElement>) {
     e.preventDefault();
     setIsRightClicked(true);
     //Screen starting coordinates tell the offset value
     setContextCoordinates({x: e.pageX - screenStartingCoordinates.value.x, y: e.pageY - screenStartingCoordinates.value.y})
-  }
-
-  function handleMinimize(index: any){
-    activeWindows.value =  activeWindows.value.map((window) =>{
-      if (window.index !== index) {
-        return window;
-      }
-      else return {
-        ...window,
-        isMinimized: true
-      }
-    })
-  }
-
-  function handleClose(index: any){
-    activeWindows.value = activeWindows.value.filter((window) => (
-      window.index !== index
-    ))
   }
 
   function handleCloseMenu() {
@@ -134,7 +117,7 @@ const Screen = () => {
     >
       <div style={{backgroundColor:'white'}}>
       </div>
-      {/* <span class='text-white'>{JSON.stringify(presentFocusedWindow.value.windowId)}</span> */}
+      <span style={{color:'white'}}>{JSON.stringify(presentFocusedWindow.value)}</span>
       {(isRightClicked && contextCoordinates) && (
         <ContextMenu coordinates={contextCoordinates} handleCloseMenu={handleCloseMenu}  menuData={contextMenuData} />
       )
@@ -150,8 +133,8 @@ const Screen = () => {
             <Fragment key={window.index}>
               <AppWindow
                 data={window}
-                handleMinimize={() => handleMinimize(window.index)}
-                handleClose={() => handleClose(window.index)}
+                handleMinimize={() => minimizeWindow(window)}
+                handleClose={() => closeWindow(window)}
               />
             </Fragment>
         ))

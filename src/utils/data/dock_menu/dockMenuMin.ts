@@ -1,24 +1,5 @@
-import { activeWindows, presentFocusedWindow } from "src/layout/Screen/Screen"
+import { showWindow } from "@utils/app_methods/app_window_handler"
 import { optionsMenu } from "./common"
-
-function showWindow(window: AppWindowConfig){
-    activeWindows.value = activeWindows.value.map((window_temp) => {
-        if (window_temp.index !== window.index) {
-            return window_temp
-        }
-        else {
-            return {
-                ...window_temp,
-                isMinimized: false
-            }
-        }
-    })
-
-    presentFocusedWindow.value = {
-        isActive: true,
-        windowId: window.index
-    }
-}
 
 export const dockMenuMinData : ContextMenu = [
     {
