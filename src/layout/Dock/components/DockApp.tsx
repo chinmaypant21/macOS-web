@@ -14,12 +14,12 @@ const DockContextMenu = () => {
     }
     return (
         <div class={style['menu-wrapper']}>
-        <div
-            onClick={handleClick}
-            class={style['context-menu-container']}
-            >
-            <DropMenu listData={dockMenuData} />
-        </div>
+            <div
+                onClick={handleClick}
+                class={style['context-menu-container']}
+                >
+                <DropMenu listData={dockMenuData} />
+            </div>
         </div>
     )
 }
@@ -102,8 +102,10 @@ const DockApp: FC<{ window: AppWindowConfig }> = ({ window }) => {
         updateWindowStatus(window)
     }
 
-    function handleBlur() {
-        setIsRightClicked(false)
+    function handleBlur(e: JSX.TargetedMouseEvent<HTMLDivElement>) {
+        if (!e.currentTarget.contains(e.relatedTarget as Node)) {
+            setIsRightClicked(false)
+          }
     }
 
     function toggleAnimation(event: any) {
