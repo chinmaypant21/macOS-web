@@ -65,6 +65,7 @@ const ContextMenu = ({coordinates, isNested, handleCloseMenu, menuData} : Contex
     <div
       ref={elementRef}
       tabIndex={0}
+      onContextMenu={(e)=>{e.preventDefault();e.stopPropagation()}}
       // onMouseMove={(e)=>{e.stopPropagation();}}
       onClick={(e)=>{e.stopPropagation()}}
       onMouseEnter={handleMouseEnter}
