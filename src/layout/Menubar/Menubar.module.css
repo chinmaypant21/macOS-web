@@ -1,14 +1,24 @@
 #menubar-container{
     display: flex;
+    position: relative;
     flex-direction: row;
     justify-content: space-between;
     height: 1.6rem;
     /* background-image: linear-gradient(to bottom, rgba(100, 95, 107, 0.13), rgba(122, 115, 132, 0.141)); */
-    background-color: var(--fade-highlight-bg);
-    backdrop-filter: blur(0.7rem);
     
     padding-inline: 0.7rem;
     z-index: 10;
+}
+
+#menubar-container::before{
+    content: '';
+    display: block;
+    position: absolute;
+    background-color: var(--fade-highlight-bg);
+    left: 0;
+    backdrop-filter:blur(0.7rem);
+    height: 100%;
+    width: 100%;
 }
 
 #menu-logo{
@@ -40,6 +50,7 @@
 .menu-list-left > #finder{
     font-weight: bold;
     margin-inline: 0.5rem;
+    position: relative;
 }
 
 :is(
@@ -74,6 +85,7 @@
 .menu-tools{
     display: flex;
     flex-direction: row;
+    position: relative;
 }
 
 .menu-tools > span {
