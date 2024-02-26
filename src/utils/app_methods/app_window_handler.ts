@@ -51,4 +51,11 @@ function closeWindow(window: AppWindowConfig){
     ))
 }
 
-export {closeWindow, showWindow, minimizeWindow}
+function focusWindow(window: AppWindowConfig){
+    presentFocusedWindow.value = {
+        isActive: true,
+        windowId: window.index
+    }
+}
+
+export {closeWindow, showWindow, minimizeWindow, focusWindow}

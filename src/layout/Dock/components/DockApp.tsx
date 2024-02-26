@@ -2,57 +2,17 @@ import { useState } from 'preact/hooks'
 import { JSX } from 'preact/jsx-runtime'
 import { FC } from 'preact/compat'
 
+
+import { focusWindow, minimizeWindow, showWindow } from '@utils/app_methods/app_window_handler'
+import DropMenu from '@components/ContextMenu/DropMenu'
+import { presentFocusedWindow } from '@layout/Screen/Screen'
+
+//Data
 import { dockMenuData } from '@utils/data/dock_menu/dockMenu'
 import { dockMenuMinData } from '@utils/data/dock_menu/dockMenuMin'
-import DropMenu from '@components/ContextMenu/DropMenu'
-import { activeWindows, presentFocusedWindow } from '@layout/Screen/Screen'
 
+//Style
 import style from '../Dock.module.css'
-
-function minimizeWindow(window: AppWindowConfig) {
-    activeWindows.value = activeWindows.value.map((window_temp) => {
-        if (window_temp.index !== window.index) {
-            return window_temp
-        }
-        else {
-            return {
-                ...window_temp,
-                isMinimized: true
-            }
-        }
-    })
-
-    presentFocusedWindow.value = {
-        windowId: 0,
-        isActive: false
-    }
-}
-
-function showWindow(window: AppWindowConfig){
-    activeWindows.value = activeWindows.value.map((window_temp) => {
-        if (window_temp.index !== window.index) {
-            return window_temp
-        }
-        else {
-            return {
-                ...window_temp,
-                isMinimized: false
-            }
-        }
-    })
-
-    presentFocusedWindow.value = {
-        isActive: true,
-        windowId: window.index
-    }
-}
-
-function focusWindow(window: AppWindowConfig){
-    presentFocusedWindow.value = {
-        isActive: true,
-        windowId: window.index
-    }
-}
 
 const DockContextMenu = ({window, handleCloseMenu}: any) => {
     function handleClick(e: JSX.TargetedMouseEvent<HTMLDivElement>){
