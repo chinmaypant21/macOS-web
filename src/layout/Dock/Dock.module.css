@@ -57,8 +57,6 @@
     left: 0;
     margin-bottom: 1rem;
     width: 100%;
-
-
 }
 
 .context-menu-container{
@@ -76,6 +74,7 @@
     transform: translateY(-50%) rotate(45deg);
     border-radius: 0.1rem;
     left: 50%;
+    z-index: -1;
 }
 
 @keyframes click {
