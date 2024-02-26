@@ -5,31 +5,24 @@
     justify-content: space-between;
     height: 1.6rem;
     /* background-image: linear-gradient(to bottom, rgba(100, 95, 107, 0.13), rgba(122, 115, 132, 0.141)); */
-    
     padding-inline: 0.7rem;
     z-index: 10;
 }
 
 #menubar-container::before{
     content: '';
-    display: block;
     position: absolute;
     background-color: var(--fade-highlight-bg);
-    left: 0;
     backdrop-filter:blur(0.7rem);
+    left: 0;
     height: 100%;
     width: 100%;
 }
 
-#menu-logo{
-    padding-block: 0.15rem;
-    cursor: var(--pointer);
-}
-
-#menu-logo img{
-    object-fit: contain;
-    width: 2.7rem;
-    height: 1.1rem;
+.menu-list-left,
+.menu-tools{
+    position: relative; 
+    /* To prevent it being overlapped by container :before psuedo element backdrop property */
 }
 
 .menu-list-left{
@@ -50,7 +43,17 @@
 .menu-list-left > #finder{
     font-weight: bold;
     margin-inline: 0.5rem;
-    position: relative;
+}
+
+#menu-logo{
+    padding-block: 0.15rem;
+    cursor: var(--pointer);
+}
+
+#menu-logo img{
+    object-fit: contain;
+    width: 2.7rem;
+    height: 1.1rem;
 }
 
 :is(
@@ -58,23 +61,24 @@
     .menu-list-left > .list-item, 
     .menu-tools > .tool-icon 
 ):hover {
+    /* Theme color */
     background-color:  hsla(240, 3%, 11%, 0.2);
     border-radius: 0.3rem;
 }
 
-.dropdown-container{
+.menu-item-container{
     position: relative;
 }
 
-.menu-list-left:focus-within .dropdown-container:hover{
+.menu-list-left:focus-within .menu-item-container:hover{
     border-radius: unset !important;
 }
 
-.menu-list-left:focus-within .dropdown-container:hover .menu-wrapper{
+.menu-list-left:focus-within .menu-item-container:hover .dropdown-wrapper{
     display: block;
 }
 
-.menu-wrapper{
+.dropdown-wrapper{
     display: none;
     position: absolute;
     top: 100%;

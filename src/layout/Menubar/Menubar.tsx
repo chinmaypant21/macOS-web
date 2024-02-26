@@ -96,14 +96,14 @@ const Menubar = () => {
             <div class={style['menu-list-left']}>
                 <div
                     tabIndex={0}
-                    class={style['dropdown-container']}
+                    class={style['menu-item-container']}
                 >
 
                     <div id={style['menu-logo']}>
                         <img src={logo} />
                     </div>
                     {
-                        <div class={style['menu-wrapper']}>
+                        <div class={style['dropdown-wrapper']}>
                             <DropMenu listData={appleMenuData} />
                         </div>
                     }
@@ -113,12 +113,12 @@ const Menubar = () => {
                         <div
                             tabIndex={0}
                             id={option.id ? style[option.id] : ''} //Check
-                            class={`${style['list-item']} ${(option.dropMenu) ? style['dropdown-container'] : ''}`}
+                            class={`${style['list-item']} ${(option.dropMenu) ? style['menu-item-container'] : ''}`}
                         >
                             <span>{option.title}</span>
                             {
                                 (option.dropMenu) && 
-                                <div class={style['menu-wrapper']}>
+                                <div class={style['dropdown-wrapper']}>
                                     <DropMenu listData={option.dropMenu} />
                                 </div>
                             }
