@@ -30,7 +30,8 @@ type AppBaseConfig = {
     id: any, 
     title: string, 
     isMinimized: boolean, 
-    dimensions: WindowDimension, 
+    dimensions: WindowDimension,
+    icon?: any,
     application?: ComponentType
 }
 
