@@ -123,14 +123,18 @@ const DockApp: FC<{ window: AppWindowConfig | AppBaseConfig }> = ({ window }) =>
                 handleClick()
             }}
         >
-            <span class={style['app-icon']}>{window.title}</span>
+            <div class={style['app-icon']}>
+                <img src={window.icon} />
+            </div>
+            {/* <span class={style['app-icon']}>{window.title}</span> */}
             {isRightClicked && <AppContextMenu window={window} handleCloseMenu={handleCloseMenu} isOpen={isOpen} />}
             {
                 isOpen &&
                 <div
-                    style={!window.isMinimized ? { backgroundColor: 'var(--color-green)' } : {}}
-                    class={style['active-indicator']}
+                style={!window.isMinimized ? { backgroundColor: 'var(--color-green)' } : {}}
+                class={style['active-indicator']}
                 >
+                    {/* hhhh */}
                 </div>
             }
         </div>

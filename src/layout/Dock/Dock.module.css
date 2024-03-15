@@ -36,14 +36,21 @@
 }
 
 .dock-item > .app-icon {
-    flex: 1;
+    height: 92%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+.dock-item > .app-icon img{
+    aspect-ratio: 1;
+    height: 100%;
+}
+
 .dock-item > .active-indicator{
-    height: 0.3rem;
+    margin-top: 0.3em;
+    min-height: 0.3em;
+    height: 8%;
     aspect-ratio: 1;
     border-radius: 50%;
     background-color: var(--color-contrast);
