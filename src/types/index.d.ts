@@ -26,10 +26,14 @@ type ContextMenu = Array<{
     items: ContextMenuItem[]
 }>
 
-type AppWindowConfig = {
-    index: number, 
+type AppBaseConfig = {
+    id: any, 
     title: string, 
     isMinimized: boolean, 
     dimensions: WindowDimension, 
     application?: ComponentType
+}
+
+interface AppWindowConfig extends AppBaseConfig {
+    pid: number
 }

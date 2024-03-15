@@ -5,16 +5,17 @@ import { FC } from 'preact/compat'
 
 import { focusWindow, minimizeWindow, showWindow } from '@utils/app_methods/app_window_handler'
 import DropMenu from '@components/ContextMenu/DropMenu'
-import { presentFocusedWindow } from '@layout/Screen/Screen'
+import { createProcess, presentFocusedWindow } from '@layout/Screen/Screen'
 
 //Data
 import { dockMenuData } from '@utils/data/dock_menu/dockMenu'
 import { dockMenuMinData } from '@utils/data/dock_menu/dockMenuMin'
+import { dockMenuClosed } from '@utils/data/dock_menu/dockMenuClosed'
 
 //Style
 import style from '../Dock.module.css'
 
-const DockContextMenu = ({window, handleCloseMenu}: any) => {
+const AppContextMenu = ({window, handleCloseMenu, isOpen}: any) => {
     function handleClick(e: JSX.TargetedMouseEvent<HTMLDivElement>){
         e.stopPropagation()
     }
@@ -25,11 +26,19 @@ const DockContextMenu = ({window, handleCloseMenu}: any) => {
                 onClick={handleClick}
                 class={style['context-menu-container']}
                 >
-                    <DropMenu 
-                        listData={window.isMinimized ? dockMenuMinData : dockMenuData}
-                        handlerProp={window} 
-                        handleClose={handleCloseMenu} 
-                    />
+                    {
+                        isOpen
+                        ? <DropMenu 
+                            listData={window.isMinimized ? dockMenuMinData : dockMenuData}
+                            handlerProp={window} 
+                            handleClose={handleCloseMenu} 
+                        />
+                        : <DropMenu 
+                            listData={dockMenuClosed}
+                            handlerProp={window} 
+                            handleClose={handleCloseMenu} 
+                        />
+                    }
             </div>
         </div>
     )
@@ -41,7 +50,7 @@ function updateWindowStatus(window: AppWindowConfig) {
     if (window.isMinimized) {
         action = 'ShowWindow' // UnMinimize the window and focus
     }
-    else if (window.index === presentFocusedWindow.value.windowId) {
+    else if (window.pid === presentFocusedWindow.value.windowId) {
         action = 'MinimizeWindow' //Minimize the current focsed window
     }
     else {
@@ -65,7 +74,9 @@ function updateWindowStatus(window: AppWindowConfig) {
 }
 
 
-const DockApp: FC<{ window: AppWindowConfig }> = ({ window }) => {
+const DockApp: FC<{ window: AppWindowConfig | AppBaseConfig }> = ({ window }) => {
+    //Having a pid indicates that the App is open
+    const isOpen = ('pid' in window);
     const [isRightClicked, setIsRightClicked] = useState<boolean>(false);
 
     function showContextMenu(e: JSX.TargetedMouseEvent<HTMLDivElement>) {
@@ -75,7 +86,11 @@ const DockApp: FC<{ window: AppWindowConfig }> = ({ window }) => {
 
     function handleClick(){
         setIsRightClicked(false)
-        updateWindowStatus(window)
+        if(isOpen){
+            updateWindowStatus(window)
+        } else {
+            createProcess(window)
+        }
     }
 
     function handleBlur(e: JSX.TargetedMouseEvent<HTMLDivElement>) {
@@ -109,12 +124,15 @@ const DockApp: FC<{ window: AppWindowConfig }> = ({ window }) => {
             }}
         >
             <span class={style['app-icon']}>{window.title}</span>
-            {isRightClicked && <DockContextMenu window={window} handleCloseMenu={handleCloseMenu} />}
-            <div
-                style={!window.isMinimized ? { backgroundColor: 'var(--color-green)' } : {}}
-                class={style['active-indicator']}
-            >
-            </div>
+            {isRightClicked && <AppContextMenu window={window} handleCloseMenu={handleCloseMenu} isOpen={isOpen} />}
+            {
+                isOpen &&
+                <div
+                    style={!window.isMinimized ? { backgroundColor: 'var(--color-green)' } : {}}
+                    class={style['active-indicator']}
+                >
+                </div>
+            }
         </div>
     )
 }

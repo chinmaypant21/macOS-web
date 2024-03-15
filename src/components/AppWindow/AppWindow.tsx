@@ -8,8 +8,9 @@ import { screenStartingCoordinates, presentFocusedWindow } from "@layout/Screen/
 
 import style from './AppWindow.module.css'
 
+
 type AppWindowProps = {
-    data: AppWindowConfig
+    data: AppWindowConfig,
     handleMinimize: any,
     handleClose: any,
 }
@@ -24,7 +25,7 @@ const AppWindow : FC<AppWindowProps> = ({data, handleMinimize, handleClose}) => 
 
     // Wherever defining computed or signal inside a component, always use hooks otherwise there are going to be lots of re-renders.
     const windowIndex = useComputed(()=>{
-        return (presentFocusedWindow.value.windowId === data.index) ? 2 : 1 
+        return (presentFocusedWindow.value.windowId === data.pid) ? 2 : 1 
     })
 
     const { position, handleMouseDown: onMouseDown } = useDrag({
@@ -52,7 +53,7 @@ const AppWindow : FC<AppWindowProps> = ({data, handleMinimize, handleClose}) => 
     })
 
     useSignalEffect(() => {
-        if((data.index === presentFocusedWindow.value.windowId) && presentFocusedWindow.value.isActive){
+        if((data.pid === presentFocusedWindow.value.windowId) && presentFocusedWindow.value.isActive){
             appWindowRef.current?.focus();
         }
     })
@@ -63,7 +64,7 @@ const AppWindow : FC<AppWindowProps> = ({data, handleMinimize, handleClose}) => 
         if(!data.isMinimized){
             appWindowRef.current?.classList.remove(style['minimized']);
 
-            if(data.index === presentFocusedWindow.value.windowId && presentFocusedWindow.value.isActive){
+            if(data.pid === presentFocusedWindow.value.windowId && presentFocusedWindow.value.isActive){
                 appWindowRef.current?.focus();
             }
         }
@@ -154,7 +155,7 @@ const AppWindow : FC<AppWindowProps> = ({data, handleMinimize, handleClose}) => 
             }}
             onFocus={()=>{
                 presentFocusedWindow.value = {
-                    windowId: data.index,
+                    windowId: data.pid,
                     isActive: true
                 }
             }}

@@ -21,53 +21,26 @@ export const presentFocusedWindow = signal<WindowSignalParams>({
   isActive: false
 });
 
-export const activeWindows = signal<Array<AppWindowConfig>>([
-  {
-    index: 1,
-    title: 'App1',
-    isMinimized: false,
-    dimensions: {
-      width: 800,
-      height: 600,
-      minWidth: 200,
-      minHeight: 300
-    },
-    application: DemoApp
-  },
-  {
-    index: 2,
-    title: 'App2',
-    isMinimized: false,
-    dimensions: {
-      width: 500,
-      height: 500,
-      minWidth: 50,
-      minHeight: 50
+export const generateUniquePID = (() => {
+  let processID = 1000;
+  return () => ++processID;
+})();
+
+export const createProcess = (AppConfig: any) => {
+  const uniquePid = generateUniquePID();
+
+  activeWindows.value = [
+    ...activeWindows.value,
+    {
+      ...AppConfig,
+      pid: uniquePid
     }
-  },
-  {
-    index: 3,
-    title: 'App3',
-    isMinimized: false,
-    dimensions: {
-      width: 500,
-      height: 500,
-      minWidth: 200,
-      minHeight: 200
-    }
-  },
-  {
-    index: 4,
-    title: 'App4',
-    isMinimized: false,
-    dimensions: {
-      width: 500,
-      height: 500,
-      minWidth: 200,
-      minHeight: 200
-    }
-  }
-])
+  ]
+
+}
+
+// export const activeWindows = signal<AppWindowConfig[]>([
+export const activeWindows = signal<any[]>([])
 
 const Screen = () => {
   const [ isRightClicked, setIsRightClicked] = useState<boolean>(false);
@@ -130,7 +103,7 @@ const Screen = () => {
               it will cause removing the last AppWindow component and shifting the activeWindows object one place backward.
               If this happens, then the value will be changed but the dimensions will be of the previous.
             */
-            <Fragment key={window.index}>
+            <Fragment key={window.pid}>
               <AppWindow
                 data={window}
                 handleMinimize={() => minimizeWindow(window)}
