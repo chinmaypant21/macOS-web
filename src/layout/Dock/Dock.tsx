@@ -14,7 +14,7 @@ import SafariIcon from '@assets/images/app/safari.png'
 import CodeIcon from '@assets/images/app/vscode.png'
 import CalculatorIcon from '@assets/images/app/calculator.svg'
 import PhotosIcon from '@assets/images/app/photos.svg'
-import SpotifyIcon from '@assets/images/app/spotify.png'
+import SpotifyIcon from '@assets/images/app/spotify.svg'
 import WhatsappIcon from '@assets/images/app/whatsapp.png'
 
 /*
