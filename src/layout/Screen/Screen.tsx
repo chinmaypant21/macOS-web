@@ -10,6 +10,7 @@ import { contextMenuData } from '@utils/data/context_menu/contextMenuData';
 
 //Style
 import style from './Screen.module.css';
+import { generateUniquePID } from 'src/utils/generatePid';
 
 type WindowSignalParams = {
   windowId: number,
@@ -21,11 +22,6 @@ export const presentFocusedWindow = signal<WindowSignalParams>({
   windowId: 0,
   isActive: false
 });
-
-export const generateUniquePID = (() => {
-  let processID = 1000;
-  return () => ++processID;
-})();
 
 export const createProcess = (AppConfig: any) => {
   const uniquePid = generateUniquePID();
@@ -59,7 +55,7 @@ const Screen = () => {
   function handleRightClick(e: JSX.TargetedMouseEvent<HTMLDivElement>) {
     e.preventDefault();
     setIsRightClicked(true);
-    
+
     //Screen starting coordinates tell the offset value
     setContextCoordinates({x: e.pageX - screenStartingCoordinates.value.x, y: e.pageY - screenStartingCoordinates.value.y})
   }
