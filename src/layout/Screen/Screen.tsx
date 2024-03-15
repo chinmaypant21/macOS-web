@@ -4,10 +4,11 @@ import { Fragment, JSX, useEffect, useRef, useState } from 'preact/compat';
 import { closeWindow, minimizeWindow } from '@utils/app_methods/app_window_handler';
 import ContextMenu from '@components/ContextMenu/ContextMenu';
 import AppWindow from '@components/AppWindow/AppWindow';
-import { DemoApp } from 'src/apps';
 
+//Data
 import { contextMenuData } from '@utils/data/context_menu/contextMenuData';
 
+//Style
 import style from './Screen.module.css';
 
 type WindowSignalParams = {
@@ -55,16 +56,10 @@ const Screen = () => {
     }
   },[screenRef])
 
-  //remove
-  // const [cursorCoord, setCursorCoord] = useState<any>();
-  
-  // function f(e: any){
-  //   setCursorCoord({x: e.pageX, y: e.pageY})
-  // }
-
   function handleRightClick(e: JSX.TargetedMouseEvent<HTMLDivElement>) {
     e.preventDefault();
     setIsRightClicked(true);
+    
     //Screen starting coordinates tell the offset value
     setContextCoordinates({x: e.pageX - screenStartingCoordinates.value.x, y: e.pageY - screenStartingCoordinates.value.y})
   }

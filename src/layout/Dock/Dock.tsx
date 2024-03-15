@@ -1,9 +1,10 @@
 import { Fragment } from 'preact/jsx-runtime'
 import { computed } from '@preact/signals'
 
-import { activeWindows, createProcess, presentFocusedWindow } from '@layout/Screen/Screen'
+import { activeWindows } from '@layout/Screen/Screen'
 import DockApp from './components/DockApp'
 
+//Style
 import style from './Dock.module.css'
 
 /*
