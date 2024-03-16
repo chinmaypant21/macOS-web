@@ -4,6 +4,7 @@ import { ComponentChildren } from 'preact'
 import Menubar from '@layout/Menubar/Menubar'
 import Screen from '@layout/Screen/Screen'
 import Dock from '@layout/Dock/Dock'
+import { getClassicDateTime } from '@utils/time/getFormattedDateTime'
 
 // Styles
 import '@styles/app.css'
@@ -25,20 +26,31 @@ const HomeScreen = () => {
 const LockScreen: FC<{ children: ComponentChildren }> = ({ children }) => {
   const [promptActive, setPromptActive] = useState<boolean>(false);
   const [isEntered, setIsEntered] = useState<boolean>(false);
+  const [dateTime, setDateTime] = useState<any>({ date: '', time: '' });
 
   function handleClick(e: any) {
     e.preventDefault()
-    setPromptActive(prev => !prev)
+    setPromptActive(true)
   }
 
   function handleKeyPress(event: any) {
-    if(!promptActive) return;
+    if (!promptActive) return;
+    if (event.key === 'Escape') {
+      setPromptActive(false)
+    }
     if (event.key === 'Enter') {
       setIsEntered(true);
     }
   }
 
-  if (promptActive && isEntered){
+  useEffect(() => {
+    setInterval(() => {
+      const { date, time } = getClassicDateTime(new Date())
+      setDateTime({ date, time });
+    }, 1000)
+  }, [])
+
+  if (promptActive && isEntered) {
     return <>{children}</>;
   }
 
@@ -47,22 +59,31 @@ const LockScreen: FC<{ children: ComponentChildren }> = ({ children }) => {
       onClick={handleClick}
       onContextMenu={handleClick}
       tabIndex={0}
-      onKeyPress={handleKeyPress}
+      onKeyDown={handleKeyPress}
       id={`lock-screen`}
       class={promptActive ? 'blur-lock-screen' : ''}
     >
-      {
-        promptActive &&
-        <div class={'lock-container'}>
-          <div class={`lock-profile-container`}>
-            <img src={ProfileImg} />
-            <span class={'lock-name'}>Chinz</span>
-          </div>
-          <div>
-            Press Enter to Continue
-          </div>
-        </div>
-      }
+      <div class={'lock-container'}>
+        {
+          promptActive ? 
+          <>
+            <div class={`lock-profile-container`}>
+              <img src={ProfileImg} />
+              <span class={'lock-name'}>Chinz</span>
+            </div>
+            <div>
+              Press Enter to Continue
+            </div>
+          </>
+
+          : (
+            <div class={'lock-time-container'}>
+                <span class={'lock-date'}>{dateTime.date}</span>
+                <span class={'lock-time'}>{dateTime.time}</span>
+            </div>
+          )
+        }
+      </div>
     </div>
   )
 }
