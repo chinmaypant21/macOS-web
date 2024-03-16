@@ -11,3 +11,53 @@
     background-size: cover;
     user-select: none;
 }
+
+#lock-screen{
+    display: flex;
+    /* align-items: center; */
+    user-select: none;
+    justify-content: center;
+    height: 100%;
+    background-image: url("@images/wallpapers/lock-wp3.jpg");
+    background-position: center;
+    background-size: cover !important;
+}
+
+.blur-lock-screen::before {
+    content: '';
+    position: absolute;
+    display: block;
+    height: 100%;
+    width: 100%;
+    filter: brightness(50%);
+    backdrop-filter: blur(5px);
+}
+
+.lock-container{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    color: var(--color-gray);
+    padding-block: 2.5rem;
+    z-index: 0;
+}
+
+.lock-profile-container{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.lock-profile-container img{
+    height: 13rem;
+    aspect-ratio: 1;
+}
+
+.lock-profile-container .lock-name{
+    font-size: 1.6rem;
+    text-shadow: -1px 3px rgb(35 35 35)
+
+}
