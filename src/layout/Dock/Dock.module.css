@@ -41,8 +41,9 @@
 }
 
 .dock-item > .app-icon {
-    height: 80%;
+    position: relative;
     display: flex;
+    height: 80%;
     justify-content: center;
     align-items: center;
 }
@@ -52,9 +53,50 @@
     height: 100%;
 }
 
+/* Dock app title popup */
+
+.app-title-container{
+    display: none;
+    min-width: 60%;
+    max-width: 120%;
+    position: absolute;
+    top: -2rem; /*Change this*/
+}
+
+.app-icon:hover .app-title-container{
+    display: block;
+}
+
+.app-title-container::before{
+    content: '';
+    position: absolute;
+    height: 0.4rem;
+    aspect-ratio: 1;
+    top: 100%;
+    background-color: var(--fade-highlight-bg);
+    backdrop-filter: blur(40px);
+    transform: translate(-50%, -55%) rotate(45deg);
+    border-radius: 0.08rem;
+    left: 50%;
+    z-index: 0;
+}
+
+.app-title{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    border-radius: 0.25em;
+    font-size: 0.6rem;
+    padding: 0.25rem;
+    color: black;
+    background-color: rgba(182, 182, 182, 0.589);
+    backdrop-filter: blur(40px);
+}
+
+/* -------- */
+
 .dock-item > .active-indicator{
     min-height: 0.3em;
-    /* height: 8%; */
     aspect-ratio: 1;
     border-radius: 50%;
     background-color: var(--color-contrast);

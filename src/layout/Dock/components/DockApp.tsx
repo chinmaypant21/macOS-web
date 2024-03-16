@@ -124,6 +124,12 @@ const DockApp: FC<{ window: AppWindowConfig | AppBaseConfig }> = ({ window }) =>
             }}
         >
             <div class={style['app-icon']}>
+                <div class={style['app-title-container']}>
+                    <div class={style['app-title']}>
+                        {window.title}
+                    </div>
+                </div>
+
                 <img src={window.icon} />
             </div>
             {/* <span class={style['app-icon']}>{window.title}</span> */}
