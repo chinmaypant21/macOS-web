@@ -61,15 +61,15 @@ function updateWindowStatus(window: AppWindowConfig) {
     switch (action) {
 
         case 'ShowWindow':
-            showWindow(window)
+            showWindow(window.pid)
             break
 
         case 'MinimizeWindow':
-            minimizeWindow(window)
+            minimizeWindow(window.pid)
             break
 
         case 'FocusWindow':
-            focusWindow(window)
+            focusWindow(window.pid)
     }
 }
 
@@ -89,7 +89,8 @@ const DockApp: FC<{ window: AppWindowConfig | AppBaseConfig }> = ({ window }) =>
         if(isOpen){
             updateWindowStatus(window)
         } else {
-            createProcess(window)
+            const pid = createProcess(window)
+            focusWindow(pid);
         }
     }
 

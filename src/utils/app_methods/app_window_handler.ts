@@ -1,8 +1,8 @@
 import { activeWindows, presentFocusedWindow } from "src/layout/Screen/Screen"
 
-function minimizeWindow(window: AppWindowConfig) {
+function minimizeWindow(window_pid: number) {
     activeWindows.value = activeWindows.value.map((window_temp) => {
-        if (window_temp.pid !== window.pid) {
+        if (window_temp.pid !== window_pid) {
             return window_temp
         }
         else {
@@ -19,9 +19,9 @@ function minimizeWindow(window: AppWindowConfig) {
     }
 }
 
-function showWindow(window: AppWindowConfig){
+function showWindow(window_pid: number){
     activeWindows.value = activeWindows.value.map((window_temp) => {
-        if (window_temp.pid !== window.pid) {
+        if (window_temp.pid !== window_pid) {
             return window_temp
         }
         else {
@@ -34,12 +34,12 @@ function showWindow(window: AppWindowConfig){
 
     presentFocusedWindow.value = {
         isActive: true,
-        windowId: window.pid
+        windowId: window_pid
     }
 }
 
-function closeWindow(window: AppWindowConfig){
-    if(presentFocusedWindow.value.windowId === window.pid){
+function closeWindow(window_pid: number){
+    if(presentFocusedWindow.value.windowId === window_pid){
         presentFocusedWindow.value = {
             windowId: 0,
             isActive: false
@@ -47,14 +47,14 @@ function closeWindow(window: AppWindowConfig){
     }
     
     activeWindows.value = activeWindows.value.filter((window_temp) => (
-      window_temp.pid !== window.pid
+      window_temp.pid !== window_pid
     ))
 }
 
-function focusWindow(window: AppWindowConfig){
+function focusWindow(window_pid: number){
     presentFocusedWindow.value = {
         isActive: true,
-        windowId: window.pid
+        windowId: window_pid
     }
 }
 

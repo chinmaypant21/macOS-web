@@ -25,8 +25,7 @@ const SpotifyApp = () => {
     return (
         <iframe 
             style="width: 100%; height: 100%; border: 0;"
-            // src={'https://okso.app/'}
-            // src="https://open.spotify.com/embed/playlist/6X185BlQApNN7mjiFFhPdi?utm_source=oembed" 
+            src="https://open.spotify.com/embed/playlist/6X185BlQApNN7mjiFFhPdi?utm_source=oembed" 
             allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture;"
             allowFullScreen 
         ></iframe>

@@ -23,7 +23,7 @@ export const presentFocusedWindow = signal<WindowSignalParams>({
   isActive: false
 });
 
-export const createProcess = (AppConfig: any) => {
+export const createProcess = (AppConfig: AppBaseConfig) : number => {
   const uniquePid = generateUniquePID();
 
   activeWindows.value = [
@@ -34,10 +34,10 @@ export const createProcess = (AppConfig: any) => {
     }
   ]
 
+  return uniquePid;
 }
 
-// export const activeWindows = signal<AppWindowConfig[]>([
-export const activeWindows = signal<any[]>([])
+export const activeWindows = signal<AppWindowConfig[]>([])
 
 const Screen = () => {
   const [ isRightClicked, setIsRightClicked] = useState<boolean>(false);
@@ -97,8 +97,8 @@ const Screen = () => {
             <Fragment key={window.pid}>
               <AppWindow
                 data={window}
-                handleMinimize={() => minimizeWindow(window)}
-                handleClose={() => closeWindow(window)}
+                handleMinimize={() => minimizeWindow(window.pid)}
+                handleClose={() => closeWindow(window.pid)}
               />
             </Fragment>
         ))
