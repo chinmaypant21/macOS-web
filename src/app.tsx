@@ -1,10 +1,12 @@
-import { FC, useEffect, useState } from 'preact/compat'
+import { FC, useEffect, useMemo, useState } from 'preact/compat'
 import { ComponentChildren } from 'preact'
 
 import Menubar from '@layout/Menubar/Menubar'
 import Screen from '@layout/Screen/Screen'
 import Dock from '@layout/Dock/Dock'
+
 import { getClassicDateTime } from '@utils/time/getFormattedDateTime'
+import { getGreetMessage } from '@utils/time/getTimeMsg'
 
 // Styles
 import '@styles/app.css'
@@ -12,6 +14,7 @@ import '@styles/app.css'
 //Data
 // import ProfileImg from '@assets/images/avatars/7980297.gif'
 import ProfileImg from '@assets/images/avatars/8574074.gif'
+import CancelBtnImg from '@assets/images/icons/mini/cancel_btn.svg'
 
 const HomeScreen = () => {
   return (
@@ -28,6 +31,10 @@ const LockScreen: FC<{ children: ComponentChildren }> = ({ children }) => {
   const [isEntered, setIsEntered] = useState<boolean>(false);
   const [dateTime, setDateTime] = useState<any>({ date: '', time: '' });
 
+  const greetMessage = useMemo(() => {
+    return getGreetMessage(new Date())
+  },[])
+
   function handleClick(e: any) {
     e.preventDefault()
     setPromptActive(true)
@@ -41,6 +48,11 @@ const LockScreen: FC<{ children: ComponentChildren }> = ({ children }) => {
     if (event.key === 'Enter') {
       setIsEntered(true);
     }
+  }
+
+  function handleCancel(e: any){
+    e.stopPropagation();
+    setPromptActive(false)
   }
 
   useEffect(() => {
@@ -73,9 +85,12 @@ const LockScreen: FC<{ children: ComponentChildren }> = ({ children }) => {
             <div class={`lock-profile-container`}>
               <img src={ProfileImg} />
               <span class={'lock-name'}>Chinz</span>
+              <span>Press Enter to Continue</span>
             </div>
-            <div>
-              Press Enter to Continue
+            <div
+              onClick={handleCancel}
+              class={'lock-cancel'}
+            >
             </div>
           </>
 
@@ -87,6 +102,14 @@ const LockScreen: FC<{ children: ComponentChildren }> = ({ children }) => {
                   <div class={'lock-time-container'}>
                   <span class={'lock-time'}>{dateTime.time}</span>
                   </div>
+              </div>
+
+
+              <div class={'lock-inactive-profile'}>
+                <div class={'lock-greet'}>{`${greetMessage}, User`}</div>
+                <span class={'lock-inactive-img-container'}>
+                <img src={ProfileImg} />
+                </span>
               </div>
             </div>
           )

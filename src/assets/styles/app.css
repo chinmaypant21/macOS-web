@@ -44,13 +44,49 @@
     flex-direction: column;
     padding-block: 2.5rem;
     z-index: 0;
+    color: var(--color-gray);
+}
+
+.lock-prompt-inactive{
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-bottom: 4rem;
+}
+
+.lock-inactive-profile{
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    align-items: center;
+    /* cursor: var(--pointer); */
+}
+
+.lock-inactive-img-container{
+    cursor: var(--pointer);
+}
+
+.lock-inactive-profile img{
+    height: 5rem;
+    aspect-ratio: 1;
+}
+
+.lock-greet{
+    font-size: 1.3rem;
+    text-align: center;
+}
+
+.lock-cancel{
+    height: 3rem;
+    aspect-ratio: 1;
+    /* background-image: url("@images/wallpapers/wp2.webp"); */
 }
 
 .lock-datetime-container{
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: var(--color-gray);
     opacity: 0.8;
     text-shadow: 1px 1px 4px rgb(35 35 35 / 55%)
     
