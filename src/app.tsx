@@ -44,6 +44,9 @@ const LockScreen: FC<{ children: ComponentChildren }> = ({ children }) => {
   }
 
   useEffect(() => {
+    const { date, time } = getClassicDateTime(new Date())
+    setDateTime({ date, time });
+
     setInterval(() => {
       const { date, time } = getClassicDateTime(new Date())
       setDateTime({ date, time });
@@ -77,9 +80,14 @@ const LockScreen: FC<{ children: ComponentChildren }> = ({ children }) => {
           </>
 
           : (
-            <div class={'lock-time-container'}>
-                <span class={'lock-date'}>{dateTime.date}</span>
-                <span class={'lock-time'}>{dateTime.time}</span>
+            <div class={'lock-prompt-inactive'}>
+              <div class={'lock-datetime-container'}>
+                  <span class={'lock-date'}>{dateTime.date}</span>
+
+                  <div class={'lock-time-container'}>
+                  <span class={'lock-time'}>{dateTime.time}</span>
+                  </div>
+              </div>
             </div>
           )
         }
