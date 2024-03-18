@@ -29,7 +29,8 @@ type ContextMenu = Array<{
 type AppBaseConfig = {
     id: any, 
     title: string, 
-    isMinimized: boolean, 
+    isMinimized: boolean,
+    isMaximized?: boolean,
     dimensions: WindowDimension,
     icon?: any
 }

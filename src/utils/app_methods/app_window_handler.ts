@@ -58,4 +58,25 @@ function focusWindow(window_pid: number){
     }
 }
 
-export {closeWindow, showWindow, minimizeWindow, focusWindow}
+
+function maximizeWindow(window_pid: number){
+    activeWindows.value = activeWindows.value.map((window_temp) => {
+        if (window_temp.pid !== window_pid) {
+            return window_temp
+        }
+        else {
+            return {
+                ...window_temp,
+                isMaximized: true
+            }
+        }
+    })
+
+    // Is this redundant
+    presentFocusedWindow.value = {
+        windowId: window_pid,
+        isActive: true
+    }
+}
+
+export {closeWindow, showWindow, minimizeWindow, maximizeWindow, focusWindow}
