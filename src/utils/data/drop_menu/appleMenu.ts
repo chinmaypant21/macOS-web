@@ -1,3 +1,9 @@
+import { isLoggedIn } from "src/app"
+
+function handleLock(){
+    isLoggedIn.value = false;
+}
+
 export const appleMenuData : ContextMenu = [
     {
         groupKey: 'g1',
@@ -35,8 +41,8 @@ export const appleMenuData : ContextMenu = [
     {
         groupKey: 'g6',
         items: [
-            { text: 'Lock Screen', onclick: () => console.log('s') },
-            { text: 'Log Out Cicada', onclick: () => console.log('d') },
+            { text: 'Lock Screen', onclick: handleLock },
+            { text: 'Log Out Chinz', onclick: handleLock },
         ]
     },
 ]

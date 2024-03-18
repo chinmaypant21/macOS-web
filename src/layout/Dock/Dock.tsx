@@ -27,7 +27,7 @@ Opened Apps can be or can not be pinned
 
 const pinnedDockApps: AppBaseConfig[] = [
   {
-    id: '1',
+    id: 'finder',
     title: 'Finder',
     isMinimized: false,
     icon: FinderIcon,
@@ -39,7 +39,7 @@ const pinnedDockApps: AppBaseConfig[] = [
     },
   },
   {
-    id: '2',
+    id: 'settings',
     title: 'Settings',
     isMinimized: false,
     icon: SettingsIcon,
@@ -51,43 +51,43 @@ const pinnedDockApps: AppBaseConfig[] = [
     }
   },
   {
-    id: '3',
+    id: 'safari-browser',
     title: 'Safari',
     isMinimized: false,
     icon: SafariIcon,
     dimensions: {
-      width: 500,
-      height: 500,
+      width: 1000,
+      height: 600,
       minWidth: 50,
       minHeight: 50
-    }
+    },
   },
   {
-    id: '4',
+    id: 'visal-studio-code',
     title: 'VS Code',
     isMinimized: false,
     icon: CodeIcon,
     dimensions: {
       width: 500,
       height: 500,
-      minWidth: 50,
-      minHeight: 50
+      minWidth: 300,
+      minHeight: 200
     }
   },
   {
-    id: '5',
+    id: 'calculator',
     title: 'Calculator',
     isMinimized: false,
     icon: CalculatorIcon,
     dimensions: {
       width: 500,
       height: 500,
-      minWidth: 50,
-      minHeight: 50
+      minWidth: 200,
+      minHeight: 200
     }
   },
   {
-    id: '6',
+    id: 'photos',
     title: 'Photos',
     isMinimized: false,
     icon: PhotosIcon,
@@ -99,7 +99,7 @@ const pinnedDockApps: AppBaseConfig[] = [
     }
   },
   {
-    id: '7',
+    id: 'spotify-app',
     title: 'Spotify',
     isMinimized: false,
     icon: SpotifyIcon,

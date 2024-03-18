@@ -31,8 +31,7 @@ type AppBaseConfig = {
     title: string, 
     isMinimized: boolean, 
     dimensions: WindowDimension,
-    icon?: any,
-    application?: ComponentType
+    icon?: any
 }
 
 interface AppWindowConfig extends AppBaseConfig {

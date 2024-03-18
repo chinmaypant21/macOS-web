@@ -4,6 +4,7 @@ import { useComputed, useSignalEffect } from "@preact/signals";
 import { Fragment } from "preact/jsx-runtime";
 
 import { useDrag } from "src/hooks/useDrag";
+import { applicationMap } from 'src/apps/applicationMap'
 import { screenStartingCoordinates, presentFocusedWindow } from "@layout/Screen/Screen";
 
 import style from './AppWindow.module.css'
@@ -20,8 +21,7 @@ const AppWindow : FC<AppWindowProps> = ({data, handleMinimize, handleClose}) => 
     const [ offset, setOffset ] = useState<ScreenCoordinates>();
     const [ isFullScreen, setIsFullScreen] = useState<boolean>(false);
 
-    //Is it optimized?
-    const Application = data.application ?? null;
+    const Application = useMemo(() => applicationMap[data.id],[data])
 
     // Wherever defining computed or signal inside a component, always use hooks otherwise there are going to be lots of re-renders.
     const windowIndex = useComputed(()=>{
@@ -200,8 +200,9 @@ const AppWindow : FC<AppWindowProps> = ({data, handleMinimize, handleClose}) => 
 
                 <div class={style['app-container']}>
                     {
-                        Application &&
-                        <Application />
+                        Application
+                        ? <Application />
+                        : <>Error Page</>
                     }
                 </div>
             </Fragment>

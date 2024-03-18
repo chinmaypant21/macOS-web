@@ -65,6 +65,12 @@
 
 .lock-inactive-img-container{
     cursor: var(--pointer);
+    transition: scale 0.2s ease-in;
+
+}
+
+.lock-inactive-img-container:hover{
+    scale: 1.2;
 }
 
 .lock-inactive-profile img{
@@ -73,14 +79,35 @@
 }
 
 .lock-greet{
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     text-align: center;
 }
 
 .lock-cancel{
-    height: 3rem;
+    height: 2rem;
     aspect-ratio: 1;
-    /* background-image: url("@images/wallpapers/wp2.webp"); */
+    background: var(--fade-highlight-bg);
+    border-radius: 50%;
+    padding: 0.3rem;
+    cursor: var(--pointer);
+    transition: transform 0.2s ease-in;
+}
+
+.lock-cancel:hover{
+    transform: scale(1.1);
+}
+
+.lock-cancel:hover::after{
+    content: 'Cancel';
+    position: absolute;
+    font-size: 0.8rem;
+    top: 110%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.lock-cancel img{
+    height: 100%;
 }
 
 .lock-datetime-container{

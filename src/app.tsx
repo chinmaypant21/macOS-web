@@ -1,5 +1,6 @@
 import { FC, useEffect, useMemo, useState } from 'preact/compat'
 import { ComponentChildren } from 'preact'
+import { signal } from '@preact/signals'
 
 import Menubar from '@layout/Menubar/Menubar'
 import Screen from '@layout/Screen/Screen'
@@ -26,9 +27,11 @@ const HomeScreen = () => {
   )
 }
 
+export const isLoggedIn = signal<boolean>(true);
+
 const LockScreen: FC<{ children: ComponentChildren }> = ({ children }) => {
   const [promptActive, setPromptActive] = useState<boolean>(false);
-  const [isEntered, setIsEntered] = useState<boolean>(false);
+  // const [isEntered, setIsEntered] = useState<boolean>(false);
   const [dateTime, setDateTime] = useState<any>({ date: '', time: '' });
 
   const greetMessage = useMemo(() => {
@@ -46,7 +49,9 @@ const LockScreen: FC<{ children: ComponentChildren }> = ({ children }) => {
       setPromptActive(false)
     }
     if (event.key === 'Enter') {
-      setIsEntered(true);
+      setPromptActive(false);
+      isLoggedIn.value = true;
+      // setIsEntered(true);
     }
   }
 
@@ -65,7 +70,7 @@ const LockScreen: FC<{ children: ComponentChildren }> = ({ children }) => {
     }, 1000)
   }, [])
 
-  if (promptActive && isEntered) {
+  if (isLoggedIn.value) {
     return <>{children}</>;
   }
 
@@ -87,10 +92,8 @@ const LockScreen: FC<{ children: ComponentChildren }> = ({ children }) => {
               <span class={'lock-name'}>Chinz</span>
               <span>Press Enter to Continue</span>
             </div>
-            <div
-              onClick={handleCancel}
-              class={'lock-cancel'}
-            >
+            <div onClick={handleCancel} class={'lock-cancel'}>
+              <img src={CancelBtnImg} />
             </div>
           </>
 
@@ -108,7 +111,7 @@ const LockScreen: FC<{ children: ComponentChildren }> = ({ children }) => {
               <div class={'lock-inactive-profile'}>
                 <div class={'lock-greet'}>{`${greetMessage}, User`}</div>
                 <span class={'lock-inactive-img-container'}>
-                <img src={ProfileImg} />
+                  <img src={ProfileImg} />
                 </span>
               </div>
             </div>
