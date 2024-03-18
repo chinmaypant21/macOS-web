@@ -25,10 +25,36 @@ const SpotifyApp = () => {
     return (
         <iframe 
             style="width: 100%; height: 100%; border: 0;"
-            src="https://open.spotify.com/embed/playlist/6X185BlQApNN7mjiFFhPdi?utm_source=oembed" 
+            // src={'https://okso.app/'}
+            // src="https://open.spotify.com/embed/playlist/6X185BlQApNN7mjiFFhPdi?utm_source=oembed" 
             allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture;"
             allowFullScreen 
         ></iframe>
+    )
+}
+
+const OksoDrawApp = () => {
+    return (
+        <iframe 
+        style="width: 100%; height: 100%; border: 0;"
+        src={'https://okso.app/'}
+        allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture;"
+        allowFullScreen 
+    ></iframe>
+    )
+}
+
+const GoogleMapsApp = () => {
+    return (
+        <iframe
+            style="width: 100%; height: 100%; border: 0;"
+
+            id="gmap_canvas" 
+            src="https://maps.google.com/maps?q=India&t=h&z=5&ie=UTF8&iwloc=&output=embed" 
+            frameborder="0" 
+            scrolling="no" 
+        ></iframe>
+
     )
 }
 
@@ -36,5 +62,7 @@ export const applicationMap : any = {
     'finder': () => <>finder</>,
     'visal-studio-code': VsCodeApp,
     'safari-browser': SafariBrowserApp,
-    'spotify-app': SpotifyApp
+    'spotify-app': SpotifyApp,
+    'okso-draw-app': OksoDrawApp,
+    'google-maps-app': GoogleMapsApp
 }

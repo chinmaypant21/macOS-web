@@ -12,9 +12,11 @@ import FinderIcon from '@assets/images/app/finder.svg'
 import SettingsIcon from '@assets/images/app/settings.svg'
 import SafariIcon from '@assets/images/app/safari.png'
 import CodeIcon from '@assets/images/app/vscode.png'
+import MapsIcon from '@assets/images/app/maps.png'
 import CalculatorIcon from '@assets/images/app/calculator.svg'
 import PhotosIcon from '@assets/images/app/photos.svg'
 import SpotifyIcon from '@assets/images/app/spotify.svg'
+import DrawIcon from '@assets/images/app/draw.png'
 import WhatsappIcon from '@assets/images/app/whatsapp.png'
 
 /*
@@ -68,7 +70,7 @@ const pinnedDockApps: AppBaseConfig[] = [
     isMinimized: false,
     icon: CodeIcon,
     dimensions: {
-      width: 500,
+      width: 800,
       height: 500,
       minWidth: 300,
       minHeight: 200
@@ -84,6 +86,18 @@ const pinnedDockApps: AppBaseConfig[] = [
       height: 500,
       minWidth: 200,
       minHeight: 200
+    }
+  },
+  {
+    id: 'google-maps-app',
+    title: 'Maps',
+    isMinimized: false,
+    icon: MapsIcon,
+    dimensions: {
+      width: 800,
+      height: 600,
+      minWidth: 300,
+      minHeight: 300
     }
   },
   {
@@ -105,6 +119,18 @@ const pinnedDockApps: AppBaseConfig[] = [
     icon: SpotifyIcon,
     dimensions: {
       width: 500,
+      height: 500,
+      minWidth: 50,
+      minHeight: 50
+    }
+  },
+  {
+    id: 'okso-draw-app',
+    title: 'Okso',
+    isMinimized: false,
+    icon: DrawIcon,
+    dimensions: {
+      width: 800,
       height: 500,
       minWidth: 50,
       minHeight: 50
