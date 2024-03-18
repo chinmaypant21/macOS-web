@@ -1,3 +1,5 @@
+import { useState } from "preact/hooks"
+
 const VsCodeApp = () => {
     return (
         <iframe 
@@ -63,5 +65,14 @@ export const applicationMap : any = {
     'safari-browser': SafariBrowserApp,
     'spotify-app': SpotifyApp,
     'okso-draw-app': OksoDrawApp,
-    'google-maps-app': GoogleMapsApp
+    'google-maps-app': GoogleMapsApp,
+    'photos': () => {
+        const [x,xx] = useState(false)
+        return <div>
+            <div onClick={()=>xx(!x)}>
+                Click
+            </div>
+            {x && <div>Visible</div>}
+        </div>
+    }
 }
