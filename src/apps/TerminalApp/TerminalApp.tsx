@@ -3,8 +3,10 @@ import Terminal from 'react-console-emulator'
 import { commands } from '@utils/data/terminal/commands'
 
 import style from './terminal.module.css'
+import { getFormattedDateTime } from 'src/utils/time/getFormattedDateTime'
 
-const headerMessage = `Last login: Mon May 10 11:47:21 on ttys000
+const time = getFormattedDateTime(new Date())
+const headerMessage = `Last login: ${time.date} ${time.time} on ttys000
 Type "help" to get a list of available commands.
 `
 

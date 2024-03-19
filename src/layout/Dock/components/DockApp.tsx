@@ -15,7 +15,7 @@ import { dockMenuClosed } from '@utils/data/dock_menu/dockMenuClosed'
 //Style
 import style from '../Dock.module.css'
 
-const AppContextMenu = ({window, handleCloseMenu, isOpen}: any) => {
+const AppContextMenu : FC<{window: AppWindowConfig, handleCloseMenu: () => void, isOpen: boolean}> = ({window, handleCloseMenu, isOpen}) => {
     function handleClick(e: JSX.TargetedMouseEvent<HTMLDivElement>){
         e.stopPropagation()
     }
@@ -30,7 +30,7 @@ const AppContextMenu = ({window, handleCloseMenu, isOpen}: any) => {
                         isOpen
                         ? <DropMenu 
                             listData={window.isMinimized ? dockMenuMinData : dockMenuData}
-                            handlerProp={window} 
+                            handlerProp={window.pid}
                             handleClose={handleCloseMenu} 
                         />
                         : <DropMenu 
@@ -134,14 +134,13 @@ const DockApp: FC<{ window: AppWindowConfig | AppBaseConfig }> = ({ window }) =>
                 <img src={window.icon} />
             </div>
             {/* <span class={style['app-icon']}>{window.title}</span> */}
-            {isRightClicked && <AppContextMenu window={window} handleCloseMenu={handleCloseMenu} isOpen={isOpen} />}
+            {isRightClicked && <AppContextMenu window={window as AppWindowConfig} handleCloseMenu={handleCloseMenu} isOpen={isOpen} />}
             {
                 isOpen &&
                 <div
                 style={!window.isMinimized ? { backgroundColor: 'var(--color-green)' } : {}}
                 class={style['active-indicator']}
                 >
-                    {/* hhhh */}
                 </div>
             }
         </div>
