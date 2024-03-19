@@ -1,7 +1,6 @@
-import { FC, Suspense, lazy } from "preact/compat";
+import { FC, Suspense } from "preact/compat";
 import { useEffect, useMemo, useRef, useState } from "preact/hooks";
 import { useComputed, useSignalEffect } from "@preact/signals";
-import { Fragment } from "preact/jsx-runtime";
 
 import { useDrag } from "src/hooks/useDrag";
 import { applicationMap } from 'src/apps/applicationMap'
@@ -156,10 +155,14 @@ const AppWindow: FC<AppWindowProps> = ({ data, handleMinimize, handleClose }) =>
                     }
                 }
             }}
-            onFocus={() => {
-                presentFocusedWindow.value = {
-                    windowId: data.pid,
-                    isActive: true
+            onFocus={(e) => {
+                if (!appWindowRef.current) return;
+                
+                if (!appWindowRef.current.contains(e.relatedTarget as any)) {
+                    presentFocusedWindow.value = {
+                        windowId: data.pid,
+                        isActive: true
+                    }
                 }
             }}
         >

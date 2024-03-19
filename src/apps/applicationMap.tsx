@@ -49,6 +49,7 @@ const OksoDrawApp = () => {
 
 const DemoApp = lazy(() => import('./DemoApp/DemoApp'))
 const GoogleMapsApp = lazy(() => import('./GoogleMapsApp/GoogleMapsApp'))
+const TerminalApp = lazy(() => import('./TerminalApp/TerminalApp'))
 
 export const applicationMap : any = {
     'finder': DemoApp,
@@ -56,6 +57,7 @@ export const applicationMap : any = {
     'safari-browser': SafariBrowserApp,
     'spotify-app': SpotifyApp,
     'okso-draw-app': OksoDrawApp,
+    'terminal-app': TerminalApp,
     'google-maps-app': GoogleMapsApp,
     'photos': () => {
         const [x,xx] = useState(false)

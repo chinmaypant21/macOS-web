@@ -10,6 +10,7 @@ import style from './Dock.module.css'
 //Icon
 import FinderIcon from '@assets/images/app/finder.svg'
 import SettingsIcon from '@assets/images/app/settings.svg'
+import TerminalIcon from '@assets/images/app/terminal.png'
 import SafariIcon from '@assets/images/app/safari.png'
 import CodeIcon from '@assets/images/app/vscode.png'
 import MapsIcon from '@assets/images/app/maps.png'
@@ -50,6 +51,18 @@ const pinnedDockApps: AppBaseConfig[] = [
       height: 500,
       minWidth: 50,
       minHeight: 50
+    }
+  },
+  {
+    id: 'terminal-app',
+    title: 'Terminal',
+    isMinimized: false,
+    icon: TerminalIcon,
+    dimensions: {
+      width: 650,
+      height: 400,
+      minWidth: 100,
+      minHeight: 100
     }
   },
   {
