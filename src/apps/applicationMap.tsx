@@ -1,5 +1,6 @@
-import { lazy } from "preact/compat"
+import { Fragment, lazy } from "preact/compat"
 import { useState } from "preact/hooks"
+import LoadingScreen from "src/components/Screen/LoadingScreen"
 
 const VsCodeApp = () => {
     return (
@@ -14,24 +15,37 @@ const VsCodeApp = () => {
 }
 
 const SafariBrowserApp = () => {
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     return (
-        <iframe 
-            style="width: 100%; height: 100%; border: 4px;" 
-            src="https://www.google.com/webhp?igu=1" 
-            title="Google" 
-            loading={'eager'}
-        ></iframe>
+        <Fragment>
+            {isLoading && <LoadingScreen title={`Loading Safari 🦁`} />}
+            <iframe
+                hidden={isLoading}
+                style="width: 100%; height: 100%; border: 4px;" 
+                src="https://www.google.com/webhp?igu=1" 
+                title="Google" 
+                loading={'eager'}
+                onLoad={() => setIsLoading(false)}
+            ></iframe>
+        </Fragment>
     )
 }
 
 const SpotifyApp = () => {
+    const [isLoading, setIsLoading] = useState<boolean>(true);
+
     return (
-        <iframe 
-            style="width: 100%; height: 100%; border: 0;"
-            src="https://open.spotify.com/embed/playlist/6X185BlQApNN7mjiFFhPdi?utm_source=oembed" 
-            allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture;"
-            allowFullScreen 
-        ></iframe>
+        <Fragment>
+            {isLoading && <LoadingScreen title={`Loading Spotify 🎵`} />}
+            <iframe
+                hidden={isLoading}
+                style="width: 100%; height: 100%; border: 0;"
+                src="https://open.spotify.com/embed/playlist/6X185BlQApNN7mjiFFhPdi?utm_source=oembed" 
+                allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture;"
+                allowFullScreen 
+                onLoad={() => setIsLoading(false)}
+            ></iframe>
+        </Fragment>
     )
 }
 
