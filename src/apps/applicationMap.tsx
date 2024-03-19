@@ -1,3 +1,4 @@
+import { lazy } from "preact/compat"
 import { useState } from "preact/hooks"
 
 const VsCodeApp = () => {
@@ -45,23 +46,13 @@ const OksoDrawApp = () => {
     )
 }
 
-const GoogleMapsApp = () => {
-    return (
-        <iframe
-            style="width: 100%; height: 100%; border: 0;"
 
-            id="gmap_canvas" 
-            src="https://maps.google.com/maps?q=India&t=h&z=5&ie=UTF8&iwloc=&output=embed" 
-            frameborder="0" 
-            scrolling="no" 
-        ></iframe>
-
-    )
-}
+const DemoApp = lazy(() => import('./DemoApp/DemoApp'))
+const GoogleMapsApp = lazy(() => import('./GoogleMapsApp/GoogleMapsApp'))
 
 export const applicationMap : any = {
-    'finder': () => <>finder</>,
-    'visal-studio-code': VsCodeApp,
+    'finder': DemoApp,
+    'visual-studio-code': VsCodeApp,
     'safari-browser': SafariBrowserApp,
     'spotify-app': SpotifyApp,
     'okso-draw-app': OksoDrawApp,

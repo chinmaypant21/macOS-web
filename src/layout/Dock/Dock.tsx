@@ -65,7 +65,7 @@ const pinnedDockApps: AppBaseConfig[] = [
     },
   },
   {
-    id: 'visal-studio-code',
+    id: 'visual-studio-code',
     title: 'VS Code',
     isMinimized: false,
     icon: CodeIcon,

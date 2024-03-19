@@ -1,9 +1,9 @@
 import { signal } from '@preact/signals';
-import { Fragment, JSX, useEffect, useRef, useState } from 'preact/compat';
+import { Fragment, JSX, Suspense, lazy, useEffect, useRef, useState } from 'preact/compat';
 
 import { closeWindow, minimizeWindow } from '@utils/app_methods/app_window_handler';
 import ContextMenu from '@components/ContextMenu/ContextMenu';
-import AppWindow from '@components/AppWindow/AppWindow';
+const AppWindow = lazy(()  => import('@components/AppWindow/AppWindow'));
 
 //Data
 import { contextMenuData } from '@utils/data/context_menu/contextMenuData';
@@ -95,11 +95,13 @@ const Screen = () => {
               If this happens, then the value will be changed but the dimensions will be of the previous.
             */
             <Fragment key={window.pid}>
+              <Suspense fallback={<>Loading...</>}>
               <AppWindow
                 data={window}
                 handleMinimize={() => minimizeWindow(window.pid)}
                 handleClose={() => closeWindow(window.pid)}
-              />
+                />
+              </Suspense>
             </Fragment>
         ))
       }

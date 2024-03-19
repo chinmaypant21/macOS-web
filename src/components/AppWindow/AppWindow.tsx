@@ -1,4 +1,4 @@
-import { FC } from "preact/compat";
+import { FC, Suspense, lazy } from "preact/compat";
 import { useEffect, useMemo, useRef, useState } from "preact/hooks";
 import { useComputed, useSignalEffect } from "@preact/signals";
 import { Fragment } from "preact/jsx-runtime";
@@ -22,6 +22,7 @@ const AppWindow: FC<AppWindowProps> = ({ data, handleMinimize, handleClose }) =>
     const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
 
     const Application = useMemo(() => applicationMap[data.id], [])
+
 
     // Wherever defining computed or signal inside a component, always use hooks otherwise there are going to be lots of re-renders.
     const windowIndex = useComputed(() => {
@@ -198,11 +199,13 @@ const AppWindow: FC<AppWindowProps> = ({ data, handleMinimize, handleClose }) =>
             </div>
 
             <div class={style['app-container']}>
+                <Suspense fallback={<>hi</>}>
                 {
                     Application
-                        ? <Application />
-                        : <>Error Page</>
+                    ? <Application />
+                    : <>Error Page</>
                 }
+                </Suspense>
             </div>
         </div>
     );
