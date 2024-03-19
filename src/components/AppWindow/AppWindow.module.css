@@ -33,8 +33,8 @@
 .window-fullscreen{
   top: var(--offset-top) !important;   /* dynamic */
   left: var(--offset-left) !important;   /* dynamic */
-  height: 100% !important;
-  width: 100% !important;
+  height: calc(100% - var(--offset-top)) !important;
+  width: calc(100% - var(--offset-left)) !important;
 }
 
 .app-window::-webkit-resizer{
