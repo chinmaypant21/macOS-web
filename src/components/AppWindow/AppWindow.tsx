@@ -4,9 +4,11 @@ import { useComputed, useSignalEffect } from "@preact/signals";
 
 import { useDrag } from "src/hooks/useDrag";
 import { applicationMap } from 'src/apps/applicationMap'
+import LoadingScreen from "@components/Screen/LoadingScreen";
 import { screenStartingCoordinates, presentFocusedWindow } from "@layout/Screen/Screen";
 
 import style from './AppWindow.module.css'
+import AppScreen from "../Screen/AppScreen";
 
 
 type AppWindowProps = {
@@ -64,9 +66,9 @@ const AppWindow: FC<AppWindowProps> = ({ data, handleMinimize, handleClose }) =>
         if (!data.isMinimized) {
             appWindowRef.current?.classList.remove(style['minimized']);
 
-            if (data.pid === presentFocusedWindow.value.windowId && presentFocusedWindow.value.isActive) {
-                appWindowRef.current?.focus();
-            }
+            // if (data.pid === presentFocusedWindow.value.windowId && presentFocusedWindow.value.isActive) {
+            //     appWindowRef.current?.focus();
+            // }
         }
         else {
             appWindowRef.current?.classList.add(style['minimized'])
@@ -202,11 +204,11 @@ const AppWindow: FC<AppWindowProps> = ({ data, handleMinimize, handleClose }) =>
             </div>
 
             <div class={style['app-container']}>
-                <Suspense fallback={<>hi</>}>
+                <Suspense fallback={<LoadingScreen/>}>
                 {
                     Application
                     ? <Application />
-                    : <>Error Page</>
+                    : <AppScreen />
                 }
                 </Suspense>
             </div>

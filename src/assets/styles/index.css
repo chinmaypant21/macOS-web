@@ -102,5 +102,5 @@ input {
 
 /* Track */
 *::-webkit-scrollbar-track {
-  background: rgb(32, 32, 32); 
+  background: transparent;
 }
