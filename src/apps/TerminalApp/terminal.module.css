@@ -1,5 +1,11 @@
 .terminal-container {
     height: 100%;
+    user-select: text;
+    border-radius: 0.2rem;
+    overflow: hidden;
+    padding: 2px;
+    background-color: rgb(33, 33, 33);
+
 }
 
 .terminal-container div[name='react-console-emulator'] {
@@ -8,7 +14,6 @@
 
 .terminal-container input[name='react-console-emulator__input'] {
     width: unset !important;
-    /* overflow: hidden !important; */
 }
 
 

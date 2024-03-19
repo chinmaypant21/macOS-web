@@ -1,22 +1,19 @@
 // @ts-ignore
 import Terminal from 'react-console-emulator'
+import { commands } from '@utils/data/terminal/commands'
 
 import style from './terminal.module.css'
 
-const commands = {
-    echo: {
-      description: 'Echo a passed string.',
-      usage: 'echo <string>',
-      fn: (...args : any) => args.join(' ')
-    }
-}
+const headerMessage = `Last login: Mon May 10 11:47:21 on ttys000
+Type "help" to get a list of available commands.
+`
 
 const TerminalApp = () => {
     return (
-        <div class={style['terminal-container']}>
+        <div onFocus={(e) =>{e.stopPropagation()}} class={style['terminal-container']}>
         <Terminal
             commands={commands}
-            welcomeMessage={'Last login: Mon May 10 11:47:21 on ttys000'}
+            welcomeMessage={headerMessage}
             promptLabel={'chinz@macbook-pro:~$'}
             />
         </div>
