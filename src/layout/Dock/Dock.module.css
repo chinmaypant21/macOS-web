@@ -6,8 +6,9 @@
     right: 0;
     margin-left: auto;
     margin-right: auto;
-    padding-bottom: 0.6rem;
-    bottom: 0.6rem;
+    padding-top: 0.2rem;
+    padding-bottom: 1.3rem;
+    bottom: 0;
     height: 3.5rem;
     z-index:1000
 }
@@ -39,8 +40,7 @@
     transition: top var(--duration) ease, visibility 0s linear var(--duration);
 }
 
-.dock-fs-hidden:hover .dock-container,
-.dock-container:has(.menu-wrapper:hover) .dock-container{
+.dock-fs-hidden:hover .dock-container {
     visibility: visible;
     top: 0;
     transition: top var(--duration) ease;
