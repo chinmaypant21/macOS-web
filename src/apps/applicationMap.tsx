@@ -1,62 +1,47 @@
-import { Fragment, lazy } from "preact/compat"
-import { useState } from "preact/hooks"
-import LoadingScreen from "src/components/Screen/LoadingScreen"
+import { lazy } from "preact/compat"
+
+import IframeWrapper from "./helper/IframeWrapper"
 
 const VsCodeApp = () => {
     return (
-        <iframe 
-            src="https://codesandbox.io/embed/5298mq?view=editor+%2B+preview&module=%2Fsrc%2Fapp.tsx&hidenavigation=1"
-            style="width:100%; height: 100%; border:0; border-radius: 4px; overflow:hidden;"
+        <IframeWrapper
+            loadingTitle="Loading Code 👩‍💻"
+            src={'https://codesandbox.io/embed/5298mq?view=editor+%2B+preview&module=%2Fsrc%2Fapp.tsx&hidenavigation=1'}
+            style="border-radius: 4px; overflow:hidden;"
             title="macos-react"
-            allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
             sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-        ></iframe>
+        />
     )
 }
 
 const SafariBrowserApp = () => {
-    const [isLoading, setIsLoading] = useState<boolean>(true);
     return (
-        <Fragment>
-            {isLoading && <LoadingScreen title={`Loading Safari 🦁`} />}
-            <iframe
-                hidden={isLoading}
-                style="width: 100%; height: 100%; border: 4px;" 
-                src="https://www.google.com/webhp?igu=1" 
-                title="Google" 
-                loading={'eager'}
-                onLoad={() => setIsLoading(false)}
-            ></iframe>
-        </Fragment>
+        <IframeWrapper
+            loadingTitle="Loading Safari 🦁"
+            src={'https://www.google.com/webhp?igu=1'}
+            title="Google" 
+            allowFullScreen
+        />
     )
 }
 
 const SpotifyApp = () => {
-    const [isLoading, setIsLoading] = useState<boolean>(true);
-
     return (
-        <Fragment>
-            {isLoading && <LoadingScreen title={`Loading Spotify 🎵`} />}
-            <iframe
-                hidden={isLoading}
-                style="width: 100%; height: 100%; border: 0;"
-                src="https://open.spotify.com/embed/playlist/6X185BlQApNN7mjiFFhPdi?utm_source=oembed" 
-                allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture;"
-                allowFullScreen 
-                onLoad={() => setIsLoading(false)}
-            ></iframe>
-        </Fragment>
+        <IframeWrapper
+            loadingTitle="Loading Spotify 🎵"
+            src={'https://open.spotify.com/embed/playlist/6X185BlQApNN7mjiFFhPdi?utm_source=oembed'}
+            allowFullScreen
+        />
     )
 }
 
 const OksoDrawApp = () => {
     return (
-        <iframe 
-        style="width: 100%; height: 100%; border: 0;"
-        src={'https://okso.app/'}
-        allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture;"
-        allowFullScreen 
-    ></iframe>
+        <IframeWrapper
+            loadingTitle="Loading OkSo Draw 🖌️"
+            src={'https://okso.app/'}
+            allowFullScreen
+        />
     )
 }
 
@@ -66,10 +51,10 @@ const TerminalApp = lazy(() => import('./TerminalApp/TerminalApp'))
 
 export const applicationMap : any = {
     'visual-studio-code': VsCodeApp,
-    'safari-browser': SafariBrowserApp,
-    'spotify-app': SpotifyApp,
+    'safari': SafariBrowserApp,
+    'spotify': SpotifyApp,
     'okso-draw-app': OksoDrawApp,
-    'terminal-app': TerminalApp,
+    'terminal': TerminalApp,
     'google-maps-app': GoogleMapsApp,
     // 'photos':
 }
