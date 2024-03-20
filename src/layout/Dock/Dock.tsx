@@ -163,7 +163,7 @@ const pinnedDockApps: AppBaseConfig[] = [
   },
 ]
 
-const dockApps = computed<Array<AppBaseConfig | AppWindowConfig>>(() => {
+const dockApps = computed<Array<AppWindowConfig>>(() => {
   var appList: any = [];
   var activeWindowList: any = structuredClone(activeWindows.value)
 

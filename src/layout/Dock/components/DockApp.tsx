@@ -1,4 +1,4 @@
-import { useState } from 'preact/hooks'
+import { useMemo, useState } from 'preact/hooks'
 import { JSX } from 'preact/jsx-runtime'
 import { FC } from 'preact/compat'
 
@@ -74,9 +74,9 @@ function updateWindowStatus(window: AppWindowConfig) {
 }
 
 
-const DockApp: FC<{ window: AppWindowConfig | AppBaseConfig }> = ({ window }) => {
+const DockApp: FC<{ window: AppWindowConfig }> = ({ window }) => {
     //Having a pid indicates that the App is open
-    const isOpen = ('pid' in window);
+    const isOpen = useMemo(() => (window.pid ? true : false), [window]);
     const [isRightClicked, setIsRightClicked] = useState<boolean>(false);
 
     function showContextMenu(e: JSX.TargetedMouseEvent<HTMLDivElement>) {

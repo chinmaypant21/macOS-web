@@ -1,9 +1,11 @@
 import { optionsMenu } from "./common"
 
+import { focusWindow } from "@utils/app_methods/app_window_handler"
 import { createProcess } from "@layout/Screen/Screen"
 
 function openWindow(window: AppBaseConfig){
-    createProcess(window)
+    const pid = createProcess(window)
+    focusWindow(pid)
 }
 
 export const dockMenuClosed : ContextMenu = [
