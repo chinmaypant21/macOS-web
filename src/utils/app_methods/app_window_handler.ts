@@ -8,6 +8,7 @@ function minimizeWindow(window_pid: number) {
         else {
             return {
                 ...window_temp,
+                isMaximized: false,
                 isMinimized: true
             }
         }
@@ -19,7 +20,7 @@ function minimizeWindow(window_pid: number) {
     }
 }
 
-function showWindow(window_pid: number){
+function showNormalWindow(window_pid: number){
     activeWindows.value = activeWindows.value.map((window_temp) => {
         if (window_temp.pid !== window_pid) {
             return window_temp
@@ -27,6 +28,7 @@ function showWindow(window_pid: number){
         else {
             return {
                 ...window_temp,
+                isMaximized: false,
                 isMinimized: false
             }
         }
@@ -79,4 +81,4 @@ function maximizeWindow(window_pid: number){
     }
 }
 
-export {closeWindow, showWindow, minimizeWindow, maximizeWindow, focusWindow}
+export {closeWindow, showNormalWindow, minimizeWindow, maximizeWindow, focusWindow}

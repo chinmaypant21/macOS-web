@@ -5,7 +5,7 @@ import { useComputed, useSignalEffect } from "@preact/signals";
 import { useDrag } from "src/hooks/useDrag";
 import { applicationMap } from 'src/apps/applicationMap'
 import LoadingScreen from "@components/Screen/LoadingScreen";
-import { screenStartingCoordinates, presentFocusedWindow } from "@layout/Screen/Screen";
+import { screenStartingCoordinates, presentFocusedWindow, activeWindows } from "@layout/Screen/Screen";
 
 import style from './AppWindow.module.css'
 import AppScreen from "../Screen/AppScreen";
@@ -14,10 +14,12 @@ import AppScreen from "../Screen/AppScreen";
 type AppWindowProps = {
     data: AppWindowConfig,
     handleMinimize: any,
+    handleMaximize: any,
     handleClose: any,
+    showNormalWindow: any
 }
 
-const AppWindow: FC<AppWindowProps> = ({ data, handleMinimize, handleClose }) => {
+const AppWindow: FC<AppWindowProps> = ({ data, handleMinimize, handleMaximize, showNormalWindow, handleClose }) => {
     const appWindowRef = useRef<HTMLDivElement>(null);
     const [offset, setOffset] = useState<ScreenCoordinates>();
     const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
@@ -113,12 +115,14 @@ const AppWindow: FC<AppWindowProps> = ({ data, handleMinimize, handleClose }) =>
     function handleWindowExpand() {
         if (appWindowRef.current) {
             appWindowRef.current.style.transition = 'top 0.4s ease-out, left 0.4s ease-out, width 0.4s ease-in-out, height 0.4s ease-in-out';
-
+            
             if (isFullScreen) {
+                showNormalWindow()
                 setIsFullScreen(false);
                 appWindowRef.current.classList.remove(style['window-fullscreen'])
             }
             else {
+                handleMaximize()
                 setIsFullScreen(true);
                 appWindowRef.current.style.setProperty('--offset-top', `${offset!.y ?? 0}px`);
                 appWindowRef.current.style.setProperty('--offset-left', `${offset!.x ?? 0}px`);

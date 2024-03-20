@@ -6,10 +6,29 @@
     right: 0;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 0.6rem;
+    padding-bottom: 0.6rem;
     bottom: 0.6rem;
     height: 3.5rem;
     z-index:1000
+}
+
+.dock-fs-hidden .dock-container{
+    will-change: visibility, top;
+    /* visibility: hidden; */
+    position: relative;
+    top: 200%;
+    transition: top 0.4s ease, visibility 0s 0.5s;
+}
+
+.dock-fs-hidden:hover .dock-container,
+.dock-container:has(.menu-wrapper:hover) .dock-container{
+    visibility: visible;
+    display: inherit;
+    top: 0;
+}
+
+.dock-fs-hidden:not(:hover) .menu-wrapper{
+    display: none;
 }
 
 .dock-container{

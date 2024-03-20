@@ -1,16 +1,17 @@
-import { signal } from '@preact/signals';
+import { computed, signal } from '@preact/signals';
 import { Fragment, JSX, Suspense, lazy, useEffect, useRef, useState } from 'preact/compat';
 
-import { closeWindow, minimizeWindow } from '@utils/app_methods/app_window_handler';
+import { closeWindow, maximizeWindow, minimizeWindow, showNormalWindow } from '@utils/app_methods/app_window_handler';
 import ContextMenu from '@components/ContextMenu/ContextMenu';
 const AppWindow = lazy(()  => import('@components/AppWindow/AppWindow'));
 
+import { generateUniquePID } from '@utils/generatePid';
 //Data
 import { contextMenuData } from '@utils/data/context_menu/contextMenuData';
 
+
 //Style
 import style from './Screen.module.css';
-import { generateUniquePID } from 'src/utils/generatePid';
 
 type WindowSignalParams = {
   windowId: number,
@@ -38,6 +39,10 @@ export const createProcess = (AppConfig: AppBaseConfig) : number => {
 }
 
 export const activeWindows = signal<AppWindowConfig[]>([])
+
+export const fullScreenWindows = computed(() => {
+  return activeWindows.value.filter(window => window.isMaximized)
+})
 
 const Screen = () => {
   const [ isRightClicked, setIsRightClicked] = useState<boolean>(false);
@@ -82,6 +87,7 @@ const Screen = () => {
       <div style={{backgroundColor:'white'}}>
       </div>
       <span style={{color:'white'}}>{JSON.stringify(presentFocusedWindow.value)}</span>
+      <span style={{color:'white'}}>{JSON.stringify(fullScreenWindows.value)}</span>
       {(isRightClicked && contextCoordinates) && (
         <ContextMenu coordinates={contextCoordinates} handleCloseMenu={handleCloseMenu}  menuData={contextMenuData} />
       )
@@ -96,10 +102,12 @@ const Screen = () => {
             */
             <Fragment key={window.pid}>
               <Suspense fallback={<>Loading...</>}>
-              <AppWindow
-                data={window}
-                handleMinimize={() => minimizeWindow(window.pid)}
-                handleClose={() => closeWindow(window.pid)}
+                <AppWindow
+                  data={window}
+                  handleMinimize={() => minimizeWindow(window.pid)}
+                  handleClose={() => closeWindow(window.pid)}
+                  handleMaximize={() => maximizeWindow(window.pid)}
+                  showNormalWindow={() => showNormalWindow(window.pid)}
                 />
               </Suspense>
             </Fragment>

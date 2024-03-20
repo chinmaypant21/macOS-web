@@ -1,7 +1,7 @@
 import { Fragment } from 'preact/jsx-runtime'
 import { computed } from '@preact/signals'
 
-import { activeWindows } from '@layout/Screen/Screen'
+import { activeWindows, fullScreenWindows } from '@layout/Screen/Screen'
 import DockApp from './components/DockApp'
 
 //Style
@@ -190,16 +190,24 @@ const dockApps = computed<Array<AppBaseConfig | AppWindowConfig>>(() => {
 
 const Dock = () => {
 
+  // {fullScreenWindows.value.length && <>}
   return (
-    <section id={style['dock-body']}>
-      <div class={style['dock-container']}>
-        {
-          dockApps.value.map((window) => (
-            <Fragment key={window.id}>
-              <DockApp window={window} />
-            </Fragment>
-          ))
-        }
+    <section 
+      id={style['dock-body']} 
+      class={`
+        ${(fullScreenWindows.value.length) ? style['dock-fs-hidden'] : ''}
+      `}
+    >
+      <div
+        class={style['dock-container']}
+      >
+      {
+        dockApps.value.map((window) => (
+          <Fragment key={window.id}>
+            <DockApp window={window} />
+          </Fragment>
+        ))
+      }
       </div>
     </section>
   )

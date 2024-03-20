@@ -3,7 +3,7 @@ import { JSX } from 'preact/jsx-runtime'
 import { FC } from 'preact/compat'
 
 
-import { focusWindow, minimizeWindow, showWindow } from '@utils/app_methods/app_window_handler'
+import { focusWindow, minimizeWindow, showNormalWindow } from '@utils/app_methods/app_window_handler'
 import DropMenu from '@components/ContextMenu/DropMenu'
 import { createProcess, presentFocusedWindow } from '@layout/Screen/Screen'
 
@@ -61,7 +61,7 @@ function updateWindowStatus(window: AppWindowConfig) {
     switch (action) {
 
         case 'ShowWindow':
-            showWindow(window.pid)
+            showNormalWindow(window.pid)
             break
 
         case 'MinimizeWindow':
