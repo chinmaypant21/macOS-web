@@ -12,25 +12,6 @@
     z-index:1000
 }
 
-.dock-fs-hidden .dock-container{
-    will-change: visibility, top;
-    /* visibility: hidden; */
-    position: relative;
-    top: 200%;
-    transition: top 0.4s ease, visibility 0s 0.5s;
-}
-
-.dock-fs-hidden:hover .dock-container,
-.dock-container:has(.menu-wrapper:hover) .dock-container{
-    visibility: visible;
-    display: inherit;
-    top: 0;
-}
-
-.dock-fs-hidden:not(:hover) .menu-wrapper{
-    display: none;
-}
-
 .dock-container{
     display: flex;
     gap: 0.7rem;
@@ -41,6 +22,28 @@
     border-radius: 1rem;
     background-color: rgba(82, 82, 82, 0.342);
     box-shadow: 0px 0px 28px 9px rgb(0 0 0 / 32%), 0 0 0 1px rgba(0, 0, 0, 0.0);
+    
+    /* For Animation */
+    --duration: 0.7s;
+    position: relative;
+    top: 0;
+
+    transition: top var(--duration) ease;
+}
+
+.dock-fs-hidden .dock-container{
+    will-change: visibility, top;
+    visibility: hidden;
+    top: 200%;
+    /* Visibility delay to make "top" animation complete */
+    transition: top var(--duration) ease, visibility 0s linear var(--duration);
+}
+
+.dock-fs-hidden:hover .dock-container,
+.dock-container:has(.menu-wrapper:hover) .dock-container{
+    visibility: visible;
+    top: 0;
+    transition: top var(--duration) ease;
 }
 
 .dock-item{
@@ -130,6 +133,12 @@
     margin-bottom: 1rem;
     width: 100%;
 }
+
+/* On full screen mode, when dock container is not hovered, force context menu display-none */
+.dock-fs-hidden:not(:hover) .menu-wrapper{
+    display: none;
+}
+
 
 .context-menu-container{
     width: fit-content;

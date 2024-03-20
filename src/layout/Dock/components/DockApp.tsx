@@ -136,12 +136,12 @@ const DockApp: FC<{ window: AppWindowConfig }> = ({ window }) => {
             {/* <span class={style['app-icon']}>{window.title}</span> */}
             {isRightClicked && <AppContextMenu window={window as AppWindowConfig} handleCloseMenu={handleCloseMenu} isOpen={isOpen} />}
             {
-                isOpen &&
-                <div
-                style={!window.isMinimized ? { backgroundColor: 'var(--color-green)' } : {}}
-                class={style['active-indicator']}
-                >
-                </div>
+                isOpen && (
+                    <span
+                        style={!window.isMinimized ? { backgroundColor: 'var(--color-green)' } : {}}
+                        class={style['active-indicator']}
+                    ></span>
+                )
             }
         </div>
     )
