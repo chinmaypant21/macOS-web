@@ -1,11 +1,13 @@
 import { computed, signal } from '@preact/signals';
 import { Fragment, JSX, Suspense, lazy, useEffect, useRef, useState } from 'preact/compat';
 
-import { closeWindow, maximizeWindow, minimizeWindow, showNormalWindow } from '@utils/app_methods/app_window_handler';
 import ContextMenu from '@components/ContextMenu/ContextMenu';
+import DesktopView from '@components/DesktopView/DesktopView';
 const AppWindow = lazy(()  => import('@components/AppWindow/AppWindow'));
 
+import { closeWindow, maximizeWindow, minimizeWindow, showNormalWindow } from '@utils/app_methods/app_window_handler';
 import { generateUniquePID } from '@utils/generatePid';
+
 //Data
 import { contextMenuData } from '@utils/data/context_menu/contextMenuData';
 
@@ -84,10 +86,8 @@ const Screen = () => {
       onContextMenu={handleRightClick}
       id={style['screen-container']}
     >
-      <div style={{backgroundColor:'white'}}>
-      </div>
-      <span style={{color:'white'}}>{JSON.stringify(presentFocusedWindow.value)}</span>
-      <span style={{color:'white'}}>{JSON.stringify(fullScreenWindows.value)}</span>
+      {/* <span style={{color:'white'}}>{JSON.stringify(presentFocusedWindow.value)}</span>
+      <span style={{color:'white'}}>{JSON.stringify(fullScreenWindows.value)}</span> */}
       {(isRightClicked && contextCoordinates) && (
         <ContextMenu coordinates={contextCoordinates} handleCloseMenu={handleCloseMenu}  menuData={contextMenuData} />
       )
@@ -113,6 +113,8 @@ const Screen = () => {
             </Fragment>
         ))
       }
+
+      <DesktopView />
     </div>
   )
 }

@@ -1,0 +1,24 @@
+.desktop {
+    display: grid;
+    grid-auto-flow:column;
+    grid-template-columns: repeat(auto-fill, 4.7rem);
+    grid-template-rows: repeat(auto-fill, 4.7rem);
+    margin-top: 0.5rem;
+    gap: 0.5rem;
+    height: 100%;
+}
+
+.app{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-shadow: 1px 1px 1px #545454;
+}
+
+.app:focus{
+    outline: none;
+    background-color: var(--fade-highlight-bg);
+    border-radius: 0.3rem;
+}
