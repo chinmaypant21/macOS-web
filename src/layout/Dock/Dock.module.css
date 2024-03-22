@@ -15,14 +15,15 @@
 
 .dock-container{
     display: flex;
-    gap: 0.7rem;
+    gap: 0.6rem;
     height: 100%;
     padding-inline: 0.6rem;
     padding-top: 0.7rem;
     padding-bottom: 0.1rem;
     border-radius: 1rem;
-    background-color: rgba(82, 82, 82, 0.342);
+    background-color: rgba(117, 117, 117, 0.601);
     box-shadow: 0px 0px 28px 9px rgb(0 0 0 / 32%), 0 0 0 1px rgba(0, 0, 0, 0.0);
+    /* backdrop-filter: blur(40px); */
     
     /* For Animation */
     --duration: 0.7s;
@@ -41,10 +42,22 @@
     transition: top var(--duration) ease, visibility 0s linear var(--duration);
 }
 
+.section-divider{
+    height: 80%;
+    width: 0.1rem; 
+    background-color: var(--primary-divider-color);
+}
+
 .dock-fs-hidden:hover .dock-container {
     visibility: visible;
     top: 0;
     transition: top var(--duration) ease;
+}
+
+.dock-item-section {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
 }
 
 .dock-item{

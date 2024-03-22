@@ -18,25 +18,34 @@ Unopened Pinned App
 Opened Apps can be or can not be pinned
 */
 
-const pinnedDockApps: AppBaseConfig[] = [
+const pinnedDockApps: any = [
+// const pinnedDockApps: AppBaseConfig[] = [
+  [
   appConfigStore.finder,
   appConfigStore.settings,
+  ],
+  [
   appConfigStore.terminal,
   appConfigStore.calculator,
   appConfigStore.safari,
+  ],
+  [
   appConfigStore.photos,
   appConfigStore['visual-studio-code'],
   appConfigStore.spotify,
   appConfigStore['google-maps-app'],
   appConfigStore['okso-draw-app'],
   appConfigStore.whatsapp,
+  ]
 ]
 
-const dockApps = computed<Array<AppWindowConfig>>(() => {
-  var appList: any = [];
+const dockApps = computed<Array<AppWindowConfig[]>>(() => {
+  var mainList : any[] = [];
   var activeWindowList: any = structuredClone(activeWindows.value)
-
-  pinnedDockApps.map((pinnedApp) => {
+  
+  pinnedDockApps.map((appSection: AppBaseConfig[]) => {
+    var appList: any = [];
+    appSection.map((pinnedApp: AppBaseConfig) => {
     const notAdded = activeWindowList.every((activeApp: any, index: any) => {
       if (pinnedApp.id === activeApp.id) {
         appList.push(activeApp)
@@ -51,9 +60,14 @@ const dockApps = computed<Array<AppWindowConfig>>(() => {
       appList.push(pinnedApp)
     }
   })
+    mainList.push(appList)
+  }
+  )
 
-  appList = [...appList, ...activeWindowList]
-  return appList;
+  if (activeWindowList.length){
+    mainList.push(activeWindowList)
+  }
+  return mainList;
 })
 
 
@@ -71,13 +85,26 @@ const Dock = () => {
       <div
         class={style['dock-container']}
       >
-      {
-        dockApps.value.map((window) => (
-          <Fragment key={window.id}>
-            <DockApp window={window} />
-          </Fragment>
-        ))
-      }
+        {
+          dockApps.value.map((appSection, count) => {
+            return (
+              <div class={style['dock-item-section']}>
+                {
+                  appSection.map((window) => (
+                    <Fragment key={window.id}>
+                      <DockApp window={window} />
+                    </Fragment>
+                  ))
+                }
+
+                {(count !== (dockApps.value.length -1)) && (
+                  <div class={style['section-divider']}>
+                  </div>
+                )}
+              </div>
+            )
+          })
+        }
       </div>
     </section>
   )
