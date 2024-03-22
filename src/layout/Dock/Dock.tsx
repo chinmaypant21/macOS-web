@@ -61,7 +61,8 @@ const Dock = () => {
 
   // {fullScreenWindows.value.length && <>}
   return (
-    <section 
+    <section
+      onContextMenu={(e) => {e.preventDefault()}}
       id={style['dock-body']} 
       class={`
         ${(fullScreenWindows.value.length) ? style['dock-fs-hidden'] : ''}

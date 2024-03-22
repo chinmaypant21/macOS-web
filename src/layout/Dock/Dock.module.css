@@ -36,6 +36,7 @@
     will-change: visibility, top;
     visibility: hidden;
     top: 200%;
+    
     /* Visibility delay to make "top" animation complete */
     transition: top var(--duration) ease, visibility 0s linear var(--duration);
 }
@@ -85,8 +86,15 @@
     top: -2rem; /*Change this*/
 }
 
-.app-icon:hover .app-title-container{
+.dock-item:hover .app-title-container{
     display: block;
+}
+
+/* When dock item is right-clicked, dont need to show title
+   Left-click will already take focus from it as the opened window will be focused hence it wont be hidden there.
+ */
+.dock-item:focus .app-title-container{
+    display: none !important;
 }
 
 .app-title-container::before{
