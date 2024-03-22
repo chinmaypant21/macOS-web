@@ -48,8 +48,8 @@
 
 .dock-fs-hidden .dock-container{
     will-change: visibility, top;
-    /* visibility: hidden; */
-    /* top: 200%; */
+    visibility: hidden;
+    top: 200%;
     
     /* Visibility delay to make "top" animation complete */
     transition: top var(--duration) ease, visibility 0s linear var(--duration);
