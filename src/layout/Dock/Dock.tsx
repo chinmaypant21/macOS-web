@@ -19,23 +19,23 @@ Opened Apps can be or can not be pinned
 */
 
 const pinnedDockApps: any = [
-// const pinnedDockApps: AppBaseConfig[] = [
+  // const pinnedDockApps: AppBaseConfig[] = [
   [
-  appConfigStore.finder,
-  appConfigStore.settings,
+    appConfigStore.finder,
+    appConfigStore.settings,
+    appConfigStore.safari,
   ],
   [
-  appConfigStore.terminal,
-  appConfigStore.calculator,
-  appConfigStore.safari,
+    appConfigStore.terminal,
+    appConfigStore['visual-studio-code'],
   ],
   [
-  appConfigStore.photos,
-  appConfigStore['visual-studio-code'],
-  appConfigStore.spotify,
-  appConfigStore['google-maps-app'],
-  appConfigStore['okso-draw-app'],
-  appConfigStore.whatsapp,
+    appConfigStore.calculator,
+    appConfigStore.photos,
+    appConfigStore.spotify,
+    appConfigStore['google-maps-app'],
+    appConfigStore['okso-draw-app'],
+    appConfigStore.whatsapp,
   ]
 ]
 
