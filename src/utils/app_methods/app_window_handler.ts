@@ -1,4 +1,9 @@
-import { activeWindows, presentFocusedWindow } from "src/layout/Screen/Screen"
+import { activeWindows, createProcess, presentFocusedWindow } from "src/layout/Screen/Screen"
+
+function newWindow(window: AppBaseConfig){
+    const pid = createProcess(window)
+    focusWindow(pid);
+}
 
 function minimizeWindow(window_pid: number) {
     activeWindows.value = activeWindows.value.map((window_temp) => {
@@ -81,4 +86,4 @@ function maximizeWindow(window_pid: number){
     }
 }
 
-export {closeWindow, showNormalWindow, minimizeWindow, maximizeWindow, focusWindow}
+export {closeWindow, newWindow, showNormalWindow, minimizeWindow, maximizeWindow, focusWindow}

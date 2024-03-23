@@ -30,11 +30,9 @@ const pinnedDockApps: any = [
     appConfigStore['visual-studio-code'],
   ],
   [
-    appConfigStore.calculator,
     appConfigStore.photos,
     appConfigStore.spotify,
     appConfigStore['google-maps-app'],
-    appConfigStore['okso-draw-app'],
     appConfigStore.whatsapp,
   ]
 ]

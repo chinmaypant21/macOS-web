@@ -3,7 +3,7 @@ import { JSX } from 'preact/jsx-runtime'
 import { FC } from 'preact/compat'
 
 
-import { focusWindow, minimizeWindow, showNormalWindow } from '@utils/app_methods/app_window_handler'
+import { focusWindow, minimizeWindow, newWindow, showNormalWindow } from '@utils/app_methods/app_window_handler'
 import DropMenu from '@components/ContextMenu/DropMenu'
 import { createProcess, presentFocusedWindow } from '@layout/Screen/Screen'
 
@@ -89,8 +89,7 @@ const DockApp: FC<{ window: AppWindowConfig }> = ({ window }) => {
         if(isOpen){
             updateWindowStatus(window)
         } else {
-            const pid = createProcess(window)
-            focusWindow(pid);
+            newWindow(window)
         }
     }
 
