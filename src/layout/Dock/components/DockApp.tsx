@@ -80,7 +80,8 @@ const DockApp: FC<{ window: AppWindowConfig }> = ({ window }) => {
     const [isRightClicked, setIsRightClicked] = useState<boolean>(false);
 
     function showContextMenu(e: JSX.TargetedMouseEvent<HTMLDivElement>) {
-        e.preventDefault()
+        e.preventDefault();
+        e.stopPropagation();
         setIsRightClicked(true);
     }
 
@@ -116,7 +117,7 @@ const DockApp: FC<{ window: AppWindowConfig }> = ({ window }) => {
         <div
             class={style['dock-item']}
             tabIndex={0}
-            onContextMenu={showContextMenu}
+            onContextMenu={(e) => showContextMenu(e)}
             onBlur={handleBlur}
             onClick={(e) => {
                 toggleAnimation(e)

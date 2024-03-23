@@ -109,7 +109,7 @@
     min-width: 60%;
     max-width: 120%;
     position: absolute;
-    top: -2rem; /*Change this*/
+    top: -2.5rem; /*Change this*/
 }
 
 .dock-item:hover .app-title-container{
@@ -160,6 +160,13 @@
     background-color: var(--color-contrast);
 }
 
+.dock-menu-wrapper{
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    
+}
+
 .menu-wrapper{
     position: absolute;
     bottom: 100%;
@@ -169,7 +176,7 @@
 }
 
 /* On full screen mode, when dock container is not hovered, force context menu display-none */
-.dock-fs-hidden:not(:hover) .menu-wrapper{
+.dock-fs-hidden:not(:hover) :is(.menu-wrapper, .dock-menu-wrapper){
     display: none;
 }
 
@@ -178,7 +185,14 @@
     width: fit-content;
 }
 
-.menu-wrapper::before{
+.dock-context-menu-container{
+    height: 100%;
+    width: 100%;
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.dock-context-menu-container::before, .menu-wrapper::before{
     content: '';
     position: absolute;
     height: 0.8rem;

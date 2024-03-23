@@ -45,6 +45,10 @@ function showNormalWindow(window_pid: number){
     }
 }
 
+function closeAllWindow(){
+    activeWindows.value = []
+}
+
 function closeWindow(window_pid: number){
     if(presentFocusedWindow.value.windowId === window_pid){
         presentFocusedWindow.value = {
@@ -86,4 +90,4 @@ function maximizeWindow(window_pid: number){
     }
 }
 
-export {closeWindow, newWindow, showNormalWindow, minimizeWindow, maximizeWindow, focusWindow}
+export {closeWindow, closeAllWindow, newWindow, showNormalWindow, minimizeWindow, maximizeWindow, focusWindow}
