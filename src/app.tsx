@@ -27,7 +27,7 @@ const HomeScreen = () => {
   )
 }
 
-export const isLoggedIn = signal<boolean>(true);
+export const isLoggedIn = signal<boolean>(false);
 
 const LockScreen: FC<{ children: ComponentChildren }> = ({ children }) => {
   const [promptActive, setPromptActive] = useState<boolean>(false);
