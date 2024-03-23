@@ -25,7 +25,7 @@ const MenuWrapper : FC<any> = ({handleCloseMenu, handlerProp, isOpen}) => {
                     groupKey: 'g1',
                     items: [
                         { text: 'Open', onclick: () => newWindow(handlerProp) },
-                        { text: 'Open With' },
+                        { text: 'Open With', nestedMenu: [], disabled: true},
                     ]
                 },
                 {
@@ -37,7 +37,7 @@ const MenuWrapper : FC<any> = ({handleCloseMenu, handlerProp, isOpen}) => {
                 {
                     groupKey: 'g3',
                     items: [
-                        { text: 'Get Info' },
+                        { text: 'Get Info', disabled: true},
                         { text: 'Make Alias', onclick: () => console.log('s')},
                         { text: 'Share', onclick: () => console.log('s')},
                     ]
@@ -81,7 +81,7 @@ const AppTile: FC<{app: AppBaseConfig}> = ({app}) => {
             >
                 <MenuWrapper handlerProp={app} isOpen={showContextMenu} />
 
-                <img src={app.icon}/>
+                <img class={style.icon} src={app.icon}/>
                 <span class={style.appTitle}>{app.title}</span>
             </div>
         )
