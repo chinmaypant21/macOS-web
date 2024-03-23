@@ -17,7 +17,8 @@ const desktopAppList = [
     appConfigStore['visual-studio-code'],
 ]
 
-const MenuWrapper : FC<any> = ({handleCloseMenu, handlerProp, isOpen}) => {
+// add handleCloseMenu,
+const MenuWrapper : FC<any> = ({handlerProp, isOpen}) => {
     if (isOpen) return (
         <div class={style.contextMenu}>
             <DropMenu listData={[

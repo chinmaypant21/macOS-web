@@ -5,7 +5,7 @@ import { FC } from 'preact/compat'
 
 import { focusWindow, minimizeWindow, newWindow, showNormalWindow } from '@utils/app_methods/app_window_handler'
 import DropMenu from '@components/ContextMenu/DropMenu'
-import { createProcess, presentFocusedWindow } from '@layout/Screen/Screen'
+import { presentFocusedWindow } from '@layout/Screen/Screen'
 
 //Data
 import { dockMenuData } from '@utils/data/dock_menu/dockMenu'

@@ -5,7 +5,7 @@ import { useComputed, useSignalEffect } from "@preact/signals";
 import { useDrag } from "src/hooks/useDrag";
 import { applicationMap } from 'src/apps/applicationMap'
 import LoadingScreen from "@components/Screen/LoadingScreen";
-import { screenStartingCoordinates, presentFocusedWindow, activeWindows } from "@layout/Screen/Screen";
+import { screenStartingCoordinates, presentFocusedWindow } from "@layout/Screen/Screen";
 
 import style from './AppWindow.module.css'
 import AppScreen from "../Screen/AppScreen";

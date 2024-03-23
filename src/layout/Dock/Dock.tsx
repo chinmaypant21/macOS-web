@@ -64,7 +64,8 @@ const dockApps = computed<Array<AppWindowConfig[]>>(() => {
   return mainList;
 })
 
-const AppContextMenu: FC<{ handleCloseMenu?: () => void, isOpen: boolean }> = ({ handleCloseMenu, isOpen }) => {
+// Add handleCloseMenu
+const AppContextMenu: FC<{ handleCloseMenu?: () => void, isOpen: boolean }> = ({ isOpen }) => {
   function handleClick(e: any) {
     e.stopPropagation()
   }
